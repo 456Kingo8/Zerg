@@ -58,6 +58,12 @@ namespace Zerg.Code.Patch
                     return false;
                 }
                 __instance.spawnUnit(tSubspecies);
+
+                if (Randy.randomChance(0.05f))
+                {
+                    Actor actor = World.world.units.createNewUnit(SZA.Queen, __instance.building.current_tile, pMiracleSpawn: false, 0f, null, null, pSpawnWithItems: false, pAdultAge: false);
+                    actor.applyRandomForce();
+                }
                 return false;
             }
             return true;

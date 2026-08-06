@@ -69,7 +69,7 @@ namespace Zerg.Code.Content
         {
             if (pActor.hasTag("Zerg")||pActor.hasTrait("Zerg"))
             {
-                pActor.addStatusEffect("Zerg_Creep");
+                pActor.addStatusEffect("zerg_creep",pColorEffect: false);
             }
             return true;
 

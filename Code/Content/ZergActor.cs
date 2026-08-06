@@ -129,7 +129,7 @@ namespace Zerg.Code.Content
             setaAnimation(actor, 2, 3, 3, 1f, 0.8f, 0.8f);
 
             actor = AssetManager.actor_library.clone(SZA.Zergling, "$zerg_actor$");
-            actor.base_stats["size"] = 0.7f;
+            actor.base_stats["size"] = 0.5f;
             actor.addGenome(new[]
             {
                 ("health", 105f),
@@ -144,7 +144,24 @@ namespace Zerg.Code.Content
             list.Add(actor.id);
             setaAnimation(actor, 1, 2, 4, 1f, 1f, 1f);
 
-
+            //虫后
+            actor = AssetManager.actor_library.clone(SZA.Queen, "$zerg_actor$");
+            actor.addGenome(new[]
+{
+                ("health", 450f),
+                ("stamina", 100f),
+                ("lifespan", 1000f),
+                ("damage", 20f),
+                ("attack_speed",2f),
+                ("speed", 15f),
+                ("armor", 20f),
+                ("accuracy",100f)
+            });
+            list.Add(actor.id);
+            actor.base_stats["size"] = 1f;
+            actor.traits = new List<string> { "eagle_eyed", "poison_immune", "immune" };
+            actor.default_attack = "zerg_spine";
+            setaAnimation(actor, 2, 2, 2, 1f, 0.8f, 0.8f);
 
             //以下为技术性实体，无对应按钮，需手动loadTexture(actor);
             //异虫 虫茧 建筑

@@ -34,19 +34,20 @@ namespace Zerg.Code.Content
             asset.transform_tiles_to_top_tiles = "zerg_creep_low";
             asset.main_path = String.Empty;
             asset.prevent_freeze = true;
+            asset.removed_by_sponge = true;
 
             asset = AssetManager.buildings.clone(SZB.Hatchery, "$zerg_building$");
-            SetFootprint(asset, 10, 6);
+            SetFootprint(asset, 11, 7);
             asset.spawn_units = true;
             asset.spawn_units_asset = SZA.Larva;
-            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 32, 12, 0.1f, CreepWorkerMovementType.RandomNeighbourAll);
+            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 36, 16, 0.075f, CreepWorkerMovementType.RandomNeighbourAll);
             asset.grow_creep_direction_random_position = true;
             asset.grow_creep_flash = true;
             asset.grow_creep_redraw_tile = true;
             list.Add(asset.id);
 
             asset = AssetManager.buildings.clone(SZB.Spawning_Pool, "$zerg_building$");
-            SetFootprint(asset, 7, 5);
+            SetFootprint(asset, 8, 6);
             list.Add(asset.id);
 
 

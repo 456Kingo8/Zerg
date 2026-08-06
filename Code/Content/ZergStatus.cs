@@ -22,6 +22,21 @@ namespace Zerg.Code.Content
             asset.locale_id = "Zerg_Mutation_id";
             AssetManager.status.add(asset);
 
+            asset = new StatusAsset();
+            asset.id = "zerg_creep";
+            asset.duration = 15f;
+            asset.action_interval = 0.5f;
+            asset.action = Healing;
+            asset.base_stats = new BaseStats();
+            asset.base_stats[S.multiplier_speed] = 0.25f;
+            asset.base_stats[S.multiplier_attack_speed] = 0.25f;
+            asset.base_stats[S.multiplier_damage] = 0.2f;
+            asset.path_icon = "ui/icons/iconZerg";
+            asset.locale_description = "Zerg_Mutation_des";
+            asset.locale_id = "Zerg_Mutation_id";
+            AssetManager.status.add(asset);
+
+
 
         }
 
@@ -36,6 +51,14 @@ namespace Zerg.Code.Content
         public static bool Turning_end(BaseSimObject pTarget, WorldTile pTile = null!)
         {
             pTarget.a.Zerg_endMutation();
+            return true;
+        }
+
+        public static bool Healing(BaseSimObject pTarget, WorldTile pTile = null!)
+        {
+            pTarget.a.restoreHealth(1);
+            pTarget.a.restoreStamina(1);
+            pTarget.a.spawnParticle(Toolbox.color_heal);
             return true;
         }
     }
