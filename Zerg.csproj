@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp">
+			<HintPath Condition="Exists('..\..\worldbox_Data\StreamingAssets\mods\NML\Assembly-CSharp-Publicized.dll')">..\..\worldbox_Data\StreamingAssets\mods\NML\Assembly-CSharp-Publicized.dll</HintPath>
+			<HintPath Condition="Exists('..\..\worldbox_Data\StreamingAssets\Mods\NML\Assembly-CSharp-Publicized.dll')">..\..\worldbox_Data\StreamingAssets\Mods\NML\Assembly-CSharp-Publicized.dll</HintPath>
+		</Reference>
+		<Reference Include="NeoModLoader">
+			<HintPath Condition="Exists('..\..\worldbox_Data\StreamingAssets\mods\NeoModLoader_memload.dll')">..\..\worldbox_Data\StreamingAssets\mods\NeoModLoader_memload.dll</HintPath>
+			<HintPath Condition="Exists('..\..\worldbox_Data\StreamingAssets\mods\NeoModLoader.dll')">..\..\worldbox_Data\StreamingAssets\mods\NeoModLoader.dll</HintPath>
+			<HintPath Condition="Exists('..\..\worldbox_Data\StreamingAssets\Mods\NeoModLoader_memload.dll')">..\..\worldbox_Data\StreamingAssets\Mods\NeoModLoader_memload.dll</HintPath>
+			<HintPath Condition="Exists('..\..\worldbox_Data\StreamingAssets\Mods\NeoModLoader.dll')">..\..\worldbox_Data\StreamingAssets\Mods\NeoModLoader.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>..\..\worldbox_Data\Managed\UnityEngine.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>..\..\worldbox_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>..\..\worldbox_Data\Managed\UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="0Harmony">
+			<HintPath>..\..\worldbox_Data\StreamingAssets\mods\NML\Assemblies\0Harmony.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Mathematics">
+			<HintPath>..\..\worldbox_Data\Managed\Unity.Mathematics.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+</Project>
