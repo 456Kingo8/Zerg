@@ -31,5 +31,8 @@
 		<Reference Include="Unity.Mathematics">
 			<HintPath>..\..\worldbox_Data\Managed\Unity.Mathematics.dll</HintPath>
 		</Reference>
+		<Reference Include="UnityEngine.ImageConversionModule">
+			<HintPath>..\..\worldbox_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 </Project>

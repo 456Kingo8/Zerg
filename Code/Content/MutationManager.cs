@@ -23,11 +23,28 @@ namespace Zerg.Code.Content
 
             foreach (MutationAsset asset in MutationLibrary.from_dict[actor.asset.id])
             {
+                if (!Randy.randomChance(asset.chance)) continue;
+
+
+
+
+                if (asset.need_biome)//判定是否在菌毯上
+                {
+                    if (actor.current_tile.top_type == null) continue;
+                    if(actor.current_tile.top_type.biome_asset == null) continue;
+                    if(actor.current_tile.top_type.biome_asset.id != "biome_zerg_creep") continue;
+                }
+
+                if (asset.building && !Tools.canBuildFrom(actor.current_tile,AssetManager.buildings.get(asset.to_id))) 
+                    continue; //判定占地面积
+
                 bool flag = true;
                 if (asset.need_house)
                 {
                     if (!actor.hasHomeBuilding()) continue;
-                    foreach (string id in asset.requirements)
+                    if (ids.Contains(asset.to_id)) continue;//不重复建造同种建筑
+
+                    foreach (string id in asset.building_requirements)
                     {
                         if (!ids.Contains(id))
                         {
@@ -44,23 +61,30 @@ namespace Zerg.Code.Content
 
                     if (asset.to_id == SZB.Hatchery)  //这里应该抽象化为一个特殊的委托，但暂时无需求
                     {
-
-                        foreach(Building building in Finder.getBuildingsFromChunk(actor.current_tile, 2, 10))
+                        foreach(Building building in Finder.getBuildingsFromChunk(actor.current_tile, 4, 32))
                         {
-                            if(building.asset.id == SZB.Hatchery)
+                            string str = building.asset.id;
+                            if (str == SZB.Hatchery || str == SZB.Hive || str == SZB.Lair)
                             {
                                 flag = false; 
                                 break;
                             }
                         }
-                        MonoBehaviour.print("flag" + flag);
+                        foreach (Actor act in Finder.getUnitsFromChunk(actor.current_tile, 4, 32))
+                        {
+                            string str = act.GetMutation_id();
+                            if (str == SZB.Hatchery || str == SZB.Hive || str == SZB.Lair)
+                            {
+                                flag = false;
+                                break;
+                            }
+                        }
+
                     }
 
                 }
-                if (flag && Randy.randomChance(asset.chance))
+                if (flag)
                 {
-
-
                     Actor coco = World.world.units.createNewUnit(asset.coco_id, actor.current_tile);
                     coco.addStatusEffect("Zerg_Mutation", asset.cost_time);
                     coco.SetMutation_id(asset.to_id);
@@ -70,8 +94,8 @@ namespace Zerg.Code.Content
                     if (actor.hasCity()) coco.setCity(actor.city);
                     if (actor.hasHomeBuilding()) coco.setHomeBuilding(actor.home_building);
                     actor.die(true);
-
-                    MonoBehaviour.print("mutation_start_" + asset.to_id);
+                    if(asset.building && actor.hasHomeBuilding()) actor._home_building.component_unit_spawner.GetExtend().Add(asset.to_id);//提前占位防止重复变异，后续id由Patches中的判定维持存在
+                    //MonoBehaviour.print("mutation_start_" + asset.to_id);
                 }
                 return flag;
             }
@@ -109,6 +133,13 @@ namespace Zerg.Code.Content
                     if (actor.hasKingdom()) act.setKingdom(actor.kingdom);
                     if (actor.hasCity()) act.setCity(actor.city);
                     if (actor.hasHomeBuilding()) act.setHomeBuilding(actor.home_building);
+
+                    if (id == SZA.Drone && Randy.randomChance(0.5f))
+                    {
+                        act.clearHomeBuilding();
+                        act.beh_tile_target = act.current_chunk.neighbours.GetRandom().tiles.GetRandom();
+                    }
+
                 }
             }
             actor.die(false);

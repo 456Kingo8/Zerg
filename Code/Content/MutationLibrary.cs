@@ -16,32 +16,47 @@ namespace Zerg.Code.Content
             MutationAsset asset = new MutationAsset();
             asset.from_id = SZA.Larva;
             asset.to_id = SZA.Drone;
-            asset.chance = 0.1f;
+            asset.chance = 0.3f;
             asset.cost_time = 4f;
-            asset.requirements = new List<string>();
+            asset.building_requirements = new List<string>();
             asset.need_house = false;
             list.Add(asset);
 
             asset = new MutationAsset();
             asset.from_id = SZA.Drone;
             asset.to_id = SZB.Hatchery;
-            asset.chance = 0.075f;
+            asset.chance = 0.2f;
             asset.cost_time = 60f;
-            asset.num = 1;
             asset.coco_id = SZB.Cocoons_Building;
             asset.need_house = false;
             asset.building = true;
             list.Add(asset);
 
             asset = new MutationAsset();
+            asset.from_id = SZA.Drone;
+            asset.to_id = SZB.Spawning_Pool;
+            asset.chance = 0.2f;
+            asset.cost_time = 10f;
+            asset.coco_id = SZB.Cocoons_Building;
+            asset.need_biome = true;
+            asset.need_house = true;
+            asset.building_requirements = new List<string> {SZB.Hatchery};
+            asset.building = true;
+            list.Add(asset);
+
+
+            asset = new MutationAsset();
             asset.from_id = SZA.Larva;
             asset.to_id = SZA.Zergling;
-            asset.chance = 0.05f;
+            asset.chance = 0.2f;
             asset.cost_time = 5f;
             asset.num = 2;
             asset.need_house = true;
-            asset.requirements = new List<string>() { SZB.Spawning_Pool};
+            asset.building_requirements = new List<string>() { SZB.Spawning_Pool};
             list.Add(asset);
+
+
+
 
             foreach (MutationAsset asset1 in list)
             {

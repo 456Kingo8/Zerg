@@ -17,6 +17,8 @@ namespace Zerg.Code.Content
             asset.has_sprites_ruin = false;
             asset.has_sprites_spawn = false;
             asset.has_sprite_construction = false;
+            asset.has_ruin_state = false;
+            asset.has_kingdom_color = true;
             asset.sound_idle = "event:/SFX/BUILDINGS_IDLE/IdleTumor";
             asset.sound_hit = "event:/SFX/HIT/HitFlesh";
             asset.sound_built = "event:/SFX/BUILDINGS/SpawnBuildingFlesh";
@@ -29,22 +31,27 @@ namespace Zerg.Code.Content
             asset.ignore_buildings = true;
             asset.check_for_close_building = false;
             asset.can_be_living_house = false;
-            asset.transform_tiles_to_top_tiles = "tumor_low";
+            asset.transform_tiles_to_top_tiles = "zerg_creep_low";
             asset.main_path = String.Empty;
-
-
+            asset.prevent_freeze = true;
 
             asset = AssetManager.buildings.clone(SZB.Hatchery, "$zerg_building$");
+            SetFootprint(asset, 10, 6);
             asset.spawn_units = true;
             asset.spawn_units_asset = SZA.Larva;
-            asset.housing_slots = 5;
-            AssetManager.buildings.setGrowBiomeAround("biome_tumor", 16, 6, 0.1f, CreepWorkerMovementType.Direction);
+            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 32, 12, 0.1f, CreepWorkerMovementType.RandomNeighbourAll);
             asset.grow_creep_direction_random_position = true;
             asset.grow_creep_flash = true;
             asset.grow_creep_redraw_tile = true;
             list.Add(asset.id);
 
-            foreach(string id in list)
+            asset = AssetManager.buildings.clone(SZB.Spawning_Pool, "$zerg_building$");
+            SetFootprint(asset, 7, 5);
+            list.Add(asset.id);
+
+
+
+            foreach (string id in list)
             {
                 BuildingAsset asset1 = AssetManager.buildings.get(id);
                 asset1.sprite_path = "building/t_" + id;
@@ -54,6 +61,14 @@ namespace Zerg.Code.Content
 
 
 
+        }
+
+        //修仙来的神秘方法 赞美Inmny 
+        //https://github.com/inmny/Cultiway-Reborn/blob/master/Source/Content/Buildings.cs
+        private static void SetFootprint(BuildingAsset asset, int width, int height)
+        {
+            int left = width / 2;
+            asset.fundament = new BuildingFundament(left, width - left - 1, height - 1, 0);
         }
     }
 }

@@ -64,8 +64,10 @@ namespace Zerg.Code.Content
             actor.use_items = false;
             actor.icon = "iconZerg";
             actor.base_stats = new();
+            actor.base_stats["size"] = 0.5f;
             actor.base_stats["scale"] = 0.1f;
             actor.base_stats["mass"] = 1f;
+            actor.base_stats["mass_2"] = 50f;
             actor.flying = false;
             actor.very_high_flyer = false;
             actor.music_theme = "Buildings_Tumor";
@@ -77,6 +79,7 @@ namespace Zerg.Code.Content
             actor.animation_walk = ActorAnimationSequences.walk_0_1;
             actor.animation_idle = ActorAnimationSequences.walk_0_1;
             actor.animation_swim = ActorAnimationSequences.walk_0_1;
+            actor.base_stats.addTag("Zerg");
 
             actor = AssetManager.actor_library.clone("$zerg_actor_building$", "$zerg_actor$");
             actor.can_level_up = false;
@@ -94,6 +97,7 @@ namespace Zerg.Code.Content
 
 
             actor = AssetManager.actor_library.clone(SZA.Larva, "$zerg_actor$");
+            actor.base_stats["size"] = 0.2f;
             actor.addGenome(new[]
             {
                 ("health", 50f),
@@ -101,7 +105,7 @@ namespace Zerg.Code.Content
                 ("lifespan", 10f),
                 ("damage", 0f),
                 ("speed", 2f),
-                ("armor", 90f),
+                ("armor", 80f),
             });
             actor.skip_fight_logic = true;
             list.Add(actor.id);
@@ -109,6 +113,7 @@ namespace Zerg.Code.Content
             actor.addDecision("zerg_try_mutation");
 
             actor = AssetManager.actor_library.clone(SZA.Drone, "$zerg_actor$");
+            actor.base_stats["size"] = 0.4f;
             actor.addGenome(new[]
             {
                 ("health", 100f),
@@ -124,13 +129,14 @@ namespace Zerg.Code.Content
             setaAnimation(actor, 2, 3, 3, 1f, 0.8f, 0.8f);
 
             actor = AssetManager.actor_library.clone(SZA.Zergling, "$zerg_actor$");
+            actor.base_stats["size"] = 0.7f;
             actor.addGenome(new[]
             {
                 ("health", 105f),
                 ("stamina", 50f),
                 ("lifespan", 20f),
                 ("damage", 15f),
-                ("attack_speed",10f),
+                ("attack_speed",3f),
                 ("speed", 45f),
                 ("armor", 10f),
             });
@@ -154,6 +160,8 @@ namespace Zerg.Code.Content
                 ("armor", 20f),
             });
             actor.can_have_subspecies = false;
+            actor.show_in_taxonomy_tooltip = false;
+            actor.show_in_knowledge_window = false;
             actor.traits = new List<string> { "虫茧", "异虫建筑", "诅咒免疫", "fire_proof", "freeze_proof", "poison_immune", "immune" };
             actor.animation_walk = new string[] { "walk_0", "walk_1", "walk_2", "walk_3" };
             actor.animation_idle = new string[] { "walk_0", "walk_1", "walk_2", "walk_3" };
@@ -174,6 +182,8 @@ namespace Zerg.Code.Content
                 ("armor", 20f),
             });
             actor.can_have_subspecies = false;
+            actor.show_in_taxonomy_tooltip = false;
+            actor.show_in_knowledge_window = false;
             actor.traits = new List<string> { "虫茧", "异虫建筑", "诅咒免疫", "fire_proof", "freeze_proof", "poison_immune", "immune" };
             actor.animation_idle = new string[] { "idle_0", "idle_1" };
             loadTexture(actor);
@@ -193,11 +203,15 @@ namespace Zerg.Code.Content
             actor.very_high_flyer = true;
             actor.die_on_blocks = false;
             actor.ignore_blocks = true;
+            actor.show_in_taxonomy_tooltip = false;
+            actor.show_in_knowledge_window = false;
             actor.animation_idle = new string[] { "idle_0", "idle_1" };
             loadTexture(actor);
 
             //异虫 虫茧 孵化场升级
             actor = AssetManager.actor_library.clone(SZB.Cocoons_Hatchery, SZB.Cocoons_Building);
+            actor.show_in_taxonomy_tooltip = false;
+            actor.show_in_knowledge_window = false;
             actor.addGenome(new[]
 {
                 ("health", 200f),

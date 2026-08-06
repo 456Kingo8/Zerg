@@ -15,10 +15,10 @@ namespace Zerg.Code.Content
             asset.id = "zerg_try_mutation";
             asset.priority = NeuroLayer.Layer_4_Critical;
             asset.path_icon = "ui/Icons/iconZerg";
-            asset.cooldown = 5;
+            asset.cooldown = 3;
             asset.unique = true;
-            asset.only_safe = true;
-            asset.weight = 2f;
+            asset.only_safe = false;
+            asset.weight = 16f;
             asset.decision_index = AssetManager.decisions_library.list.Count;
             asset.task_id = add_Task(asset.id, asset.path_icon, new BehZergTryMutation()).id;
             AssetManager.decisions_library.add(asset);

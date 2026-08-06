@@ -11,7 +11,7 @@ namespace Zerg.Code.Content
 
         public string to_id = "Drone";
 
-        public List<string> requirements = new List<string>();
+        public List<string> building_requirements = new List<string>(); //需求的前置建筑
 
         public float chance = 0f;
 
@@ -24,5 +24,7 @@ namespace Zerg.Code.Content
         public bool need_house = true;
 
         public bool building = false;
+
+        public bool need_biome = false;
     }
 }

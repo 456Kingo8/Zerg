@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using ai.behaviours;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,13 +23,22 @@ namespace Zerg.Code.Patch
             {
                 List<string> list = __instance.GetExtend();
                 list.Clear();
-                foreach(Building building in Finder.getBuildingsFromChunk(__instance.building.current_tile,2,10))
+                foreach(Building building in Finder.getBuildingsFromChunk(__instance.building.current_tile,2,32))
                 {
                     if(building.kingdom == __instance.building.kingdom &&SZB.list.Contains(building.asset.id))
                     {
                         list.Add(building.asset.id);
                     }
                 }
+                foreach (Actor actor in Finder.getUnitsFromChunk(__instance.building.current_tile, 2, 32))
+                {
+                    string str = actor.GetMutation_id();
+                    if (actor.kingdom == __instance.building.kingdom &&str != null &&SZB.list.Contains(str))
+                    {
+                        list.Add(str);
+                    }
+                }
+
 
                 Subspecies tSubspecies = null ! ;//后续有判空
                 if (__instance.building.residents.Count > 0)
@@ -52,5 +62,18 @@ namespace Zerg.Code.Patch
             }
             return true;
         }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(BehTrySleep), "execute")]
+        public static bool BehTrySleep_execute(BehTrySleep __instance, ref Actor pActor, ref BehResult __result)
+        {
+            if (pActor.hasSubspeciesTrait("NoSleep"))
+            {
+                __result = BehResult.Continue;
+                return false;
+            }
+            return true;
+        }
+
     }
 }

@@ -7,19 +7,22 @@ using Zerg.Code.UI;
 
 namespace Zerg
 {
-    public class Zerg : BasicMod<Zerg>
+    public class ZergMain : BasicMod<ZergMain>
     {
         protected override void OnModLoad()
         {
             ZergKingdom.init();
             ZergDecision.init();
+            ZergSubspeciesTrait.init();
             ZergActor.init();
             ZergBuilding.init();
-            ZergTab.init();//必须在Actor和Builiding之后
+            ZergBiome.init();
             ZergJob.init();
             ZergStatus.init();
             MutationLibrary.init();
             Patches.init();
+
+            ZergTab.init();//必须在Actor和Builiding之后
         }
     }
 }

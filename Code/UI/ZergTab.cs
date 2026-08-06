@@ -59,13 +59,13 @@ namespace Zerg.Code.UI
                 drop.action_landed = new DropsAction(DropsLibrary.action_spawn_building);
                 drop.sound_drop = "event:/SFX/DROPS/DropTumor";
                 drop.default_scale = 0.2f;
-                drop.falling_speed = 3f;
+                drop.falling_speed = 4f;
                 drop.falling_height = new Vector2(30f, 30f);
 
                 var godPower = AssetManager.powers.clone("spawn" + id, "$template_drop_building$");
                 godPower.drop_id = "spawn" + id;
                 godPower.cached_drop_asset = drop;
-                godPower.name = id;
+                godPower.name = "spawn" + id;
                 zerg_tab.AddPowerButton("creature_building",
                 PowerButtonCreator.CreateGodPowerButton(godPower.id,
                 SpriteTextureLoader.getSprite("ui/icons/tab/" + id)));
