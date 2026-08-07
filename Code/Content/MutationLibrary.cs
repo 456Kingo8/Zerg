@@ -55,7 +55,15 @@ namespace Zerg.Code.Content
             asset.building_requirements = new List<string>() { SZB.Spawning_Pool};
             list.Add(asset);
 
-
+            asset = new MutationAsset();
+            asset.from_id = SZB.Hatchery;
+            asset.to_id = SZB.Lair;
+            asset.chance = 0.08f;
+            asset.cost_time = 80f;
+            asset.coco_id = SZB.Cocoons_Hatchery;
+            asset.building = true;
+            asset.building_requirements = new List<string>() { SZB.Spawning_Pool };
+            list.Add(asset);
 
 
             foreach (MutationAsset asset1 in list)

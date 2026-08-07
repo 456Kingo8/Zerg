@@ -3,6 +3,8 @@ using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
+using Zerg.Code.Content;
 using Zerg.Code.Convenience;
 using Zerg.Code.Extend;
 
@@ -19,27 +21,32 @@ namespace Zerg.Code.Patch
         [HarmonyPatch(typeof(UnitSpawner), "trySpawnUnit")]
         public static bool UnitSpawner_trySpawnUnit(UnitSpawner __instance)
         {
-            if(AssetManager.actor_library.get(__instance.building.asset.spawn_units_asset).base_stats.hasTag("Zerg"))
+            if(__instance.building.asset.spawn_units_asset == SZA.Larva)
             {
                 __instance._spawn_timer = 5f;
-                List<string> list = __instance.GetExtend();
-                list.Clear();
-                foreach(Building building in Finder.getBuildingsFromChunk(__instance.building.current_tile,2,32))
+                List<string> list = new List<string>();
+                List<string> list_all = new List<string>();
+                foreach (Building building in Finder.getBuildingsFromChunk(__instance.building.current_tile,2,32))
                 {
-                    if(building.kingdom == __instance.building.kingdom &&SZB.list.Contains(building.asset.id))
+                    if(building.kingdom == __instance.building.kingdom &&SZB.list.Contains(building.asset.id) && !list.Contains(building.asset.id))
                     {
                         list.Add(building.asset.id);
+                        list_all.Add(building.asset.id);
+                        if (building.Zerg_canMutation()) building.Zerg_tryMutation(__instance.building);
                     }
+
+
                 }
                 foreach (Actor actor in Finder.getUnitsFromChunk(__instance.building.current_tile, 2, 32))
                 {
                     string str = actor.GetMutation_id();
-                    if (actor.kingdom == __instance.building.kingdom &&str != null &&SZB.list.Contains(str))
+                    if (actor.kingdom == __instance.building.kingdom &&str != null &&SZB.list.Contains(str) && !list_all.Contains(str))
                     {
-                        list.Add(str);
+                        list_all.Add(str);
                     }
                 }
-
+                __instance.SetExtend(list);
+                __instance.SetExtend_All(list_all);
 
                 Subspecies tSubspecies = null ! ;//后续有判空
                 if (__instance.building.residents.Count > 0)
@@ -65,6 +72,8 @@ namespace Zerg.Code.Patch
                     Actor actor = World.world.units.createNewUnit(SZA.Queen, __instance.building.current_tile, pMiracleSpawn: false, 0f, null, null, pSpawnWithItems: false, pAdultAge: false);
                     actor.applyRandomForce();
                 }
+
+                if(__instance.building.Zerg_canMutation()) __instance.building.Zerg_tryMutation(__instance.building);
                 return false;
             }
             return true;

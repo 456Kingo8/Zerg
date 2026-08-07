@@ -50,7 +50,8 @@ namespace Zerg.Code.Content
             SetFootprint(asset, 8, 6);
             list.Add(asset.id);
 
-
+            asset = AssetManager.buildings.clone(SZB.Lair, SZB.Hatchery);
+            list.Add(asset.id);
 
             foreach (string id in list)
             {

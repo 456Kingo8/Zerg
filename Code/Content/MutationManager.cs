@@ -4,6 +4,7 @@ using System.Text;
 using UnityEngine;
 using Zerg.Code.Convenience;
 using Zerg.Code.Extend;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 namespace Zerg.Code.Content
 {
@@ -17,9 +18,10 @@ namespace Zerg.Code.Content
                 return false;
             }
 
-            List<string> ids = new List<string>();
-
+            List<string> ids = new List<string>();//实际建造完成的建筑
+            List<string> ids_all = new List<string>();//所有建筑，包括用于建造的actor虫茧
             if(actor.hasHomeBuilding())ids = actor._home_building.component_unit_spawner.GetExtend();
+            if (actor.hasHomeBuilding()) ids_all = actor._home_building.component_unit_spawner.GetExtend_All();
 
             foreach (MutationAsset asset in MutationLibrary.from_dict[actor.asset.id])
             {
@@ -42,12 +44,17 @@ namespace Zerg.Code.Content
                 if (asset.need_house)
                 {
                     if (!actor.hasHomeBuilding()) continue;
-                    if (ids.Contains(asset.to_id)) continue;//不重复建造同种建筑
-
+                    if (ids_all.Contains(asset.to_id) || Hive_special_judge(asset.to_id,ids_all)) continue;//不重复建造同种建筑,理论上特判是多余的，因为建筑不走这个方法
+                    //MonoBehaviour.print(ids.ToJson());
+                    //MonoBehaviour.print(ids_all.ToJson()); 
                     foreach (string id in asset.building_requirements)
                     {
                         if (!ids.Contains(id))
                         {
+                            if (Hive_special_judge(id, ids)) continue;
+
+
+
                             flag = false;
                             break;
                         }
@@ -94,7 +101,7 @@ namespace Zerg.Code.Content
                     if (actor.hasCity()) coco.setCity(actor.city);
                     if (actor.hasHomeBuilding()) coco.setHomeBuilding(actor.home_building);
                     actor.die(true);
-                    if(asset.building && actor.hasHomeBuilding()) actor._home_building.component_unit_spawner.GetExtend().Add(asset.to_id);//提前占位防止重复变异，后续id由Patches中的判定维持存在
+                    if(asset.building && actor.hasHomeBuilding()) actor._home_building.component_unit_spawner.GetExtend_All().Add(asset.to_id);//提前占位防止重复变异，后续id由Patches中的判定维持存在
                     //MonoBehaviour.print("mutation_start_" + asset.to_id);
                 }
                 return flag;
@@ -144,6 +151,67 @@ namespace Zerg.Code.Content
             }
             actor.die(false);
             return true;
+        }
+
+        public static bool Zerg_canMutation(this Building build)
+        {
+            return MutationLibrary.from_dict.ContainsKey(build.asset.id);
+        }
+
+        public static bool Zerg_tryMutation(this Building build,Building homebuilding)
+        {
+
+            if(!MutationLibrary.from_dict.ContainsKey(build.asset.id))
+            {
+                MonoBehaviour.print("[Zerg]Try to mutation without pre-check");
+                return false;
+            }
+
+
+            foreach (MutationAsset asset in MutationLibrary.from_dict[build.asset.id])
+            {
+                if (!Randy.randomChance(asset.chance)) continue;
+                List<string> ids = homebuilding.component_unit_spawner.GetExtend();
+                List<string> ids_all = homebuilding.component_unit_spawner.GetExtend_All();
+                bool flag = true;
+
+                if (ids_all.Contains(asset.to_id) || Hive_special_judge(asset.to_id, ids_all)) continue;//不重复建造同种建筑
+
+
+                foreach (string id in asset.building_requirements)
+                {
+                    if (!ids.Contains(id))
+                    {
+                        if (Hive_special_judge(id, ids)) continue;
+
+
+
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag)
+                {
+                    Actor coco = World.world.units.createNewUnit(asset.coco_id, build.current_tile);
+                    coco.addStatusEffect("Zerg_Mutation", asset.cost_time);
+                    coco.SetMutation_id(asset.to_id);
+                    coco.SetMutation_num(asset.num);
+                    coco.SetMutation_building(asset.building);
+                    if (build.hasKingdom()) coco.setKingdom(build.kingdom);
+                    if (build.hasCity()) coco.setCity(build.city);
+                    coco.setHomeBuilding(homebuilding);
+                    homebuilding.component_unit_spawner.GetExtend_All().Add(asset.to_id);//提前占位防止重复变异，后续id由Patches中的判定维持存在
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool Hive_special_judge(string id,List<string> strings)
+        {
+            if (id == SZB.Hatchery && (strings.Contains(SZB.Lair) || strings.Contains(SZB.Hive))) return true;
+            if (id == SZB.Lair && strings.Contains(SZB.Hive)) return true;
+            return false;
         }
     }
 }
