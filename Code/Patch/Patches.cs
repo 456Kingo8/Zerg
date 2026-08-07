@@ -19,8 +19,9 @@ namespace Zerg.Code.Patch
         [HarmonyPatch(typeof(UnitSpawner), "trySpawnUnit")]
         public static bool UnitSpawner_trySpawnUnit(UnitSpawner __instance)
         {
-            if(AssetManager.actor_library.get(__instance.building.asset.spawn_units_asset).traits.Contains("异虫"))
+            if(AssetManager.actor_library.get(__instance.building.asset.spawn_units_asset).base_stats.hasTag("Zerg"))
             {
+                __instance._spawn_timer = 5f;
                 List<string> list = __instance.GetExtend();
                 list.Clear();
                 foreach(Building building in Finder.getBuildingsFromChunk(__instance.building.current_tile,2,32))
@@ -59,7 +60,7 @@ namespace Zerg.Code.Patch
                 }
                 __instance.spawnUnit(tSubspecies);
 
-                if (Randy.randomChance(0.05f))
+                if (Randy.randomChance(0.1f))
                 {
                     Actor actor = World.world.units.createNewUnit(SZA.Queen, __instance.building.current_tile, pMiracleSpawn: false, 0f, null, null, pSpawnWithItems: false, pAdultAge: false);
                     actor.applyRandomForce();

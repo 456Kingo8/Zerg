@@ -16,7 +16,7 @@ namespace Zerg.Code.Content
             MutationAsset asset = new MutationAsset();
             asset.from_id = SZA.Larva;
             asset.to_id = SZA.Drone;
-            asset.chance = 0.3f;
+            asset.chance = 0.2f;
             asset.cost_time = 4f;
             asset.building_requirements = new List<string>();
             asset.need_house = false;
