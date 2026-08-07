@@ -121,7 +121,7 @@ namespace Zerg.Code.Content
                 ("lifespan", 30f),
                 ("damage", 5f),
                 ("attack_speed",2f),
-                ("speed", 10f),
+                ("speed", 20f),
                 ("armor", 20f),
             });
             actor.addDecision("zerg_try_mutation");
@@ -203,8 +203,9 @@ namespace Zerg.Code.Content
             actor.very_high_flyer = true;
             actor.default_attack = "$bow";
             actor.default_height = 2;
+            actor.animation_speed_based_on_walk_speed = false;
             actor.addDecision("zerg_try_mutation");
-            setaAnimation(actor, 5, 0, 5, 5, 5, 5);
+            setaAnimation(actor, 5, 0, 5, 5, 1, 5);
 
             //以下为技术性实体，无对应按钮，需手动loadTexture(actor);
             //异虫 虫茧 建筑
