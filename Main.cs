@@ -16,6 +16,7 @@ namespace Zerg
             ZergSubspeciesTrait.init();
             ZergItem.init();
             ZergProjectile.init();
+            ZergTrait.init();
             ZergActor.init();
             ZergBuilding.init();
             ZergBiome.init();

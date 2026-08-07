@@ -53,6 +53,10 @@ namespace Zerg.Code.Content
             asset = AssetManager.buildings.clone(SZB.Lair, SZB.Hatchery);
             list.Add(asset.id);
 
+            asset = AssetManager.buildings.clone(SZB.Baneling_Nest, "$zerg_building$");
+            SetFootprint(asset, 6, 4);
+            list.Add(asset.id);
+
             foreach (string id in list)
             {
                 BuildingAsset asset1 = AssetManager.buildings.get(id);

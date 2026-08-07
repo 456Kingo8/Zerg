@@ -44,6 +44,19 @@ namespace Zerg.Code.Content
             asset.building = true;
             list.Add(asset);
 
+            asset = new MutationAsset();
+            asset.from_id = SZA.Drone;
+            asset.to_id = SZB.Baneling_Nest;
+            asset.chance = 0.15f;
+            asset.cost_time = 17f;
+            asset.coco_id = SZB.Cocoons_Building;
+            asset.need_biome = true;
+            asset.need_house = true;
+            asset.building_requirements = new List<string> { SZB.Lair };
+            asset.building = true;
+            list.Add(asset);
+
+
 
             asset = new MutationAsset();
             asset.from_id = SZA.Larva;
@@ -56,6 +69,18 @@ namespace Zerg.Code.Content
             list.Add(asset);
 
             asset = new MutationAsset();
+            asset.from_id = SZA.Zergling;
+            asset.to_id = SZA.Baneling;
+            asset.chance = 0.1f;
+            asset.cost_time = 10f;
+            asset.num = 1;
+            asset.need_house = true;
+            asset.building_requirements = new List<string>() { SZB.Baneling_Nest };
+            list.Add(asset);
+
+
+
+            asset = new MutationAsset();
             asset.from_id = SZB.Hatchery;
             asset.to_id = SZB.Lair;
             asset.chance = 0.08f;
@@ -64,6 +89,8 @@ namespace Zerg.Code.Content
             asset.building = true;
             asset.building_requirements = new List<string>() { SZB.Spawning_Pool };
             list.Add(asset);
+
+
 
 
             foreach (MutationAsset asset1 in list)

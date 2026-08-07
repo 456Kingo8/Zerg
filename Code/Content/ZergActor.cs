@@ -163,6 +163,26 @@ namespace Zerg.Code.Content
             actor.default_attack = "zerg_spine";
             setaAnimation(actor, 2, 2, 2, 1f, 0.8f, 0.8f);
 
+            actor = AssetManager.actor_library.clone(SZA.Baneling, "$zerg_actor$");
+            actor.addGenome(new[]
+{
+                ("health", 60f),
+                ("stamina", 100f),
+                ("lifespan", 40f),
+                ("damage", 1f),
+                ("attack_speed",5f),
+                ("speed", 37f),
+                ("armor", 25f)
+            });
+            list.Add(actor.id);
+            actor.base_stats["size"] = 0.3f;
+            actor.traits = new List<string> { "zerg_attack_explode", "poison_immune", "immune" };
+            setaAnimation(actor, 1, 2, 5);
+
+
+
+
+
             //以下为技术性实体，无对应按钮，需手动loadTexture(actor);
             //异虫 虫茧 建筑
             actor = AssetManager.actor_library.clone(SZB.Cocoons_Building, "$zerg_actor_building$");
