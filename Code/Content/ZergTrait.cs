@@ -43,8 +43,8 @@ namespace Zerg.Code.Content
             {
                 if (building.kingdom != pTarget.a.kingdom)
                 {
-                    building.getHit(100, false, AttackType.Acid, pSkipIfShake: false);
-                    building.getHit(150, true, AttackType.Other, pSkipIfShake: false);
+                    building.getHit(150, false, AttackType.Acid, pSkipIfShake: false);
+                    building.getHit(100, true, AttackType.Other, pSkipIfShake: false);
                 }
             }
 

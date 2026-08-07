@@ -16,7 +16,7 @@ namespace Zerg.Code.Content
             asset.path_icon = "ui/icons/iconZerg";
             asset.base_stats[S.projectiles] = 1;
             asset.base_stats[S.range] = 10;
-            asset.base_stats[S.damage_range] = 0.25f;
+            asset.base_stats[S.damage_range] = 0.9f;
 
 
         }

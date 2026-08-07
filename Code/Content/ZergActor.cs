@@ -142,7 +142,7 @@ namespace Zerg.Code.Content
             });
             actor.addDecision("zerg_try_mutation");
             list.Add(actor.id);
-            setaAnimation(actor, 1, 2, 4, 1f, 1f, 1f);
+            setaAnimation(actor, 1, 2, 4, 1f, 2f, 2f);
 
             //虫后
             actor = AssetManager.actor_library.clone(SZA.Queen, "$zerg_actor$");
@@ -155,11 +155,11 @@ namespace Zerg.Code.Content
                 ("attack_speed",2f),
                 ("speed", 15f),
                 ("armor", 20f),
-                ("accuracy",100f),
             });
             list.Add(actor.id);
             actor.base_stats["size"] = 1f;
             actor.base_stats["mana"] = 100f;
+            actor.base_stats["accuracy"] = 100f;
             actor.traits = new List<string> { "eagle_eyed", "poison_immune", "immune" };
             actor.default_attack = "zerg_spine";
             actor.addDecision("create_creep_tumor");
@@ -183,9 +183,28 @@ namespace Zerg.Code.Content
             actor.traits = new List<string> { "zerg_attack_explode", "poison_immune", "immune" };
             setaAnimation(actor, 1, 2, 5);
 
+            actor = AssetManager.actor_library.clone(SZA.Mutalisk, "$zerg_actor$");
+            actor.addGenome(new[]
+{
+                ("health", 240f),
+                ("stamina", 180f),
+                ("lifespan", 60f),
+                ("damage", 25f),
+                ("attack_speed",1f),
+                ("speed", 55f),
+                ("armor", 20f),
 
-
-
+            });
+            list.Add(actor.id);
+            actor.base_stats["size"] = 1.2f;
+            actor.base_stats["range"] = 2f;
+            actor.base_stats["accuracy"] = 100f;
+            actor.flying = true;
+            actor.very_high_flyer = true;
+            actor.default_attack = "$bow";
+            actor.default_height = 2;
+            actor.addDecision("zerg_try_mutation");
+            setaAnimation(actor, 5, 0, 5, 5, 5, 5);
 
             //以下为技术性实体，无对应按钮，需手动loadTexture(actor);
             //异虫 虫茧 建筑

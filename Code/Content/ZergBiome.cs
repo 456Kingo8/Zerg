@@ -26,7 +26,7 @@ namespace Zerg.Code.Content
             tile.drawPixel = true;
             tile.height_min = 98;
             tile.color = new Color32(61, 57, 56, 230);
-            tile.walk_multiplier = 0.6f;
+            tile.walk_multiplier = 0.5f;
             tile.ignore_walk_multiplier_if_tag = "Zerg";
             tile.only_allowed_to_build_with_tag = "Zerg";
             tile.layer_type = TileLayerType.Ground;
