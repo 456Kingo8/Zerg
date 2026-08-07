@@ -67,7 +67,7 @@ namespace Zerg.Code.Patch
                 }
                 __instance.spawnUnit(tSubspecies);
 
-                if (Randy.randomChance(0.1f))
+                if (Randy.randomChance(0.1f) && list.Contains(SZB.Spawning_Pool))
                 {
                     Actor actor = World.world.units.createNewUnit(SZA.Queen, __instance.building.current_tile, pMiracleSpawn: false, 0f, null, null, pSpawnWithItems: false, pAdultAge: false);
                     actor.applyRandomForce();
@@ -91,5 +91,24 @@ namespace Zerg.Code.Patch
             return true;
         }
 
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(BuildingCreepWorker), "update")]
+        public static void BuildingCreepWorker_update(BuildingCreepWorker __instance)
+        {
+            if (__instance._parent.building.asset.id != SZB.Creep_Tumor) return;
+            if (__instance._total_step_counter < __instance.steps_max) return;
+            if (Randy.randomChance(0.97f)) return;
+            if(__instance.cur_tile == null) return;
+            if (!Tools.canBuildFrom(__instance.cur_tile, AssetManager.buildings.get(SZB.Creep_Tumor))) return;
+            foreach (Building building in Finder.getBuildingsFromChunk(__instance.cur_tile, 3, 18))
+            {
+                if (building.asset.grow_creep && building.asset.grow_creep_type == "biome_zerg_creep")
+                {
+                    return;
+                }
+            }
+
+            World.world.buildings.addBuilding(SZB.Creep_Tumor,__instance.cur_tile);
+        }
     }
 }

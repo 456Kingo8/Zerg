@@ -37,24 +37,37 @@ namespace Zerg.Code.Content
             asset.removed_by_sponge = true;
 
             asset = AssetManager.buildings.clone(SZB.Hatchery, "$zerg_building$");
+            asset.base_stats[S.health] = 1500;
             SetFootprint(asset, 11, 7);
             asset.spawn_units = true;
             asset.spawn_units_asset = SZA.Larva;
-            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 36, 16, 0.075f, CreepWorkerMovementType.RandomNeighbourAll);
+            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 36, 12, 0.1f, CreepWorkerMovementType.RandomNeighbourAll);
             asset.grow_creep_direction_random_position = true;
-            asset.grow_creep_flash = true;
+            asset.grow_creep_flash = false;
             asset.grow_creep_redraw_tile = true;
             list.Add(asset.id);
 
             asset = AssetManager.buildings.clone(SZB.Spawning_Pool, "$zerg_building$");
+            asset.base_stats[S.health] = 500;
             SetFootprint(asset, 8, 6);
             list.Add(asset.id);
 
             asset = AssetManager.buildings.clone(SZB.Lair, SZB.Hatchery);
+            asset.base_stats[S.health] = 3000;
             list.Add(asset.id);
 
             asset = AssetManager.buildings.clone(SZB.Baneling_Nest, "$zerg_building$");
+            asset.base_stats[S.health] = 800;
             SetFootprint(asset, 6, 4);
+            list.Add(asset.id);
+
+            asset = AssetManager.buildings.clone(SZB.Creep_Tumor, "$zerg_building$");
+            asset.base_stats[S.health] = 150;
+            SetFootprint(asset, 4, 4);
+            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 20, 6, 0.2f, CreepWorkerMovementType.Direction);
+            asset.grow_creep_direction_random_position = true;
+            asset.grow_creep_flash = false;
+            asset.grow_creep_redraw_tile = true;
             list.Add(asset.id);
 
             foreach (string id in list)

@@ -127,6 +127,14 @@ namespace Zerg.Code.Content
 
                 Building build = World.world.buildings.addBuilding(asset, actor.current_tile);
                 if (actor.hasKingdom()) build.setKingdom(actor.kingdom);
+                if(build.asset.id == SZB.Lair || build.asset.id == SZB.Hive)
+                {
+                    foreach(var t in actor.home_building.residents)
+                    {
+                        var act = World.world.units.get(t);
+                        act.setHomeBuilding(build);
+                    }
+                }
             }
             else
             {
