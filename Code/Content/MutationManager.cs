@@ -149,10 +149,19 @@ namespace Zerg.Code.Content
                     if (actor.hasCity()) act.setCity(actor.city);
                     if (actor.hasHomeBuilding()) act.setHomeBuilding(actor.home_building);
 
-                    if (id == SZA.Drone && Randy.randomChance(0.5f))
+                    if (id == SZA.Drone)
                     {
-                        act.clearHomeBuilding();
-                        act.beh_tile_target = act.current_chunk.neighbours.GetRandom().tiles.GetRandom();
+                        if (Randy.randomChance(0.5f))
+                        {
+                            act.clearHomeBuilding();
+                            act.beh_tile_target = act.current_chunk.neighbours.GetRandom().tiles.GetRandom();
+                        }
+
+                    }
+                    else if(act.asset.decision_ids != null &&act.asset.decision_ids.Contains("zerg_try_mutation"))
+                    {
+                        if(Randy.randomChance(0.2f))
+                        act.switchDecisionState(AssetManager.decisions_library.get("zerg_try_mutation").decision_index);
                     }
 
                 }

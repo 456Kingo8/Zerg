@@ -48,30 +48,35 @@ namespace Zerg.Code.Patch
                 __instance.SetExtend(list);
                 __instance.SetExtend_All(list_all);
 
-                Subspecies tSubspecies = null ! ;//后续有判空
-                if (__instance.building.residents.Count > 0)
+
+                if(__instance.building.residents.Count <= 200)
                 {
-                    foreach (long tActorID in __instance.building.residents)
+                    Subspecies tSubspecies = null!;//后续有判空
+                    if (__instance.building.residents.Count > 0)
                     {
-                        Actor tActor = World.world.units.get(tActorID);
-                        if (!tActor.isRekt() && tActor.asset.id == __instance.building.asset.spawn_units_asset)
+                        foreach (long tActorID in __instance.building.residents)
                         {
-                            tSubspecies = tActor.subspecies;
-                            break;
+                            Actor tActor = World.world.units.get(tActorID);
+                            if (!tActor.isRekt() && tActor.asset.id == __instance.building.asset.spawn_units_asset)
+                            {
+                                tSubspecies = tActor.subspecies;
+                                break;
+                            }
                         }
                     }
-                }
-                if (!tSubspecies.isRekt() && tSubspecies.hasReachedPopulationLimit())
-                {
-                    return false;
-                }
-                __instance.spawnUnit(tSubspecies);
+                    if (!tSubspecies.isRekt() && tSubspecies.hasReachedPopulationLimit())
+                    {
+                        return false;
+                    }
+                    __instance.spawnUnit(tSubspecies);
 
-                if (Randy.randomChance(0.1f) && list.Contains(SZB.Spawning_Pool))
-                {
-                    Actor actor = World.world.units.createNewUnit(SZA.Queen, __instance.building.current_tile, pMiracleSpawn: false, 0f, null, null, pSpawnWithItems: false, pAdultAge: false);
-                    actor.applyRandomForce();
+                    if (Randy.randomChance(0.1f) && list.Contains(SZB.Spawning_Pool))
+                    {
+                        Actor actor = World.world.units.createNewUnit(SZA.Queen, __instance.building.current_tile, pMiracleSpawn: false, 0f, null, null, pSpawnWithItems: false, pAdultAge: false);
+                        actor.applyRandomForce();
+                    }
                 }
+
 
                 if(__instance.building.Zerg_canMutation()) __instance.building.Zerg_tryMutation(__instance.building);
                 return false;

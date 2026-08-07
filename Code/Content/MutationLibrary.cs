@@ -71,7 +71,7 @@ namespace Zerg.Code.Content
             asset = new MutationAsset();
             asset.from_id = SZA.Zergling;
             asset.to_id = SZA.Baneling;
-            asset.chance = 0.1f;
+            asset.chance = 0.05f;
             asset.cost_time = 10f;
             asset.num = 1;
             asset.need_house = true;

@@ -155,12 +155,16 @@ namespace Zerg.Code.Content
                 ("attack_speed",2f),
                 ("speed", 15f),
                 ("armor", 20f),
-                ("accuracy",100f)
+                ("accuracy",100f),
             });
             list.Add(actor.id);
             actor.base_stats["size"] = 1f;
+            actor.base_stats["mana"] = 100f;
             actor.traits = new List<string> { "eagle_eyed", "poison_immune", "immune" };
             actor.default_attack = "zerg_spine";
+            actor.addDecision("create_creep_tumor");
+            //actor.spells = new();
+            //actor.spells.addSpell(ZergSpell.create_creep_tumor);
             setaAnimation(actor, 2, 2, 2, 1f, 0.8f, 0.8f);
 
             actor = AssetManager.actor_library.clone(SZA.Baneling, "$zerg_actor$");

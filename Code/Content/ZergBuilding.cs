@@ -41,7 +41,7 @@ namespace Zerg.Code.Content
             SetFootprint(asset, 11, 7);
             asset.spawn_units = true;
             asset.spawn_units_asset = SZA.Larva;
-            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 36, 12, 0.1f, CreepWorkerMovementType.RandomNeighbourAll);
+            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 32, 10, 0.1f, CreepWorkerMovementType.RandomNeighbourAll);
             asset.grow_creep_direction_random_position = true;
             asset.grow_creep_flash = false;
             asset.grow_creep_redraw_tile = true;
@@ -63,8 +63,8 @@ namespace Zerg.Code.Content
 
             asset = AssetManager.buildings.clone(SZB.Creep_Tumor, "$zerg_building$");
             asset.base_stats[S.health] = 150;
-            SetFootprint(asset, 4, 4);
-            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 20, 6, 0.2f, CreepWorkerMovementType.Direction);
+            SetFootprint(asset, 3, 3);
+            AssetManager.buildings.setGrowBiomeAround("biome_zerg_creep", 20, 6, 0.15f, CreepWorkerMovementType.Direction);
             asset.grow_creep_direction_random_position = true;
             asset.grow_creep_flash = false;
             asset.grow_creep_redraw_tile = true;
