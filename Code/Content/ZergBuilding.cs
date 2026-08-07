@@ -34,7 +34,7 @@ namespace Zerg.Code.Content
             asset.transform_tiles_to_top_tiles = "zerg_creep_low";
             asset.main_path = String.Empty;
             asset.prevent_freeze = true;
-            asset.removed_by_sponge = true;
+            asset.removed_by_sponge = false;
 
             asset = AssetManager.buildings.clone(SZB.Hatchery, "$zerg_building$");
             asset.base_stats[S.health] = 1500;

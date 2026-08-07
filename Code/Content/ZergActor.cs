@@ -83,6 +83,9 @@ namespace Zerg.Code.Content
 
             actor = AssetManager.actor_library.clone("$zerg_actor_building$", "$zerg_actor$");
             actor.can_level_up = false;
+            actor.can_be_moved_by_powers = false;
+            actor.allow_possession = false;
+            actor.allow_strange_urge_movement = false;
             actor.damaged_by_ocean = true;
             actor.skip_fight_logic = true;
             actor.base_stats.addTag("immovable");
@@ -108,6 +111,7 @@ namespace Zerg.Code.Content
                 ("armor", 80f),
             });
             actor.skip_fight_logic = true;
+            actor.allow_strange_urge_movement = false;
             list.Add(actor.id);
             setaAnimation(actor, 2, 3, 3, 1f, 1f, 1f);
             actor.addDecision("zerg_try_mutation");
