@@ -228,8 +228,10 @@ namespace Zerg.Code.Convenience
         public static string Overmind = "Overmind";//主宰
         public static string Cocoons_land_Actor = "CocoonsLand";//陆地单位虫茧
         public static string Cocoons_fly_Actor = "CocoonsFly";//飞行单位虫茧
-        public static string Cocoons_Building = "CocoonsBuilding";//建筑虫茧
-        public static string Cocoons_Hatchery = "CocoonsHatchery";//孵化场升级茧
+        public static string Cocoons_Building_Small = "CocoonsBuildingSmall";//建筑虫茧 小
+        public static string Cocoons_Building_Medium = "CocoonsBuildingMedium";//建筑虫茧 中
+        public static string Cocoons_Building_Large = "CocoonsBuildingLarge";//建筑虫茧 大
+        public static string Cocoons_Hatchery = "CocoonsHatchery";//孵化场升级茧 暂时跟大虫茧一样
 
         public static List<string> list = new List<string>() { Hatchery, Lair, Hive, Spawning_Pool, Evolution_Chamber, Roach_Warren, Baneling_Nest, Hydralisk_Den, Infestation_Pit, Spire, Greater_Spire, Nydus_Worm, Nydus_Network, Ultralisk_Cavern, Lurker_Den };
 

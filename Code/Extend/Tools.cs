@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using tools;
 using Zerg.Code.Content;
+using Zerg.Code.Convenience;
 
 namespace Zerg.Code.Extend
 {
@@ -11,6 +12,15 @@ namespace Zerg.Code.Extend
         public static List<WorldTile> _temp_list_tiles = new List<WorldTile>();
         public static bool canBuildFrom(WorldTile pTile, BuildingAsset pNewBuildingAsset)
         {
+            foreach(Actor actor in Finder.getUnitsFromChunk(pTile,1,3))
+            {
+                if(actor.asset.id == SZB.Cocoons_Building_Large || actor.asset.id == SZB.Cocoons_Building_Medium)
+                {
+                    return false;
+                }
+            }
+
+
 
             BuildingFundament fundament = pNewBuildingAsset.fundament;
             int num = pTile.x - fundament.left;

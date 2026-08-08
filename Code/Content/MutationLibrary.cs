@@ -27,7 +27,7 @@ namespace Zerg.Code.Content
             asset.to_id = SZB.Hatchery;
             asset.chance = 0.2f;
             asset.cost_time = 60f;
-            asset.coco_id = SZB.Cocoons_Building;
+            asset.coco_id = SZB.Cocoons_Building_Large;
             asset.need_house = false;
             asset.building = true;
             list.Add(asset);
@@ -37,7 +37,7 @@ namespace Zerg.Code.Content
             asset.to_id = SZB.Spawning_Pool;
             asset.chance = 0.2f;
             asset.cost_time = 10f;
-            asset.coco_id = SZB.Cocoons_Building;
+            asset.coco_id = SZB.Cocoons_Building_Medium;
             asset.need_biome = true;
             asset.need_house = true;
             asset.building_requirements = new List<string> {SZB.Hatchery};
@@ -47,9 +47,9 @@ namespace Zerg.Code.Content
             asset = new MutationAsset();
             asset.from_id = SZA.Drone;
             asset.to_id = SZB.Baneling_Nest;
-            asset.chance = 0.15f;
+            asset.chance = 0.1f;
             asset.cost_time = 17f;
-            asset.coco_id = SZB.Cocoons_Building;
+            asset.coco_id = SZB.Cocoons_Building_Medium;
             asset.need_biome = true;
             asset.need_house = true;
             asset.building_requirements = new List<string> { SZB.Lair };
@@ -59,14 +59,27 @@ namespace Zerg.Code.Content
             asset = new MutationAsset();
             asset.from_id = SZA.Drone;
             asset.to_id = SZB.Spire;
-            asset.chance = 0.15f;
+            asset.chance = 0.1f;
             asset.cost_time = 17f;
-            asset.coco_id = SZB.Cocoons_Building;
+            asset.coco_id = SZB.Cocoons_Building_Medium;
             asset.need_biome = true;
             asset.need_house = true;
             asset.building_requirements = new List<string> { SZB.Lair };
             asset.building = true;
             list.Add(asset);
+
+            asset = new MutationAsset();
+            asset.from_id = SZA.Drone;
+            asset.to_id = SZB.Infestation_Pit;
+            asset.chance = 0.075f;
+            asset.cost_time = 20f;
+            asset.coco_id = SZB.Cocoons_Building_Medium;
+            asset.need_biome = true;
+            asset.need_house = true;
+            asset.building_requirements = new List<string> { SZB.Lair };
+            asset.building = true;
+            list.Add(asset);
+
 
             asset = new MutationAsset();
             asset.from_id = SZA.Larva;
@@ -98,6 +111,15 @@ namespace Zerg.Code.Content
             asset.building_requirements = new List<string>() { SZB.Spire };
             list.Add(asset);
 
+            asset = new MutationAsset();
+            asset.from_id = SZA.Larva;
+            asset.to_id = SZA.Infestor;
+            asset.chance = 0.05f;
+            asset.cost_time = 12f;
+            asset.num = 1;
+            asset.need_house = true;
+            asset.building_requirements = new List<string>() { SZB.Infestation_Pit };
+            list.Add(asset);
 
             asset = new MutationAsset();
             asset.from_id = SZB.Hatchery;

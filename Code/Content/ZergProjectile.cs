@@ -14,7 +14,7 @@ namespace Zerg.Code.Content
             ProjectileAsset asset = AssetManager.projectiles.clone("zerg_spine", "arrow");
             asset.mass = 1;
             asset.speed = 60;
-
+            asset.can_be_collided = false;
 
             asset = new ProjectileAsset();
             asset.id = "glaive_wurm_0";//这是会弹跳三次的刃虫，你能这段代码对视10s不笑吗
@@ -25,6 +25,8 @@ namespace Zerg.Code.Content
             asset.texture = "Glaive_Wurm";
             asset.animation_speed = 60f;
             asset.mass = 1f;
+            asset.can_be_collided = true;
+            asset.can_be_blocked = true;
             asset.scale_start = 0.07f;
             asset.scale_target = 0.07f;
             asset.draw_light_area = false;
@@ -36,7 +38,26 @@ namespace Zerg.Code.Content
             asset = AssetManager.projectiles.clone("glaive_wurm_2", "glaive_wurm_0");
             asset.world_actions = null;
 
+
+
+
+
         }
+
+        public static bool MeiJun(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            foreach (Actor act in Finder.getUnitsFromChunk(pTile, 1, 0))
+            {
+                if (act == null) continue;
+                if (!act.hasTrait("异虫") && !act.hasTrait("异虫建筑"))
+                    act.addStatusEffect("霉菌滋生");
+            }
+            return true;
+        }
+
+
+
+
 
         private static bool bounce_1(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
         {

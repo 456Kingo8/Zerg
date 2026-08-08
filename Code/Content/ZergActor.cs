@@ -103,7 +103,7 @@ namespace Zerg.Code.Content
             actor.base_stats["size"] = 0.2f;
             actor.addGenome(new[]
             {
-                ("health", 50f),
+                ("health", 60f),
                 ("stamina", 10f),
                 ("lifespan", 10f),
                 ("damage", 0f),
@@ -136,7 +136,7 @@ namespace Zerg.Code.Content
             actor.base_stats["size"] = 0.5f;
             actor.addGenome(new[]
             {
-                ("health", 105f),
+                ("health", 120f),
                 ("stamina", 50f),
                 ("lifespan", 20f),
                 ("damage", 15f),
@@ -152,7 +152,7 @@ namespace Zerg.Code.Content
             actor = AssetManager.actor_library.clone(SZA.Queen, "$zerg_actor$");
             actor.addGenome(new[]
 {
-                ("health", 450f),
+                ("health", 480f),
                 ("stamina", 100f),
                 ("lifespan", 1000f),
                 ("damage", 20f),
@@ -174,7 +174,7 @@ namespace Zerg.Code.Content
             actor = AssetManager.actor_library.clone(SZA.Baneling, "$zerg_actor$");
             actor.addGenome(new[]
 {
-                ("health", 60f),
+                ("health", 85f),
                 ("stamina", 100f),
                 ("lifespan", 40f),
                 ("damage", 1f),
@@ -212,9 +212,28 @@ namespace Zerg.Code.Content
             actor.addDecision("zerg_try_mutation");
             setaAnimation(actor, 5, 0, 5, 5, 1, 5);
 
+            actor = AssetManager.actor_library.clone(SZA.Infestor, "$zerg_actor$");
+            actor.addGenome(new[]
+{
+                ("health", 210f),
+                ("stamina", 100f),
+                ("lifespan", 100f),
+                ("damage", 1f),
+                ("attack_speed",2f),
+                ("speed", 32f),
+                ("armor", 25f)
+            });
+            list.Add(actor.id);
+            actor.base_stats["size"] = 0.6f;
+            actor.base_stats["range"] = 17f;
+            setaAnimation(actor, 1, 2, 2);
+
+
+
+
             //以下为技术性实体，无对应按钮，需手动loadTexture(actor);
             //异虫 虫茧 建筑
-            actor = AssetManager.actor_library.clone(SZB.Cocoons_Building, "$zerg_actor_building$");
+            actor = AssetManager.actor_library.clone(SZB.Cocoons_Building_Small, "$zerg_actor_building$");
             actor.addGenome(new[]
 {
                 ("health", 100f),
@@ -233,10 +252,13 @@ namespace Zerg.Code.Content
             actor.animation_idle = new string[] { "walk_0", "walk_1", "walk_2", "walk_3" };
             loadTexture(actor);
 
+            actor = AssetManager.actor_library.clone(SZB.Cocoons_Building_Medium, SZB.Cocoons_Building_Small);
+            loadTexture(actor);
+            actor = AssetManager.actor_library.clone(SZB.Cocoons_Building_Large, SZB.Cocoons_Building_Small);
+            loadTexture(actor);
+
             //异虫 虫茧 陆地生物
             actor = AssetManager.actor_library.clone(SZB.Cocoons_land_Actor, "$zerg_actor_building$");
-            actor.base_stats[S.lifespan] = 100000;
-            actor.base_stats[S.scale] = 0.1f;
             actor.addGenome(new[]
 {
                 ("health", 100f),
@@ -253,44 +275,18 @@ namespace Zerg.Code.Content
             actor.traits = new List<string> { "虫茧", "异虫建筑", "诅咒免疫", "fire_proof", "freeze_proof", "poison_immune", "immune" };
             actor.animation_idle = new string[] { "idle_0", "idle_1" };
             loadTexture(actor);
+
             //异虫 虫茧 飞行生物
             actor = AssetManager.actor_library.clone(SZB.Cocoons_fly_Actor, SZB.Cocoons_land_Actor);
-            actor.addGenome(new[]
-{
-                ("health", 100f),
-                ("stamina", 0f),
-                ("lifespan", 1000f),
-                ("damage", 0f),
-                ("attack_speed",0f),
-                ("speed", 0f),
-                ("armor", 20f),
-            });
             actor.flying = true;
             actor.very_high_flyer = true;
             actor.die_on_blocks = false;
             actor.ignore_blocks = true;
-            actor.show_in_taxonomy_tooltip = false;
-            actor.show_in_knowledge_window = false;
-            actor.animation_idle = new string[] { "idle_0", "idle_1" };
+            actor.animation_idle = new string[] { "idle_0", "idle_1", "idle_2" };
             loadTexture(actor);
 
             //异虫 虫茧 孵化场升级
-            actor = AssetManager.actor_library.clone(SZB.Cocoons_Hatchery, SZB.Cocoons_Building);
-            actor.show_in_taxonomy_tooltip = false;
-            actor.show_in_knowledge_window = false;
-            actor.addGenome(new[]
-{
-                ("health", 200f),
-                ("stamina", 0f),
-                ("lifespan", 1000f),
-                ("damage", 0f),
-                ("attack_speed",0f),
-                ("speed", 0f),
-                ("armor", 40f),
-            });
-            actor.traits = new List<string> { "虫茧", "异虫建筑", "诅咒免疫", "fire_proof", "freeze_proof", "poison_immune", "immune" };
-            actor.animation_idle = new string[] { "walk_0", "walk_1" };
-            actor.animation_walk = new string[] { "walk_0", "walk_1" };
+            actor = AssetManager.actor_library.clone(SZB.Cocoons_Hatchery, SZB.Cocoons_Building_Large);
             loadTexture(actor);
 
 

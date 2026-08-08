@@ -40,6 +40,7 @@ namespace Zerg.Code.Content
                 if (asset.building && !Tools.canBuildFrom(actor.current_tile,AssetManager.buildings.get(asset.to_id))) 
                     continue; //判定占地面积
 
+
                 bool flag = true;
                 if (asset.need_house)
                 {
