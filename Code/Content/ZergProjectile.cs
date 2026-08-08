@@ -38,19 +38,30 @@ namespace Zerg.Code.Content
             asset = AssetManager.projectiles.clone("glaive_wurm_2", "glaive_wurm_0");
             asset.world_actions = null;
 
-
+            asset = new ProjectileAsset();
+            asset.id = "Fungal_Growth";
+            asset.animated = true;
+            asset.texture_shadow = "shadows/projectiles/shadow_ball";
+            asset.speed = 26;
+            asset.can_be_collided = false;
+            asset.can_be_blocked = false;
+            asset.texture = "Fungal_Growth";
+            asset.draw_light_area = false;
+            asset.world_actions = Fungal_Growth_action;     
+            AssetManager.projectiles.add(asset);
 
 
 
         }
 
-        public static bool MeiJun(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        public static bool Fungal_Growth_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
         {
-            foreach (Actor act in Finder.getUnitsFromChunk(pTile, 1, 0))
+            foreach (Actor act in Finder.getUnitsFromChunk(pTile, 1, 5))
             {
-                if (act == null) continue;
-                if (!act.hasTrait("异虫") && !act.hasTrait("异虫建筑"))
-                    act.addStatusEffect("霉菌滋生");
+                if(act.hasKingdom() && act.kingdom.isEnemy(pSelf.kingdom))
+                {
+                    act.addStatusEffect("Fungal_Growth");
+                }
             }
             return true;
         }
@@ -91,7 +102,7 @@ namespace Zerg.Code.Content
             if (pSelf != null && pTile != null && pSelf.kingdom != null)
             {
                 BaseSimObject target = null;
-                foreach (BaseSimObject obj in Finder.getAllObjectsInChunks(pTile, 9))
+                foreach (BaseSimObject obj in Finder.getAllObjectsInChunks(pTile, 10))
                 {
                     if (obj != null && obj.kingdom != null && obj.kingdom.isEnemy(pSelf.kingdom))
                     {

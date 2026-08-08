@@ -17,7 +17,7 @@ namespace Zerg
             ZergItem.init();
             ZergProjectile.init();
             ZergTrait.init();
-            ZergSpell.init();
+            ZergSpell.init();//spell必须在actor之前
             ZergActor.init();
             ZergBuilding.init();
             ZergBiome.init();

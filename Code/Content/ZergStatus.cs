@@ -32,10 +32,38 @@ namespace Zerg.Code.Content
             asset.base_stats[S.multiplier_attack_speed] = 0.25f;
             asset.base_stats[S.multiplier_damage] = 0.2f;
             asset.path_icon = "ui/icons/iconZerg";
-            asset.locale_description = "Zerg_Mutation_des";
-            asset.locale_id = "Zerg_Mutation_id";
+            asset.locale_description = "zerg_creep_des";
+            asset.locale_id = "zerg_creep_id";
             AssetManager.status.add(asset);
 
+            asset = new StatusAsset();
+            asset.id = "Microbial_Shroud"; //微生物环绕云
+            asset.duration = 16f;
+            asset.base_stats = new BaseStats();
+            asset.base_stats["armor"] = 50f;
+            asset.path_icon = "ui/icons/iconZerg";
+            asset.locale_description = "Zerg_Microbial_Shroud_des";
+            asset.locale_id = "Zerg_Microbial_Shroud_id";
+            AssetManager.status.add(asset);
+
+
+            asset = new StatusAsset();
+            asset.id = "Fungal_Growth";//霉菌滋生
+            asset.duration = 3f;
+            asset.action_interval = 0.9f;
+            asset.action = Fungal_Growth_action;
+            asset.base_stats = new BaseStats();
+            asset.animated = true;
+            asset.texture = "Fungal_Growth";
+            asset.allow_timer_reset = true;
+            asset.animation_speed = 1f;
+            asset.scale = 0.5f;
+            asset.base_stats[S.multiplier_speed] = -0.7f;
+            asset.path_icon = "ui/icons/iconZerg";
+            asset.locale_description = "Zerg_Fungal_Growth_des";
+            asset.locale_id = "Zerg_Fungal_Growth_id";
+            loadSprite(asset);
+            AssetManager.status.add(asset);
 
 
         }
@@ -61,5 +89,20 @@ namespace Zerg.Code.Content
             pTarget.a.spawnParticle(Toolbox.color_heal);
             return true;
         }
+
+        public static bool Fungal_Growth_action(BaseSimObject pTarget, WorldTile pTile = null!)
+        {
+            pTarget.a.getHit(25,true,AttackType.Other,pSkipIfShake:false,pCheckDamageReduction:false);
+            return true;
+        }
+
+
+        private static void loadSprite(StatusAsset asset)
+        {
+            asset.sprite_list = SpriteTextureLoader.getSpriteList("effects/" + asset.texture, false);
+            asset.material = LibraryMaterials.instance.dict[asset.material_id];
+            asset.need_visual_render = true;
+        }
+
     }
 }

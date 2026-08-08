@@ -68,7 +68,7 @@ namespace Zerg.Code.Content
 
             asset = AssetManager.buildings.clone(SZB.Infestation_Pit, "$zerg_building$");
             asset.base_stats[S.health] = 800;
-            SetFootprint(asset, 6, 4);
+            SetFootprint(asset, 8, 6);
             list.Add(asset.id);
 
 

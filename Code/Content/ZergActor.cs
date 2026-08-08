@@ -167,6 +167,7 @@ namespace Zerg.Code.Content
             actor.traits = new List<string> { "eagle_eyed", "poison_immune", "immune" };
             actor.default_attack = "zerg_spine";
             actor.addDecision("create_creep_tumor");
+            actor.allowed_status_tiers = StatusTier.Advanced;
             //actor.spells = new();
             //actor.spells.addSpell(ZergSpell.create_creep_tumor);
             setaAnimation(actor, 2, 2, 2, 1f, 0.8f, 0.8f);
@@ -225,7 +226,12 @@ namespace Zerg.Code.Content
             });
             list.Add(actor.id);
             actor.base_stats["size"] = 0.6f;
-            actor.base_stats["range"] = 17f;
+            actor.base_stats["range"] = 18f;
+            actor.base_stats["mana"] = 110f;
+            actor.spells = new SpellHolder();
+            actor.spells.addSpell(ZergSpell.spell_Fungal_Growth);
+            actor.spells.addSpell(ZergSpell.spell_Microbial_Shroud);
+            actor.allowed_status_tiers = StatusTier.Advanced; 
             setaAnimation(actor, 1, 2, 2);
 
 

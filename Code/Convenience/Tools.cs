@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using tools;
+using UnityEngine;
 using Zerg.Code.Content;
-using Zerg.Code.Convenience;
 
-namespace Zerg.Code.Extend
+namespace Zerg.Code.Convenience
 {
     public static class Tools
     {
@@ -112,6 +112,17 @@ namespace Zerg.Code.Extend
             Building tBuilding = pTile.building;
             return tBuilding != null && tBuilding.isUsable() && (tBuilding.asset.city_building || ZergBuilding.list.Contains(tBuilding.asset.id));
         }
+
+        public static void throwAtTile(string id, BaseSimObject pSelf, WorldTile pTarget_tile)
+        {
+            Vector2Int pos = pTarget_tile.pos;
+            float pDist = Vector2.Distance(pSelf.current_position, pos);
+            Vector3 newPoint = Toolbox.getNewPoint(pSelf.current_position.x, pSelf.current_position.y, pos.x, pos.y, pDist);
+            Vector3 newPoint2 = Toolbox.getNewPoint(pSelf.current_position.x, pSelf.current_position.y, pos.x, pos.y, pSelf.a.stats["size"]);
+            newPoint2.y += 0.25f;
+            World.world.projectiles.spawn(pSelf, null, id, newPoint2, newPoint, pForcedKingdom: pSelf.kingdom);
+        }
+
 
 
     }

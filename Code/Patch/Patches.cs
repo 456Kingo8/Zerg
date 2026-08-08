@@ -115,5 +115,16 @@ namespace Zerg.Code.Patch
 
             World.world.buildings.addBuilding(SZB.Creep_Tumor,__instance.cur_tile);
         }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(CombatActionLibrary), "tryToCastSpell")]
+        public static void CombatActionLibrary_tryToCastSpell(CombatActionLibrary __instance,ref AttackData pData)
+        {
+            if(pData.initiator.a.hasTag("Zerg"))
+            {
+                pData.initiator.a.finishStatusEffect("recovery_spell");
+            }
+        }
+
     }
 }

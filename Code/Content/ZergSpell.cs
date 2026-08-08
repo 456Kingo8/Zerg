@@ -4,12 +4,13 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 using Zerg.Code.Convenience;
-using Zerg.Code.Extend;
 
 namespace Zerg.Code.Content
 {
     class ZergSpell
     {
+        public static SpellAsset spell_Fungal_Growth; 
+        public static SpellAsset spell_Microbial_Shroud;
 
         public static void init()
         {
@@ -22,6 +23,29 @@ namespace Zerg.Code.Content
             asset.action = create_creep_tumor_action;
             asset.chance = 1f;
             AssetManager.spells.add(asset);
+
+            asset = new SpellAsset();
+            asset.id = "Fungal_Growth";
+            asset.cost_mana = 30;
+            asset.can_be_used_in_combat = true;
+            asset.cast_entity = CastEntity.UnitsOnly;
+            asset.cast_target = CastTarget.Enemy;
+            asset.action = throw_Fungal_Growth_action;
+            asset.chance = 1f;
+            AssetManager.spells.add(asset);
+            spell_Fungal_Growth = asset;
+
+            asset = new SpellAsset();
+            asset.id = "Microbial_Shroud";
+            asset.cost_mana = 40;
+            asset.can_be_used_in_combat = true;
+            asset.cast_entity = CastEntity.UnitsOnly;
+            asset.cast_target = CastTarget.Himself;
+            asset.action = Microbial_Shroud_action;
+            asset.chance = 1f;
+            AssetManager.spells.add(asset);
+            spell_Microbial_Shroud = asset;
+
 
         }
 
@@ -52,10 +76,24 @@ namespace Zerg.Code.Content
             return false;
         }
 
+        public static bool throw_Fungal_Growth_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            Tools.throwAtTile("Fungal_Growth", pSelf,pTarget.current_tile);
+            return true;
+        }
 
+        public static bool Microbial_Shroud_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
 
-
-
+            foreach (Actor act in Finder.getUnitsFromChunk(pSelf.current_tile,1,9))
+            {
+                if(act.kingdom == pSelf.kingdom)
+                {
+                    act.addStatusEffect("Microbial_Shroud");
+                }
+            }
+            return true;
+        }
 
 
     }
