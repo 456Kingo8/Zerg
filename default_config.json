@@ -1,0 +1,10 @@
+{
+    "Texture Config": [
+        {
+            "Id": "Zerg_Creep_Texture_Dark_Side",
+            "Type": "SWITCH",
+            "IconPath": "ui/icons/iconZerg",
+            "BoolVal": false
+        }
+    ]
+}

@@ -19,7 +19,7 @@ namespace Zerg.Code.Content
             AssetManager.biome_library.add(biome);
 
 
-            BuildRuntimeTileAtlas();
+
 
 
             TopTileType tile = AssetManager.top_tiles.clone("zerg_creep_low", "tumor_low");
@@ -42,8 +42,6 @@ namespace Zerg.Code.Content
             tile.setDrawLayer(TileZIndexes.tumor_low, null);
             tile.step_action_chance = 1f;
             tile.step_action = zerg_creep;
-            loadSprite(tile);
-
 
             tile = AssetManager.top_tiles.clone("zerg_creep_high", "zerg_creep_low");
             tile.height_min = 108;
@@ -61,8 +59,19 @@ namespace Zerg.Code.Content
             tile.step_action = zerg_creep;
             tile.ignore_walk_multiplier_if_tag = "Zerg";
             tile.only_allowed_to_build_with_tag = "Zerg";
-            loadSprite(tile);
 
+
+            BuildRuntimeTileAtlas();
+            if (ZergMain.I.GetConfig()["Texture Config"]["Zerg_Creep_Texture_Dark_Side"].BoolVal)
+            {
+                loadSprite(AssetManager.top_tiles.get("zerg_creep_low"), "zerg_creep_low_dark");
+                loadSprite(AssetManager.top_tiles.get("zerg_creep_high"), "zerg_creep_high_dark");
+            }
+            else
+            {
+                loadSprite(AssetManager.top_tiles.get("zerg_creep_low"));
+                loadSprite(AssetManager.top_tiles.get("zerg_creep_high"));
+            }
         }
 
         public static bool zerg_creep(WorldTile pTile, Actor pActor)
@@ -219,6 +228,20 @@ namespace Zerg.Code.Content
         private static void loadSprite(TopTileType asset)
         {
             Sprite[] tSpritesArr = _runtimeTileSpritesByAssetId.TryGetValue(asset.id, out Sprite[] sprites) ? sprites : null;
+            if (tSpritesArr?.Length > 0)
+            {
+                asset.sprites = new TileSprites();
+                foreach (Sprite tSprite in tSpritesArr)
+                {
+                    asset.sprites.addVariation(tSprite, asset.id);
+                }
+            }
+            World.world.tilemap.createTileMapFor(asset);
+        }
+
+        private static void loadSprite(TopTileType asset,string id)
+        {
+            Sprite[] tSpritesArr = _runtimeTileSpritesByAssetId.TryGetValue(id, out Sprite[] sprites) ? sprites : null;
             if (tSpritesArr?.Length > 0)
             {
                 asset.sprites = new TileSprites();
