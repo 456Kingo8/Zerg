@@ -196,16 +196,17 @@ namespace Zerg.Code.Content
                 ("damage", 25f),
                 ("attack_speed",1f),
                 ("speed", 55f),
-                ("armor", 20f),
+                ("armor", 30f),
 
             });
             list.Add(actor.id);
             actor.base_stats["size"] = 1.2f;
-            actor.base_stats["range"] = 2f;
+            actor.base_stats["range"] = 5f;
             actor.base_stats["accuracy"] = 100f;
             actor.flying = true;
             actor.very_high_flyer = true;
-            actor.default_attack = "$bow";
+            actor.addTrait("fire_proof");
+            actor.default_attack = "glaive_wurm";
             actor.default_height = 2;
             actor.animation_speed_based_on_walk_speed = false;
             actor.addDecision("zerg_try_mutation");
