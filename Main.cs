@@ -21,6 +21,7 @@ namespace Zerg
             ZergActor.init();
             ZergBuilding.init();
             ZergBiome.init();
+            ZergWorldBehavior.init();
             ZergJob.init();
             ZergStatus.init();
             MutationLibrary.init();

@@ -123,7 +123,16 @@ namespace Zerg.Code.Convenience
             World.world.projectiles.spawn(pSelf, null, id, newPoint2, newPoint, pForcedKingdom: pSelf.kingdom);
         }
 
-
+        public static void throwAtObj(string id, BaseSimObject pSelf, Actor pTarget)
+        {
+            Vector2 pos = pTarget.current_position;
+            float pDist = Vector2.Distance(pSelf.current_position, pos);
+            Vector3 newPoint = Toolbox.getNewPoint(pSelf.current_position.x, pSelf.current_position.y, pos.x, pos.y, pDist);
+            Vector3 newPoint2 = Toolbox.getNewPoint(pSelf.current_position.x, pSelf.current_position.y, pos.x, pos.y, pSelf.a.stats["size"]);
+            newPoint2.y += 0.25f;
+            newPoint2 += pTarget.current_rotation * pTarget._current_combined_movement_speed * pDist/AssetManager.projectiles.get(id).speed;
+            World.world.projectiles.spawn(pSelf, null, id, newPoint2, newPoint, pForcedKingdom: pSelf.kingdom);
+        }
 
     }
 }

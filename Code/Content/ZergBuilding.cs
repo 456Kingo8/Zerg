@@ -26,6 +26,7 @@ namespace Zerg.Code.Content
             asset.shadow = false;
             asset.group = "Zerg";
             asset.kingdom = "Zerg";
+            asset.city_building = false;
             asset.can_be_placed_on_blocks = false;
             asset.can_be_placed_on_liquid = false;
             asset.ignore_buildings = true;

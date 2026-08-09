@@ -99,7 +99,7 @@ namespace Zerg.Code.Content
                     coco.SetMutation_num(asset.num);
                     coco.SetMutation_building(asset.building);
                     if (actor.hasKingdom())coco.setKingdom(actor.kingdom);
-                    if (actor.hasCity()) coco.setCity(actor.city);
+                    //if (actor.hasCity()) coco.setCity(actor.city);//老马设定的是building.city =  zone.city，故本行废弃，不然建筑会被牛走
                     if (actor.hasHomeBuilding()) coco.setHomeBuilding(actor.home_building);
                     actor.die(true);
                     if(asset.building && actor.hasHomeBuilding()) actor._home_building.component_unit_spawner.GetExtend_All().Add(asset.to_id);//提前占位防止重复变异，后续id由Patches中的判定维持存在
@@ -130,10 +130,13 @@ namespace Zerg.Code.Content
                 if (actor.hasKingdom()) build.setKingdom(actor.kingdom);
                 if(build.asset.id == SZB.Lair || build.asset.id == SZB.Hive)
                 {
-                    foreach(var t in actor.home_building.residents)
+                    if(actor.home_building != null && actor.home_building.residents.Count > 0)
                     {
-                        var act = World.world.units.get(t);
-                        act.setHomeBuilding(build);
+                        foreach (var t in actor.home_building.residents)
+                        {
+                            var act = World.world.units.get(t);
+                            act.setHomeBuilding(build);
+                        }
                     }
                 }
             }
@@ -147,7 +150,7 @@ namespace Zerg.Code.Content
                 {
                     Actor act = World.world.units.createNewUnit(id, actor.current_tile);
                     if (actor.hasKingdom()) act.setKingdom(actor.kingdom);
-                    if (actor.hasCity()) act.setCity(actor.city);
+                    //if (actor.hasCity()) act.setCity(actor.city);//老马设定的是building.city =  zone.city，故本行废弃，不然建筑会被牛走
                     if (actor.hasHomeBuilding()) act.setHomeBuilding(actor.home_building);
 
                     if (id == SZA.Drone)
@@ -216,7 +219,7 @@ namespace Zerg.Code.Content
                     coco.SetMutation_num(asset.num);
                     coco.SetMutation_building(asset.building);
                     if (build.hasKingdom()) coco.setKingdom(build.kingdom);
-                    if (build.hasCity()) coco.setCity(build.city);
+                    //if (build.hasCity()) coco.setCity(build.city);//老马设定的是building.city =  zone.city，故本行废弃，不然建筑会被牛走
                     coco.setHomeBuilding(homebuilding);
                     homebuilding.component_unit_spawner.GetExtend_All().Add(asset.to_id);//提前占位防止重复变异，后续id由Patches中的判定维持存在
                     return true;

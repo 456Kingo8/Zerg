@@ -13,7 +13,10 @@ namespace Zerg.Code.Content
         {
             ProjectileAsset asset = AssetManager.projectiles.clone("zerg_spine", "arrow");
             asset.mass = 1;
-            asset.speed = 60;
+            asset.speed = 50;
+            asset.scale_start = 0.15f;
+            asset.scale_target = 0.15f;
+            asset.size = 10f;
             asset.can_be_collided = false;
 
             asset = new ProjectileAsset();
@@ -25,6 +28,7 @@ namespace Zerg.Code.Content
             asset.texture = "Glaive_Wurm";
             asset.animation_speed = 60f;
             asset.mass = 1f;
+            asset.size = 10f;
             asset.can_be_collided = true;
             asset.can_be_blocked = true;
             asset.scale_start = 0.07f;

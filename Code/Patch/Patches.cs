@@ -7,6 +7,7 @@ using UnityEngine;
 using Zerg.Code.Content;
 using Zerg.Code.Convenience;
 using Zerg.Code.Extend;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Zerg.Code.Patch
 {
@@ -70,9 +71,17 @@ namespace Zerg.Code.Patch
                     }
                     __instance.spawnUnit(tSubspecies);
 
+                    string spawn_units_asset = __instance.building.asset.spawn_units_asset;
+                    Actor actor = World.world.units.createNewUnit(spawn_units_asset, __instance.building.current_tile, pMiracleSpawn: false, 0f, tSubspecies, null, pSpawnWithItems: true, pAdultAge: true);
+                    if (__instance.building.kingdom != null) actor.setKingdom(__instance.building.kingdom);
+                    __instance.setUnitFromHere(actor);
+                    actor.applyRandomForce();
+
                     if (Randy.randomChance(0.1f) && list.Contains(SZB.Spawning_Pool))
                     {
-                        Actor actor = World.world.units.createNewUnit(SZA.Queen, __instance.building.current_tile, pMiracleSpawn: false, 0f, null, null, pSpawnWithItems: false, pAdultAge: false);
+                        actor = World.world.units.createNewUnit(SZA.Queen, __instance.building.current_tile, pMiracleSpawn: false, 0f, null, null, pSpawnWithItems: false, pAdultAge: false);
+                        if(__instance.building.kingdom != null)actor.setKingdom(__instance.building.kingdom);
+                        __instance.setUnitFromHere(actor);
                         actor.applyRandomForce();
                     }
                 }
@@ -126,5 +135,60 @@ namespace Zerg.Code.Patch
             }
         }
 
+        //[HarmonyPrefix]
+        //[HarmonyPatch(typeof(CombatActionLibrary), "attackRangeAction")]
+        //public static bool CombatActionLibrary_attackRangeAction(CombatActionLibrary __instance, ref AttackData pData)
+        //{
+        //    if (pData.initiator.a.hasTag("Zerg"))
+        //    {
+        //        Actor tSelf = pData.initiator.a;
+        //        BaseSimObject tAttackTarget = pData.target;
+        //        string tProjectileID = pData.projectile_id;
+        //        float actor_scale = tSelf.actor_scale;
+        //        float tScaleMod = tSelf.getScaleMod();
+        //        float tSizeThis = tSelf.stats["size"];
+        //        int tProjectiles = (int)tSelf.stats["projectiles"];
+        //        Vector2 tAttackPosition;
+        //        if (tAttackTarget == null)
+        //        {
+        //            tAttackPosition = pData.hit_position;
+        //        }
+        //        else
+        //        {
+        //            tAttackPosition = __instance.getAttackTargetPosition(pData);
+        //            tAttackPosition.y += 0.2f * tScaleMod;
+        //        }
+
+        //        float tStartHeight = 0.6f * tScaleMod;
+        //        float tTargetHeight = 0f;
+        //        float tAngle = 0f;
+        //        for (int i = 0; i < tProjectiles; i++)
+        //        {
+        //            Vector2 tProjectileAttackVector = new Vector2(tAttackPosition.x, tAttackPosition.y);
+        //            Vector3 tStartProjectile = Toolbox.getNewPoint(tSelf.current_position.x, tSelf.current_position.y, tProjectileAttackVector.x, tProjectileAttackVector.y, tSizeThis * tScaleMod, true);
+        //            tStartProjectile.y += tSelf.getHeight();
+        //            if (tAttackTarget != null &&  tAttackTarget.isActor())
+        //            {
+        //                Vector3 index = tAttackTarget.a.target_angle * tAttackTarget.a._current_combined_movement_speed * Vector2.Distance(tSelf.current_position, tAttackTarget.current_position) / AssetManager.projectiles.get(tProjectileID).speed;
+        //                tProjectileAttackVector.x += index.x;
+        //                tProjectileAttackVector.y += index.y ;
+        //            }
+
+        //            if (tAttackTarget != null && tAttackTarget.isInAir())
+        //            {
+        //                tTargetHeight = tAttackTarget.getHeight();
+        //            }
+        //            tAngle = World.world.projectiles.spawn(tSelf, tAttackTarget, tProjectileID, tStartProjectile, tProjectileAttackVector, tTargetHeight, tStartHeight, pData.kill_action, pData.kingdom).getLaunchAngle();
+        //        }
+        //        tSelf.spawnSlash(tAttackPosition, null, 2f, tTargetHeight, 0f, new float?(tAngle));
+
+
+
+
+
+        //        return false;
+        //    }
+        //    return true;
+        //}
     }
 }

@@ -46,6 +46,7 @@ namespace Zerg.Code.Content
             actor.has_baby_form = false;
             actor.render_heads_for_babies = false;
             actor.kingdom_id_civilization = string.Empty;
+            actor.auto_civ = false;
             actor.build_order_template_id = string.Empty;
             actor.kingdom_id_wild = "Zerg";
             actor.color = Toolbox.makeColor("#AD00B9");

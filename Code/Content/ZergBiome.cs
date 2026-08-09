@@ -32,6 +32,7 @@ namespace Zerg.Code.Content
             tile.layer_type = TileLayerType.Ground;
             tile.additional_height = null;
             tile.fire_chance = 0.02f;
+            tile.biome_id = biome.id;
             tile.biome_asset = biome;
             tile.remove_on_freeze = false;
             tile.remove_on_heat = true;
@@ -54,6 +55,7 @@ namespace Zerg.Code.Content
             tile.force_edge_variation_frame = 1;
             tile.rank_type = TileRank.High;
             tile.setDrawLayer(TileZIndexes.tumor_high, null);
+            tile.biome_id = biome.id;
             tile.biome_asset = biome;
             tile.step_action_chance = 1f;
             tile.step_action = zerg_creep;
