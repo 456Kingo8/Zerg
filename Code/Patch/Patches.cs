@@ -52,25 +52,6 @@ namespace Zerg.Code.Patch
 
                 if(__instance.building.residents.Count <= 200)
                 {
-                    Subspecies tSubspecies = null!;//后续有判空
-                    if (__instance.building.residents.Count > 0)
-                    {
-                        foreach (long tActorID in __instance.building.residents)
-                        {
-                            Actor tActor = World.world.units.get(tActorID);
-                            if (!tActor.isRekt() && tActor.asset.id == __instance.building.asset.spawn_units_asset)
-                            {
-                                tSubspecies = tActor.subspecies;
-                                break;
-                            }
-                        }
-                    }
-                    if (!tSubspecies.isRekt() && tSubspecies.hasReachedPopulationLimit())
-                    {
-                        return false;
-                    }
-                    __instance.spawnUnit(tSubspecies);
-
                     string spawn_units_asset = __instance.building.asset.spawn_units_asset;
                     Actor actor = Tools.spawnZergUnit(spawn_units_asset, __instance.building.current_tile);
                     if (__instance.building.kingdom != null) actor.setKingdom(__instance.building.kingdom);
@@ -122,7 +103,8 @@ namespace Zerg.Code.Patch
                 }
             }
 
-            World.world.buildings.addBuilding(SZB.Creep_Tumor,__instance.cur_tile);
+            Building build = World.world.buildings.addBuilding(SZB.Creep_Tumor,__instance.cur_tile);
+            build.setKingdom(__instance._parent.building.kingdom);
         }
 
         [HarmonyPostfix]

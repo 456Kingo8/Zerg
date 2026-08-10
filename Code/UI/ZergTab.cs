@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Zerg.Code.Content;
 using UnityEngine;
+using Zerg.Code.Convenience;
 
 namespace Zerg.Code.UI
 {
@@ -26,6 +27,8 @@ namespace Zerg.Code.UI
 
             addActorButton();
             addBuildingButton();
+
+            addSpecialButton();
 
         }
 
@@ -71,5 +74,38 @@ namespace Zerg.Code.UI
                 SpriteTextureLoader.getSprite("ui/icons/tab/" + id)));
             }
         }
+
+        internal static void addSpecialButton()
+        {
+            var godPower = new GodPower
+            {
+                id = "spawn_special_drone",
+                show_spawn_effect = true,
+                actor_spawn_height = 3f,
+                name = "spawn_special_drone",
+                actor_asset_id = SZA.Drone,
+                click_action = spawn_special_drone_action
+            };
+            AssetManager.powers.add(godPower);
+            zerg_tab.AddPowerButton("god_powers",
+            PowerButtonCreator.CreateGodPowerButton(godPower.id,
+            SpriteTextureLoader.getSprite("ui/icons/tab/Drone")));
+        }
+
+        public static bool spawn_special_drone_action(WorldTile pTile, string pPowerID)
+        {
+            GodPower godPower = AssetManager.powers.get(pPowerID);
+            MusicBox.playSound("event:/SFX/UNIQUE/SpawnWhoosh", pTile.pos.x, pTile.pos.y);
+            EffectsLibrary.spawn("fx_spawn", pTile); 
+            Actor act = World.world.units.spawnNewUnitByPlayer(godPower.actor_asset_id, pTile, pSpawnSound: true, pMiracleSpawn: true, godPower.actor_spawn_height);
+            if (pTile?.zone?.city?.kingdom != null)
+            {
+                act.setKingdom(pTile.zone.city.kingdom);
+            }
+            return true;
+        }
+
+
+
     }
 }

@@ -69,7 +69,8 @@ namespace Zerg.Code.Content
                         }
                     }
 
-                    World.world.buildings.addBuilding(SZB.Creep_Tumor, pSelf.current_tile);
+                    Building build = World.world.buildings.addBuilding(SZB.Creep_Tumor, pSelf.current_tile);
+                    if(pSelf.kingdom != null) build.setKingdom(pSelf.kingdom);
                     return true;
                 }
             }

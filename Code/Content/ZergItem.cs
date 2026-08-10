@@ -26,7 +26,9 @@ namespace Zerg.Code.Content
             asset.base_stats[S.projectiles] = 1;
             asset.base_stats[S.damage_range] = 0.95f;
 
-
+            asset = AssetManager.items.clone("zerg_none_attack", "$range");
+            asset.projectile = "zerg_spine";
+            asset.base_stats[S.projectiles] = 0;
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeoModLoader.api.attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -13,10 +14,10 @@ namespace Zerg.Code.Content
             WorldBehaviourAsset asset = new WorldBehaviourAsset
             {
                 id = "zerg_creep_decay",
-                interval = 5f,
+                interval = 15f,
                 interval_random = 2f,
                 action = new WorldBehaviourAction(ZergCreepDecay.checkCreep),
-                action_world_clear = new WorldBehaviourAction(ZergCreepDecay.clear)
+                action_world_clear = new WorldBehaviourAction(ZergCreepDecay.total_clear)
             };
             asset.manager = new WorldBehaviour(asset);
             AssetManager.world_behaviours.add(asset);
@@ -27,6 +28,7 @@ namespace Zerg.Code.Content
 
     public static class ZergCreepDecay
     {
+        [Hotfixable]
         public static void checkCreep()
         {
             if (WorldLawLibrary.world_law_forever_tumor_creep.isEnabled())
@@ -35,7 +37,7 @@ namespace Zerg.Code.Content
             }
             BiomeAsset biomeAsset = AssetManager.biome_library.get("biome_zerg_creep");
 
-            ZergCreepDecay.clear();
+            ZergCreepDecay.check_clear();
             ZergCreepDecay.addToNotChecked(biomeAsset.getTileLow());
             ZergCreepDecay.addToNotChecked(biomeAsset.getTileHigh());
             if (ZergCreepDecay.not_checked_tiles.Count == 0)
@@ -43,24 +45,17 @@ namespace Zerg.Code.Content
                 return;
             }
 
-            List<string> creep_hub_id = new List<string>() {SZB.Hatchery,SZB.Lair,SZB.Hive,SZB.Creep_Tumor};
-            Kingdom tKingdom = World.world.kingdoms_wild.get("Zerg");
+            List<string> creep_hub_id = new List<string>() { SZB.Hatchery, SZB.Lair, SZB.Hive, SZB.Creep_Tumor };
 
-
-
-            if (tKingdom.buildings.Count > 0)
+            foreach (Building t in World.world.buildings)
             {
-                List<Building> list = tKingdom.buildings;
-                for (int i = 0; i < list.Count; i++)
+                if(t.isUsable() &&creep_hub_id.Contains(t.asset.id))
                 {
-                    Building tBuilding = list[i];
-                    if (tBuilding.isUsable() && creep_hub_id.Contains(tBuilding.asset.id))
-                    {
-                        ZergCreepDecay.checkTile(tBuilding.current_tile);
-                        ZergCreepDecay.next_wave.Add(tBuilding.current_tile);
-                    }
+                    ZergCreepDecay.checkTile(t.current_tile);
+                    ZergCreepDecay.next_wave.Add(t.current_tile);
                 }
             }
+
             ZergCreepDecay.startWave("biome_zerg_creep");
             if (ZergCreepDecay.not_checked_tiles.Count > 0)
             {
@@ -104,7 +99,7 @@ namespace Zerg.Code.Content
                 ZergCreepDecay._list_of_disconnected_tiles.Add(tTile);
             }
 
-            int cnt = (int)MathF.Max(40, _list_of_disconnected_tiles.Count / 200);
+            int cnt = (int)MathF.Max(40, _list_of_disconnected_tiles.Count / 150);
 
             foreach (WorldTile pTile in ZergCreepDecay._list_of_disconnected_tiles.LoopRandom(cnt))
             {
@@ -127,8 +122,7 @@ namespace Zerg.Code.Content
             ZergCreepDecay.not_checked_tiles.UnionWith(pTileType.hashset);
         }
 
-
-        public static void clear()
+        public static void check_clear()
         {
             ZergCreepDecay.checked_tiles.Clear();
             ZergCreepDecay.not_checked_tiles.Clear();
@@ -136,6 +130,16 @@ namespace Zerg.Code.Content
             ZergCreepDecay.cur_wave.Clear();
             ZergCreepDecay._list_of_disconnected_tiles.Clear();
         }
+
+        public static void total_clear()
+        {
+            ZergCreepDecay.checked_tiles.Clear();
+            ZergCreepDecay.not_checked_tiles.Clear();
+            ZergCreepDecay.next_wave.Clear();
+            ZergCreepDecay.cur_wave.Clear();
+            ZergCreepDecay._list_of_disconnected_tiles.Clear();
+        }
+
 
         private static List<WorldTile> next_wave = new List<WorldTile>();
 
@@ -146,8 +150,6 @@ namespace Zerg.Code.Content
         private static HashSetWorldTile not_checked_tiles = new HashSetWorldTile();
 
         private static List<WorldTile> _list_of_disconnected_tiles = new List<WorldTile>();
-
-
 
     }
 }

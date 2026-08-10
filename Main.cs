@@ -8,10 +8,11 @@ using Zerg.Code.UI;
 
 namespace Zerg
 {
-    public class ZergMain : BasicMod<ZergMain>
+    public class ZergMain : BasicMod<ZergMain> ,IReloadable
     {
         protected override void OnModLoad()
         {
+            Config.isEditor = true;
             ZergKingdom.init();
             ZergDecision.init();
             ZergSubspeciesTrait.init();
@@ -29,6 +30,11 @@ namespace Zerg
             Patches.init();
 
             ZergTab.init();//必须在Actor和Builiding之后
+        }
+
+        public void Reload()
+        {
+
         }
     }
 }

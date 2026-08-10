@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeoModLoader.api.attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Zerg.Code.Framework
 {
     public static class MutationManager
     {
-
+        [Hotfixable]
         public static bool Zerg_tryMutation(this Actor actor)
         {
             if (!MutationLibrary.from_dict.ContainsKey(actor.asset.id))
@@ -36,9 +37,11 @@ namespace Zerg.Code.Framework
                     if(actor.current_tile.top_type.biome_asset == null) continue;
                     if(actor.current_tile.top_type.biome_asset.id != "biome_zerg_creep") continue;
                 }
-
-                if (asset.building && !Tools.canBuildFrom(actor.current_tile,AssetManager.buildings.get(asset.to_id))) 
-                    continue; //判定占地面积
+                if (asset.building)
+                {
+                    if (!Tools.canBuildFrom(actor.current_tile, AssetManager.buildings.get(asset.to_id))) continue;
+                    //if (actor.kingdom != null && actor.kingdom.isCiv() && actor.current_zone?.city?.kingdom != actor.kingdom) continue;
+                }
 
 
                 bool flag = true;
@@ -46,8 +49,6 @@ namespace Zerg.Code.Framework
                 {
                     if (!actor.hasHomeBuilding()) continue;
                     if (ids_all.Contains(asset.to_id) || Hive_special_judge(asset.to_id,ids_all)) continue;//不重复建造同种建筑,理论上特判是多余的，因为建筑不走这个方法
-                    //MonoBehaviour.print(ids.ToJson());
-                    //MonoBehaviour.print(ids_all.ToJson()); 
                     foreach (string id in asset.building_requirements)
                     {
                         if (!ids.Contains(id))
@@ -66,7 +67,6 @@ namespace Zerg.Code.Framework
                 {
                     flag = true;
                     //未来或许可以在此处加入科技限制等其他限制,暂时来说need house与有requirements是等价的
-
                     if (asset.to_id == SZB.Hatchery)  //这里应该抽象化为一个特殊的委托，但暂时无需求
                     {
                         foreach(Building building in Finder.getBuildingsFromChunk(actor.current_tile, 4, 32))
@@ -87,10 +87,11 @@ namespace Zerg.Code.Framework
                                 break;
                             }
                         }
-
                     }
 
                 }
+
+
                 if (flag)
                 {
                     Actor coco = World.world.units.createNewUnit(asset.coco_id, actor.current_tile);
@@ -126,8 +127,12 @@ namespace Zerg.Code.Framework
                     return false;
                 }
 
+
                 Building build = World.world.buildings.addBuilding(asset, actor.current_tile);
-                if (actor.hasKingdom()) build.setKingdom(actor.kingdom);
+                if (actor.hasKingdom())
+                {
+                    build.setKingdom(actor.kingdom);
+                }
                 if(build.asset.id == SZB.Lair || build.asset.id == SZB.Hive)
                 {
                     if(actor.home_building != null && actor.home_building.residents.Count > 0)
