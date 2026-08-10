@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Zerg.Code.Convenience;
 
-namespace Zerg.Code.Content
+namespace Zerg.Code.Framework
 {
     public class MutationAsset
     {

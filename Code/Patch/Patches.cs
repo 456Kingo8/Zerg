@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using Zerg.Code.Content;
 using Zerg.Code.Convenience;
 using Zerg.Code.Extend;
+using Zerg.Code.Framework;
 using static UnityEngine.GraphicsBuffer;
 
 namespace Zerg.Code.Patch
@@ -72,14 +72,14 @@ namespace Zerg.Code.Patch
                     __instance.spawnUnit(tSubspecies);
 
                     string spawn_units_asset = __instance.building.asset.spawn_units_asset;
-                    Actor actor = World.world.units.createNewUnit(spawn_units_asset, __instance.building.current_tile, pMiracleSpawn: false, 0f, tSubspecies, null, pSpawnWithItems: true, pAdultAge: true);
+                    Actor actor = Tools.spawnZergUnit(spawn_units_asset, __instance.building.current_tile);
                     if (__instance.building.kingdom != null) actor.setKingdom(__instance.building.kingdom);
                     __instance.setUnitFromHere(actor);
                     actor.applyRandomForce();
 
                     if (Randy.randomChance(0.1f) && list.Contains(SZB.Spawning_Pool))
                     {
-                        actor = World.world.units.createNewUnit(SZA.Queen, __instance.building.current_tile, pMiracleSpawn: false, 0f, null, null, pSpawnWithItems: false, pAdultAge: false);
+                        actor = Tools.spawnZergUnit(SZA.Queen, __instance.building.current_tile);
                         if(__instance.building.kingdom != null)actor.setKingdom(__instance.building.kingdom);
                         __instance.setUnitFromHere(actor);
                         actor.applyRandomForce();

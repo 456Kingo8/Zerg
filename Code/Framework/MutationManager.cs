@@ -6,7 +6,7 @@ using Zerg.Code.Convenience;
 using Zerg.Code.Extend;
 using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
-namespace Zerg.Code.Content
+namespace Zerg.Code.Framework
 {
     public static class MutationManager
     {
@@ -148,7 +148,7 @@ namespace Zerg.Code.Content
                 }
                 for (int i = 0; i < num; i++)
                 {
-                    Actor act = World.world.units.createNewUnit(id, actor.current_tile);
+                    Actor act = Tools.spawnZergUnit(id,actor.current_tile);
                     if (actor.hasKingdom()) act.setKingdom(actor.kingdom);
                     //if (actor.hasCity()) act.setCity(actor.city);//老马设定的是building.city =  zone.city，故本行废弃，不然建筑会被牛走
                     if (actor.hasHomeBuilding()) act.setHomeBuilding(actor.home_building);

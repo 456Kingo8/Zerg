@@ -4,7 +4,7 @@ using System.Text;
 using Zerg.Code.Convenience;
 using Zerg.Code.Extend;
 
-namespace Zerg.Code.Content
+namespace Zerg.Code.Framework
 {
     public static class MutationLibrary
     {

@@ -1,6 +1,6 @@
 ﻿using ai.behaviours;
 using UnityEngine;
-using Zerg.Code.Content;
+using Zerg.Code.Framework;
 
 namespace Zerg.Code.Behaviour
 {
