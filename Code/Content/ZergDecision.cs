@@ -35,15 +35,28 @@ namespace Zerg.Code.Content
             asset.decision_index = AssetManager.decisions_library.list.Count;
             asset.task_id = add_Task(asset.id, asset.path_icon, new BehCreateCreepTumor()).id;
             AssetManager.decisions_library.add(asset);
+
+            asset = new DecisionAsset();
+            asset.id = "zerg_commander";
+            asset.priority = NeuroLayer.Layer_4_Critical;
+            asset.path_icon = "ui/Icons/iconZerg";
+            asset.cooldown = 16;
+            asset.unique = true;
+            asset.only_safe = false;
+            asset.weight = 20f;
+            asset.decision_index = AssetManager.decisions_library.list.Count;
+            asset.task_id = add_Task(asset.id, asset.path_icon, new BehZergCommander(),true).id;
+            AssetManager.decisions_library.add(asset);
         }
 
-        private static BehaviourTaskActor add_Task(string id, string icon, BehaviourActionActor pBeh)
+        private static BehaviourTaskActor add_Task(string id, string icon, BehaviourActionActor pBeh,bool combat = false)
         {
             BehaviourTaskActor task = new BehaviourTaskActor();
             task.id = id;
             task.addBeh(pBeh);
             task.setIcon(icon);
             task.locale_key = "task_" + id;
+            task.in_combat = combat;
             AssetManager.tasks_actor.add(task);
             return task;
         }

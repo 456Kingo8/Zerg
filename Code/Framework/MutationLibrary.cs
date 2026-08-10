@@ -122,6 +122,17 @@ namespace Zerg.Code.Framework
             list.Add(asset);
 
             asset = new MutationAsset();
+            asset.from_id = SZA.Larva;
+            asset.to_id = SZA.Overlord;
+            asset.chance = 0.01f;
+            asset.cost_time = 8f;
+            asset.num = 1;
+            asset.need_house = true;
+            asset.building_requirements = new List<string>() { SZB.Hatchery };
+            list.Add(asset);
+
+
+            asset = new MutationAsset();
             asset.from_id = SZB.Hatchery;
             asset.to_id = SZB.Lair;
             asset.chance = 0.08f;

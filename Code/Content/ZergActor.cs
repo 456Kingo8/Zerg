@@ -235,8 +235,33 @@ namespace Zerg.Code.Content
             actor.allowed_status_tiers = StatusTier.Advanced; 
             setaAnimation(actor, 1, 2, 2);
 
-
-
+            actor = AssetManager.actor_library.clone(SZA.Overlord, "$zerg_actor$");
+            actor.addGenome(new[]
+{
+                ("health", 500f),
+                ("stamina", 100f),
+                ("lifespan", 400f),
+                ("damage", 0f),
+                ("attack_speed",0f),
+                ("speed", 10f),
+                ("armor", 15f)
+            });
+            list.Add(actor.id);
+            actor.default_attack = "zerg_none_attack";
+            actor.default_height = 2f;
+            actor.base_stats["size"] = 2f;
+            actor.base_stats[S.range] = 10f;
+            actor.base_stats[S.targets] = 0f;
+            actor.job = new string[]{ "zerg_commander"};
+            actor.die_on_blocks = false;
+            actor.animation_speed_based_on_walk_speed = false;
+            actor.flying = true;
+            actor.very_high_flyer = true;
+            actor.animation_idle_speed = 0.6f;
+            actor.animation_walk_speed = 0.6f;
+            actor.animation_idle = ActorAnimationSequences.walk_0_3;
+            actor.animation_walk = ActorAnimationSequences.walk_0_3;
+            actor.addTrait("fire_proof");
 
             //以下为技术性实体，无对应按钮，需手动loadTexture(actor);
             //异虫 虫茧 建筑
