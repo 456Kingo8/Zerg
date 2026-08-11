@@ -20,6 +20,7 @@ namespace Zerg.Code.Content
                 can_be_given = false,
                 group_id = "special"
             };
+            addLocale(trait);
             trait.action_attack_target = zerg_attack_explode_attack;
             trait.action_death = zerg_attack_explode_death;
             AssetManager.traits.add(trait);
@@ -32,6 +33,7 @@ namespace Zerg.Code.Content
                 can_be_given = false,
                 group_id = "special"
             };
+            addLocale(trait);
             AssetManager.traits.add(trait);
             List<string> list = new List<string>() { "tantrum", "confused", "angry", "stunned", "slowness", "frozen" };
             foreach (string item in list)
@@ -45,8 +47,9 @@ namespace Zerg.Code.Content
                 rate_birth = 0,
                 path_icon = "ui/Icons/iconZerg",
                 can_be_given = false,
-                group_id = "special"
+                group_id = "special",
             };
+            addLocale(trait);
             AssetManager.traits.add(trait);
 
         }
@@ -81,7 +84,16 @@ namespace Zerg.Code.Content
             return true;
         }
 
-
+        public static void addLocale(ActorTrait trait)
+        {
+            trait.has_locales = true;
+            trait.has_localized_id = true;
+            trait.has_description_1 = true;
+            trait.has_description_2 = true;
+            trait.special_locale_id = trait.id + "_id";
+            trait.special_locale_description = trait.id + "_des1";
+            trait.special_locale_description_2 = trait.id + "_des2";
+        }
 
     }
 }

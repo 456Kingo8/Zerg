@@ -282,13 +282,29 @@
   "zerg_building_infect_limit_description": "开启后，感染不会产生被感染的建筑",
   "zerg_biome_limit": "菌毯肿瘤限制",
   "zerg_biome_limit_description": "开启后，菌毯肿瘤不会主动扩散",
-  "show_zerg_law": "灵能链接(已失效)",
-  "show_zerg_law_description": "开启后，使用颜色标记异虫所在区块",
   "zerg_same_sub": "一致性",
   "zerg_same_sub_description": "开启后，上帝手动放置的异虫单位亚种相同",
 
   "Texture Config": "贴图配置",
   "Zerg_Creep_Texture_Dark_Side": "暗色菌毯",
-  "Zerg_Creep_Texture_Dark_Side Description": "开启后，菌毯贴图调整为暗色\n(重启游戏后生效)"
-
+  "Zerg_Creep_Texture_Dark_Side Description": "开启后，菌毯贴图调整为暗色\n(重启游戏后生效)",
+  "spawn_special_drone": "一只特殊的工蜂",
+  "spawn_special_drone_description": "放置后，这只特殊的工蜂会加入该区域的所属国家",
+  "show_zones_zerg_law": "灵能链接",
+  "show_zones_zerg_law_description": "开启后，用虫族所在\n国家的主色标记区块",
+  "zerg_attack_explode_id": "自爆单位",
+  "zerg_attack_explode_des1": "攻击后或死亡时自爆",
+  "zerg_attack_explode_des2": "具有较高腐蚀性",
+  "zerg_armored_unit_id": "重甲单位",
+  "zerg_armored_unit_des1": "免疫击退",
+  "zerg_armored_unit_des2": "在这里，重甲并非寿衣",
+  "zerg_ultar_unit_id": "终极单位",
+  "zerg_ultar_unit_des1": "免疫迟缓、冻结、震惊、混乱、愤怒、暴怒和神经寄生状态",
+  "zerg_ultar_unit_des2": "居家旅行必备特质",
+  "Zerg_Fungal_Growth_id": "霉菌滋生",
+  "Zerg_Fungal_Growth_des": "来自 感染者 投掷的菌液球\n受影响的单位将在 3s 内总计受到 75 点伤害",
+  "Zerg_Microbial_Shroud_id": "微生物环绕云",
+  "Zerg_Microbial_Shroud_des": "由 感染者 产生的迷雾\n可大幅度降低友军受到的伤害",
+  "Zerg_Neural_Parasite_id": "神经寄生",
+  "Zerg_Neural_Parasite_des": "来自 感染者 的神经寄生虫\n控制着该单位的行为\n(可被免疫特质免疫)"
 }
