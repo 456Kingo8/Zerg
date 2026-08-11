@@ -26,6 +26,7 @@ namespace Zerg
             ZergWorldBehavior.init();
             ZergJob.init();
             ZergStatus.init();
+            ZergQuantumSprite.init();
             MutationLibrary.init();
             Patches.init();
 

@@ -90,7 +90,28 @@ namespace Zerg.Code.UI
             zerg_tab.AddPowerButton("god_powers",
             PowerButtonCreator.CreateGodPowerButton(godPower.id,
             SpriteTextureLoader.getSprite("ui/icons/tab/Drone")));
+
+            CreateNewToggleButton("show_zones_zerg_law", "Zerg");
+
+
+
+
+
         }
+
+
+        private static void CreateNewToggleButton(string id, string path_icon)
+        {
+            GodPower power = new GodPower();
+            power.id = id;
+            power.name = id;
+            power.toggle_name = id;
+            AssetManager.powers.add(power);
+
+
+            ZergTab.zerg_tab.AddPowerButton("laws", PowerButtonCreator.CreateToggleButton(id, SpriteTextureLoader.getSprite("ui/icons/tab/" + path_icon)));
+        }
+
 
         public static bool spawn_special_drone_action(WorldTile pTile, string pPowerID)
         {

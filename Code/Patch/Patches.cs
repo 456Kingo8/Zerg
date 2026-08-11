@@ -117,6 +117,21 @@ namespace Zerg.Code.Patch
             }
         }
 
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(KingdomManager), "removeObject")]
+        public static void KingdomManager_removeObject(KingdomManager __instance, ref Kingdom pKingdom)
+        {
+            MonoBehaviour.print("debug");
+            foreach(Building building in World.world.buildings)
+            {
+                if(building.asset.kingdom == "Zerg" && building.kingdom == pKingdom)
+                {
+                    building.setKingdom(World.world.kingdoms_wild.get("Zerg"));
+                }
+            }
+        }
+
+
         //[HarmonyPrefix]
         //[HarmonyPatch(typeof(CombatActionLibrary), "attackRangeAction")]
         //public static bool CombatActionLibrary_attackRangeAction(CombatActionLibrary __instance, ref AttackData pData)

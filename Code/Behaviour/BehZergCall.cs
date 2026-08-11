@@ -15,7 +15,6 @@ namespace Zerg.Code.Behaviour
         {
             if (pActor.attack_target != null)
             {
-                MonoBehaviour.print("flag2");
                 int cnt = 0;
                 if (pActor.asset.id == SZA.Overlord) cnt = 100;
                 else if (pActor.asset.id == SZA.Overseer) cnt = 200;
