@@ -232,6 +232,7 @@ namespace Zerg.Code.Content
             actor.spells = new SpellHolder();
             actor.spells.addSpell(ZergSpell.spell_Fungal_Growth);
             actor.spells.addSpell(ZergSpell.spell_Microbial_Shroud);
+            actor.spells.addSpell(ZergSpell.spell_Neural_Parasite);
             actor.allowed_status_tiers = StatusTier.Advanced; 
             setaAnimation(actor, 1, 2, 2);
 

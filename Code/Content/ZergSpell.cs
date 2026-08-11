@@ -10,7 +10,8 @@ namespace Zerg.Code.Content
     class ZergSpell
     {
         public static SpellAsset spell_Fungal_Growth; 
-        public static SpellAsset spell_Microbial_Shroud;
+        public static SpellAsset spell_Microbial_Shroud; 
+        public static SpellAsset spell_Neural_Parasite;
 
         public static void init()
         {
@@ -45,6 +46,17 @@ namespace Zerg.Code.Content
             asset.chance = 1f;
             AssetManager.spells.add(asset);
             spell_Microbial_Shroud = asset;
+
+            asset = new SpellAsset();
+            asset.id = "Neural_Parasite";
+            asset.cost_mana = 60;
+            asset.can_be_used_in_combat = true;
+            asset.cast_entity = CastEntity.UnitsOnly;
+            asset.cast_target = CastTarget.Enemy;
+            asset.action = Neural_Parasite_action;
+            asset.chance = 0.6f;
+            AssetManager.spells.add(asset);
+            spell_Neural_Parasite = asset;
 
 
         }
@@ -96,6 +108,23 @@ namespace Zerg.Code.Content
             return true;
         }
 
+        public static bool Neural_Parasite_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pSelf.a.hasStatus("Neural_Parasite_CD")) return false;
+            if(pTarget != null && pTarget.isActor())
+            {
+                if(pTarget.a.hasTrait("immune")) return false;
+                if(pTarget.a.hasStatus("Neural_Parasite")) return false;
+                if(pTarget.a.data.health <= 200) return false;
+                pTarget.a.setKingdom(pSelf.a.kingdom);
+                pTarget.a.addStatusEffect("Neural_Parasite");
+                pSelf.a.addStatusEffect("Neural_Parasite_CD");
+                pTarget.a.clearAttackTarget();
+                pSelf.a.clearAttackTarget();
+                pTarget.a.finishStatusEffect("angry");
+            }
+            return true;
 
+        }
     }
 }

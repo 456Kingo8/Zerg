@@ -2,6 +2,8 @@
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEngine;
 using Zerg.Code.Convenience;
@@ -50,7 +52,7 @@ namespace Zerg.Code.Patch
                 __instance.SetExtend_All(list_all);
 
 
-                if(__instance.building.residents.Count <= 200)
+                if(__instance.building.residents.Count <= 100)
                 {
                     string spawn_units_asset = __instance.building.asset.spawn_units_asset;
                     Actor actor = Tools.spawnZergUnit(spawn_units_asset, __instance.building.current_tile);
@@ -121,7 +123,6 @@ namespace Zerg.Code.Patch
         [HarmonyPatch(typeof(KingdomManager), "removeObject")]
         public static void KingdomManager_removeObject(KingdomManager __instance, ref Kingdom pKingdom)
         {
-            MonoBehaviour.print("debug");
             foreach(Building building in World.world.buildings)
             {
                 if(building.asset.kingdom == "Zerg" && building.kingdom == pKingdom)
@@ -131,6 +132,34 @@ namespace Zerg.Code.Patch
             }
         }
 
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Actor), "addAggro", new Type[] {typeof(Actor)})]
+        public static bool Actor_addAggro(Actor __instance,ref Actor pActor)
+        {
+            MonoBehaviour.print("debug1");
+            if (pActor.isRekt())
+            {
+                return false;
+            }
+            if (pActor == __instance)
+            {
+                return false;
+            }
+            if (__instance.hasTag("Zerg") || __instance.hasStatus("Neural_Parasite"))
+            {
+                if (pActor.attack_target == __instance) pActor.clearAttackTarget();
+                if (__instance.attack_target == pActor) __instance.clearAttackTarget();
+                return false;
+            }
+            if (pActor.hasTag("Zerg") || pActor.hasStatus("Neural_Parasite"))
+            {
+                if (pActor.attack_target == __instance) pActor.clearAttackTarget();
+                if (__instance.attack_target == pActor) __instance.clearAttackTarget();
+                return false;
+            }
+            MonoBehaviour.print("debug2");
+            return true;
+        }
 
         //[HarmonyPrefix]
         //[HarmonyPatch(typeof(CombatActionLibrary), "attackRangeAction")]

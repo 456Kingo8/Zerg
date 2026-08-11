@@ -1,6 +1,8 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine.Assertions;
 using Zerg.Code.Convenience;
 using Zerg.Code.Framework;
 
@@ -66,6 +68,23 @@ namespace Zerg.Code.Content
             loadSprite(asset);
             AssetManager.status.add(asset);
 
+            asset = new StatusAsset();
+            asset.id = "Neural_Parasite";//神经寄生
+            asset.duration = 30f;
+            asset.base_stats = new BaseStats();
+            asset.allow_timer_reset = true;
+            asset.action_finish = Neural_Parasite_action_finish;
+            asset.path_icon = "ui/icons/iconZerg";
+            asset.locale_description = "Zerg_Neural_Parasite_des";
+            asset.locale_id = "Zerg_Neural_Parasite_id";
+            asset.remove_status = new string[] {"angry", "Fungal_Growth" };
+            AssetManager.status.get("angry").opposite_status.AddItem("Neural_Parasite");
+            AssetManager.status.get("angry").opposite_tags.AddItem("Zerg");//事实上，这两行并没有用，根本拦不住angry。最终使用HarmonyPatch拦截
+            loadSprite(asset);
+            AssetManager.status.add(asset);
+            addCD("Neural_Parasite_CD",35f);
+
+
 
         }
 
@@ -93,10 +112,16 @@ namespace Zerg.Code.Content
 
         public static bool Fungal_Growth_action(BaseSimObject pTarget, WorldTile pTile = null!)
         {
-            pTarget.a.getHit(25,true,AttackType.Other,pSkipIfShake:false,pCheckDamageReduction:false);
+            pTarget.a.getHit(25, true, AttackType.Other, pSkipIfShake: false, pCheckDamageReduction: false);
             return true;
         }
 
+        public static bool Neural_Parasite_action_finish(BaseSimObject pTarget, WorldTile pTile = null!)
+        {
+            pTarget.a.finishStatusEffect("Microbial_Shroud");
+            pTarget.a.setDefaultKingdom();
+            return true;
+        }
 
         private static void loadSprite(StatusAsset asset)
         {
@@ -105,5 +130,18 @@ namespace Zerg.Code.Content
             asset.need_visual_render = true;
         }
 
+        private static void addCD(string id,float time)
+        {
+            var asset = new StatusAsset();
+            asset.id = id;
+            asset.duration = time;
+            asset.allow_timer_reset = true;
+            asset.path_icon = "ui/icons/iconZerg";
+            asset.locale_description = $"Zerg_{id}_des";
+            asset.locale_id = $"Zerg_{id}_id";
+            loadSprite(asset);
+            AssetManager.status.add(asset);
+
+        }
     }
 }
