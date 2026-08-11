@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using tools;
 using UnityEngine;
 using Zerg.Code.Content;
@@ -134,6 +135,65 @@ namespace Zerg.Code.Convenience
             //此处接入科技
 
             return actor;
+        }
+
+
+
+        public static void trait_add_to_status_array(string status_id,string addition_id)
+        {
+            var status = AssetManager.status.get(status_id);
+            if (status.opposite_traits != null)
+            {
+                int cnt = status.opposite_traits.Count();
+                var strings = new string[cnt + 1];
+
+
+                for (int i = 0; i < cnt; i++)
+                {
+                    strings[i] = status.opposite_traits[i];
+                }
+                strings[cnt] = addition_id;
+                status.opposite_traits = strings;
+            }
+            else status.opposite_traits = new string[] { addition_id };
+        }
+
+        public static void status_add_to_status_array(string status_id, string addition_id)
+        {
+            var status = AssetManager.status.get(status_id);
+            if (status.opposite_status != null)
+            {
+                int cnt = status.opposite_status.Count();
+                var strings = new string[cnt + 1];
+
+
+                for (int i = 0; i < cnt; i++)
+                {
+                    strings[i] = status.opposite_status[i];
+                }
+                strings[cnt] = addition_id;
+                status.opposite_status = strings;
+            }
+            else status.opposite_status = new string[] { addition_id };
+        }
+
+        public static void tag_add_to_status_array(string status_id, string addition_id)
+        {
+            var status = AssetManager.status.get(status_id);
+            if (status.opposite_tags != null)
+            {
+                int cnt = status.opposite_tags.Count();
+                var strings = new string[cnt + 1];
+
+
+                for (int i = 0; i < cnt; i++)
+                {
+                    strings[i] = status.opposite_tags[i];
+                }
+                strings[cnt] = addition_id;
+                status.opposite_tags = strings;
+            }
+            else status.opposite_tags = new string[] { addition_id };
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ai.behaviours;
+﻿using ai;
+using ai.behaviours;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -133,10 +134,9 @@ namespace Zerg.Code.Patch
         }
 
         [HarmonyPrefix]
-        [HarmonyPatch(typeof(Actor), "addAggro", new Type[] {typeof(Actor)})]
-        public static bool Actor_addAggro(Actor __instance,ref Actor pActor)
+        [HarmonyPatch(typeof(Actor), "addAggro", new Type[] { typeof(Actor) })]
+        public static bool Actor_addAggro(Actor __instance, ref Actor pActor)
         {
-            MonoBehaviour.print("debug1");
             if (pActor.isRekt())
             {
                 return false;
@@ -157,7 +157,22 @@ namespace Zerg.Code.Patch
                 if (__instance.attack_target == pActor) __instance.clearAttackTarget();
                 return false;
             }
-            MonoBehaviour.print("debug2");
+            return true;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Actor), "addForce")]
+        public static bool Actor_addForce(Actor __instance)
+        {
+            if(__instance.hasTrait("zerg_ultar_unit")) return false;
+            return true;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Actor), "makeStunned")]
+        public static bool Actor_makeStunned(Actor __instance)
+        {
+            if (__instance.hasTrait("zerg_armored_unit")) return false;
             return true;
         }
 

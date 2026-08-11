@@ -16,7 +16,7 @@ namespace Zerg.Code.Framework
             MutationAsset asset = new MutationAsset();
             asset.from_id = SZA.Larva;
             asset.to_id = SZA.Drone;
-            asset.chance = 0.15f;
+            asset.chance = 0.075f;
             asset.cost_time = 4f;
             asset.building_requirements = new List<string>();
             asset.need_house = false;
@@ -35,7 +35,7 @@ namespace Zerg.Code.Framework
             asset = new MutationAsset();
             asset.from_id = SZA.Drone;
             asset.to_id = SZB.Spawning_Pool;
-            asset.chance = 0.2f;
+            asset.chance = 0.1f;
             asset.cost_time = 10f;
             asset.coco_id = SZB.Cocoons_Building_Medium;
             asset.need_biome = true;
@@ -80,11 +80,22 @@ namespace Zerg.Code.Framework
             asset.building = true;
             list.Add(asset);
 
+            asset = new MutationAsset();
+            asset.from_id = SZA.Drone;
+            asset.to_id = SZB.Ultralisk_Cavern;
+            asset.chance = 0.075f;
+            asset.cost_time = 26f;
+            asset.coco_id = SZB.Cocoons_Building_Medium;
+            asset.need_biome = true;
+            asset.need_house = true;
+            asset.building_requirements = new List<string> { SZB.Hive };
+            asset.building = true;
+            list.Add(asset);
 
             asset = new MutationAsset();
             asset.from_id = SZA.Larva;
             asset.to_id = SZA.Zergling;
-            asset.chance = 0.2f;
+            asset.chance = 0.075f;
             asset.cost_time = 5f;
             asset.num = 2;
             asset.need_house = true;
@@ -104,7 +115,7 @@ namespace Zerg.Code.Framework
             asset = new MutationAsset();
             asset.from_id = SZA.Larva;
             asset.to_id = SZA.Mutalisk;
-            asset.chance = 0.1f;
+            asset.chance = 0.075f;
             asset.cost_time = 10f;
             asset.num = 1;
             asset.need_house = true;
@@ -129,6 +140,16 @@ namespace Zerg.Code.Framework
             asset.num = 1;
             asset.need_house = true;
             asset.building_requirements = new List<string>() { SZB.Hatchery };
+            list.Add(asset);
+
+            asset = new MutationAsset();
+            asset.from_id = SZA.Larva;
+            asset.to_id = SZA.Ultralisk;
+            asset.chance = 0.05f;
+            asset.cost_time = 16f;
+            asset.num = 1;
+            asset.need_house = true;
+            asset.building_requirements = new List<string>() { SZB.Ultralisk_Cavern };
             list.Add(asset);
 
 

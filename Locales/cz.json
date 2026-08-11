@@ -174,7 +174,7 @@
   "spawn_infestor": "感染者",
   "spawn_infestor_description": "异虫的地面战术支援型单位\n使用多种不同的技能影响战局\n由幼虫变异产生",
   "spawn_ultralisk": "雷兽",
-  "spawn_ultralisk_description": "异虫的重型作战单位\n免疫减速、昏迷和精神控制(暂未实现QaQ)\n由幼虫变异产生",
+  "spawn_ultralisk_description": "异虫的重型作战单位\n免疫迟缓、冻结、震惊、混乱、愤怒、暴怒和神经寄生状态；免疫击退\n由幼虫变异产生",
   "spawn_swarm_host": "虫群宿主",
   "spawn_swarm_host_description": "异虫的地面攻城单位\n孵化蝗虫实现阵地压制\n由幼虫变异产生",
   "spawn_locust": "蝗虫",

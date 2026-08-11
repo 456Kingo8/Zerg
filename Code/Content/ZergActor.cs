@@ -233,8 +233,29 @@ namespace Zerg.Code.Content
             actor.spells.addSpell(ZergSpell.spell_Fungal_Growth);
             actor.spells.addSpell(ZergSpell.spell_Microbial_Shroud);
             actor.spells.addSpell(ZergSpell.spell_Neural_Parasite);
-            actor.allowed_status_tiers = StatusTier.Advanced; 
+            actor.allowed_status_tiers = StatusTier.Advanced;
+            actor.addTrait("zerg_armored_unit");
             setaAnimation(actor, 1, 2, 2);
+
+            actor = AssetManager.actor_library.clone(SZA.Ultralisk, "$zerg_actor$");
+            actor.base_stats["size"] = 2f;
+            actor.addGenome(new[]
+            {
+                ("health", 1600f),
+                ("stamina", 500f),
+                ("lifespan", 300f),
+                ("damage", 85f),
+                ("attack_speed",3f),
+                ("speed", 45f),
+                ("armor", 35f),
+            });
+            actor.base_stats[S.range] = 4f;
+            actor.base_stats[S.targets] = 16f;
+            actor.addTrait("zerg_ultar_unit");
+            actor.addTrait("zerg_armored_unit");
+            list.Add(actor.id);
+            setaAnimation(actor, 2, 4, 4, 1f, 1f, 1f);
+
 
             actor = AssetManager.actor_library.clone(SZA.Overlord, "$zerg_actor$");
             actor.addGenome(new[]
@@ -263,7 +284,7 @@ namespace Zerg.Code.Content
             actor.animation_idle = ActorAnimationSequences.walk_0_3;
             actor.animation_walk = ActorAnimationSequences.walk_0_3;
             actor.addTrait("fire_proof");
-
+            actor.addTrait("zerg_armored_unit");
             //以下为技术性实体，无对应按钮，需手动loadTexture(actor);
             //异虫 虫茧 建筑
             actor = AssetManager.actor_library.clone(SZB.Cocoons_Building_Small, "$zerg_actor_building$");

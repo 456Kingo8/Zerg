@@ -18,7 +18,7 @@ namespace Zerg
             ZergSubspeciesTrait.init();
             ZergItem.init();
             ZergProjectile.init();
-            ZergTrait.init();
+            ZergTrait.init();//trait必须在status之前
             ZergSpell.init();//spell必须在actor之前
             ZergActor.init();
             ZergBuilding.init();

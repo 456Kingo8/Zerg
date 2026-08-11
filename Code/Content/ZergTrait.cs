@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using UnityEngine;
+using HarmonyLib;
+using Zerg.Code.Convenience;
 
 namespace Zerg.Code.Content
 {
@@ -19,6 +23,32 @@ namespace Zerg.Code.Content
             trait.action_attack_target = zerg_attack_explode_attack;
             trait.action_death = zerg_attack_explode_death;
             AssetManager.traits.add(trait);
+
+            trait = new ActorTrait
+            {
+                id = "zerg_ultar_unit",
+                rate_birth = 0,
+                path_icon = "ui/Icons/iconZerg",
+                can_be_given = false,
+                group_id = "special"
+            };
+            AssetManager.traits.add(trait);
+            List<string> list = new List<string>() { "tantrum", "confused", "angry", "stunned", "slowness", "frozen" };
+            foreach (string item in list)
+            {
+                Tools.trait_add_to_status_array(item, "zerg_ultar_unit");
+            }
+
+            trait = new ActorTrait
+            {
+                id = "zerg_armored_unit",
+                rate_birth = 0,
+                path_icon = "ui/Icons/iconZerg",
+                can_be_given = false,
+                group_id = "special"
+            };
+            AssetManager.traits.add(trait);
+
         }
 
 

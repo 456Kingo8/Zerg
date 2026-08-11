@@ -78,10 +78,12 @@ namespace Zerg.Code.Content
             asset.locale_description = "Zerg_Neural_Parasite_des";
             asset.locale_id = "Zerg_Neural_Parasite_id";
             asset.remove_status = new string[] {"angry", "Fungal_Growth" };
-            AssetManager.status.get("angry").opposite_status.AddItem("Neural_Parasite");
-            AssetManager.status.get("angry").opposite_tags.AddItem("Zerg");//事实上，这两行并没有用，根本拦不住angry。最终使用HarmonyPatch拦截
             loadSprite(asset);
             AssetManager.status.add(asset);
+            Tools.status_add_to_status_array("angry", "Neural_Parasite");
+            Tools.tag_add_to_status_array("angry", "Zerg");//事实上，这两行并没有用，根本拦不住angry。最终使用HarmonyPatch拦截
+            Tools.trait_add_to_status_array("Neural_Parasite", "zerg_ultar_unit");
+
             addCD("Neural_Parasite_CD",35f);
 
 

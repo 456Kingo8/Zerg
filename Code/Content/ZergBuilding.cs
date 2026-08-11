@@ -76,6 +76,10 @@ namespace Zerg.Code.Content
             SetFootprint(asset, 8, 6);
             list.Add(asset.id);
 
+            asset = AssetManager.buildings.clone(SZB.Ultralisk_Cavern, "$zerg_building$");
+            asset.base_stats[S.health] = 1000;
+            SetFootprint(asset, 8, 6);
+            list.Add(asset.id);
 
             asset = AssetManager.buildings.clone(SZB.Creep_Tumor, "$zerg_building$");
             asset.base_stats[S.health] = 150;
