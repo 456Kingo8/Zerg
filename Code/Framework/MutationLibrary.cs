@@ -16,7 +16,7 @@ namespace Zerg.Code.Framework
             MutationAsset asset = new MutationAsset();
             asset.from_id = SZA.Larva;
             asset.to_id = SZA.Drone;
-            asset.chance = 0.2f;
+            asset.chance = 0.15f;
             asset.cost_time = 4f;
             asset.building_requirements = new List<string>();
             asset.need_house = false;
@@ -142,7 +142,15 @@ namespace Zerg.Code.Framework
             asset.building_requirements = new List<string>() { SZB.Spawning_Pool };
             list.Add(asset);
 
-
+            asset = new MutationAsset();
+            asset.from_id = SZB.Lair;
+            asset.to_id = SZB.Hive;
+            asset.chance = 0.08f;
+            asset.cost_time = 110f;
+            asset.coco_id = SZB.Cocoons_Hatchery;
+            asset.building = true;
+            asset.building_requirements = new List<string>() { SZB.Infestation_Pit };
+            list.Add(asset);
 
 
             foreach (MutationAsset asset1 in list)

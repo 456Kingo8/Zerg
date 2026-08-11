@@ -57,6 +57,10 @@ namespace Zerg.Code.Content
             asset.base_stats[S.health] = 3000;
             list.Add(asset.id);
 
+            asset = AssetManager.buildings.clone(SZB.Hive, SZB.Hatchery);
+            asset.base_stats[S.health] = 6000;
+            list.Add(asset.id);
+
             asset = AssetManager.buildings.clone(SZB.Baneling_Nest, "$zerg_building$");
             asset.base_stats[S.health] = 800;
             SetFootprint(asset, 6, 4);
