@@ -5,6 +5,7 @@ using Zerg.Code.Content;
 using Zerg.Code.Framework;
 using Zerg.Code.Patch;
 using Zerg.Code.UI;
+using static UnityEngine.TouchScreenKeyboard;
 
 namespace Zerg
 {
@@ -17,15 +18,16 @@ namespace Zerg
             ZergDecision.init();
             ZergSubspeciesTrait.init();
             ZergItem.init();
-            ZergProjectile.init();
-            ZergTrait.init();//trait必须在status之前
+            ZergProjectile.init(); 
+            ZergStatus.init();//status必须在trait之前
+            ZergTrait.init();
             ZergSpell.init();//spell必须在actor之前
             ZergActor.init();
             ZergBuilding.init();
             ZergBiome.init();
             ZergWorldBehavior.init();
             ZergJob.init();
-            ZergStatus.init();
+
             ZergQuantumSprite.init();
             MutationLibrary.init();
             Patches.init();

@@ -247,11 +247,11 @@ namespace Zerg.Code.Content
                 ("damage", 85f),
                 ("attack_speed",3f),
                 ("speed", 45f),
-                ("armor", 35f),
+                ("armor", 15f),
             });
             actor.base_stats[S.range] = 4f;
             actor.base_stats[S.targets] = 16f;
-            actor.addTrait("zerg_ultar_unit");
+            actor.addTrait("zerg_frenzied");
             actor.addTrait("zerg_armored_unit");
             list.Add(actor.id);
             setaAnimation(actor, 2, 4, 4, 1f, 1f, 1f);

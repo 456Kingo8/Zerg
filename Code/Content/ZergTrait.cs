@@ -30,12 +30,12 @@ namespace Zerg.Code.Content
                 id = "zerg_ultar_unit",
                 rate_birth = 0,
                 path_icon = "ui/Icons/iconZerg",
-                can_be_given = false,
+                can_be_given = true,
                 group_id = "special"
             };
             addLocale(trait);
             AssetManager.traits.add(trait);
-            List<string> list = new List<string>() { "tantrum", "confused", "angry", "stunned", "slowness", "frozen" };
+            List<string> list = new List<string>() { "tantrum", "confused", "angry", "stunned", "slowness", "frozen", "Neural_Parasite" };
             foreach (string item in list)
             {
                 Tools.trait_add_to_status_array(item, "zerg_ultar_unit");
@@ -46,12 +46,28 @@ namespace Zerg.Code.Content
                 id = "zerg_armored_unit",
                 rate_birth = 0,
                 path_icon = "ui/Icons/iconZerg",
+                can_be_given = true,
+                group_id = "special",
+            };
+            trait.base_stats = new();
+            trait.base_stats[S.armor] = 20f;
+            addLocale(trait);
+            AssetManager.traits.add(trait);
+
+            trait = new ActorTrait
+            {
+                id = "zerg_frenzied",
+                rate_birth = 0,
+                path_icon = "ui/Icons/iconZerg",
                 can_be_given = false,
                 group_id = "special",
             };
             addLocale(trait);
             AssetManager.traits.add(trait);
-
+            foreach (string item in list)
+            {
+                Tools.trait_add_to_status_array(item, "zerg_frenzied");
+            }
         }
 
 
