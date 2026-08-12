@@ -165,14 +165,14 @@ namespace Zerg.Code.Patch
         public static bool Actor_addForce(Actor __instance)
         {
             if (__instance.hasTrait("zerg_armored_unit")) return false; 
-                return true;
+            return true;
         }
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Actor), "makeStunned")]
         public static bool Actor_makeStunned(Actor __instance)
         {
-            if (__instance.hasTrait("zerg_ultar_unit")) return false;
+            if (__instance.hasTrait("zerg_ultar_unit") || __instance.hasTrait("zerg_frenzied")) return false;
             return true;
         }
 

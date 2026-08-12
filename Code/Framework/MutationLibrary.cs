@@ -132,6 +132,18 @@ namespace Zerg.Code.Framework
             asset.building_requirements = new List<string>() { SZB.Infestation_Pit };
             list.Add(asset);
 
+
+            asset = new MutationAsset();
+            asset.from_id = SZA.Larva;
+            asset.to_id = SZA.Swarm_Host;
+            asset.chance = 0.05f;
+            asset.cost_time = 12f;
+            asset.num = 1;
+            asset.need_house = true;
+            asset.building_requirements = new List<string>() { SZB.Infestation_Pit };
+            list.Add(asset);
+
+
             asset = new MutationAsset();
             asset.from_id = SZA.Larva;
             asset.to_id = SZA.Overlord;

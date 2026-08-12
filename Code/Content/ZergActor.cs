@@ -164,13 +164,12 @@ namespace Zerg.Code.Content
             list.Add(actor.id);
             actor.base_stats["size"] = 1f;
             actor.base_stats["mana"] = 100f;
+            actor.base_stats[S.range] = 10f;
             actor.base_stats["accuracy"] = 100f;
             actor.traits = new List<string> { "eagle_eyed", "poison_immune", "immune" };
             actor.default_attack = "zerg_spine";
             actor.addDecision("create_creep_tumor");
             actor.allowed_status_tiers = StatusTier.Advanced;
-            //actor.spells = new();
-            //actor.spells.addSpell(ZergSpell.create_creep_tumor);
             setaAnimation(actor, 2, 2, 2, 1f, 0.8f, 0.8f);
 
             actor = AssetManager.actor_library.clone(SZA.Baneling, "$zerg_actor$");
@@ -217,13 +216,13 @@ namespace Zerg.Code.Content
             actor = AssetManager.actor_library.clone(SZA.Infestor, "$zerg_actor$");
             actor.addGenome(new[]
 {
-                ("health", 210f),
+                ("health", 240f),
                 ("stamina", 100f),
                 ("lifespan", 100f),
                 ("damage", 1f),
                 ("attack_speed",2f),
                 ("speed", 32f),
-                ("armor", 25f)
+                ("armor", 15f)
             });
             list.Add(actor.id);
             actor.base_stats["size"] = 0.6f;
@@ -237,6 +236,49 @@ namespace Zerg.Code.Content
             actor.addTrait("zerg_armored_unit");
             setaAnimation(actor, 1, 2, 2);
 
+            actor = AssetManager.actor_library.clone(SZA.Swarm_Host, "$zerg_actor$");
+            actor.addGenome(new[]
+{
+                ("health", 400f),
+                ("stamina", 130f),
+                ("lifespan", 100f),
+                ("damage", 1f),
+                ("attack_speed",2f),
+                ("speed", 32f),
+                ("armor", 15f)
+            });
+            list.Add(actor.id);
+            actor.base_stats["size"] = 0.5f;
+            actor.base_stats["range"] = 16f;
+            actor.base_stats["mana"] = 50f;
+            actor.addTrait("zerg_armored_unit");
+            actor.spells = new SpellHolder();
+            actor.spells.addSpell(ZergSpell.spell_Spawn_Locusts);
+            setaAnimation(actor, 1, 2, 2, 2f, 0.8f, 1f);
+
+            actor = AssetManager.actor_library.clone(SZA.Locust, "$zerg_actor$");
+            actor.base_stats["size"] = 0.3f;
+            actor.base_stats[S.range] = 4f;
+            actor.default_height = 1f;
+            actor.base_stats["accuracy"] = 1.3f;
+            actor.addGenome(new[]
+            {
+                ("health", 120f),
+                ("stamina", 50f),
+                ("lifespan", 20f),
+                ("damage", 8f),
+                ("attack_speed",6f),
+                ("speed", 45f),
+                ("armor", 25f),
+            });
+            actor.run_to_water_when_on_fire = false;
+            actor.flying = true;
+            list.Add(actor.id);
+            actor.animation_walk = ActorAnimationSequences.walk_0_1;
+            actor.animation_idle = ActorAnimationSequences.walk_0_1;
+            actor.animation_swim = ActorAnimationSequences.walk_0_1;
+            actor.default_attack = "zerg_spine_locust";
+
             actor = AssetManager.actor_library.clone(SZA.Ultralisk, "$zerg_actor$");
             actor.base_stats["size"] = 2f;
             actor.addGenome(new[]
@@ -247,7 +289,7 @@ namespace Zerg.Code.Content
                 ("damage", 85f),
                 ("attack_speed",3f),
                 ("speed", 45f),
-                ("armor", 15f),
+                ("armor", 20f),
             });
             actor.base_stats[S.range] = 4f;
             actor.base_stats[S.targets] = 16f;

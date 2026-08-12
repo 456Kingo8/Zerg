@@ -15,7 +15,14 @@ namespace Zerg.Code.Content
             asset.attack_type = WeaponType.Range;
             asset.path_icon = "ui/icons/iconZerg";
             asset.base_stats[S.projectiles] = 1;
-            asset.base_stats[S.range] = 10;
+            asset.base_stats[S.damage_range] = 1f;
+
+            asset = AssetManager.items.clone("zerg_spine_locust", "$range");
+            asset.projectile = "zerg_spine_locust";
+            asset.material = "base";
+            asset.attack_type = WeaponType.Range;
+            asset.path_icon = "ui/icons/iconZerg";
+            asset.base_stats[S.projectiles] = 8;
             asset.base_stats[S.damage_range] = 1f;
 
             asset = AssetManager.items.clone("glaive_wurm", "$range");

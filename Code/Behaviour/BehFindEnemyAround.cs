@@ -19,13 +19,13 @@ namespace Zerg.Code.Behaviour
             {
                 if (building.kingdom != null && building.isUsable() && building.kingdom.isEnemy(pActor.kingdom))
                 {
-                    target = building; break;
+                    target = building; 
+                    break;
                 }
             }
 
             if (target != null)
             {
-                pActor.attack_target = target;
                 pActor.tile_target = target.current_tile;
                 if(target.current_tile != null)pActor.goTo(pActor.tile_target);
 
@@ -40,7 +40,6 @@ namespace Zerg.Code.Behaviour
             }
             if (target != null)
             {
-                pActor.attack_target = target;
                 pActor.tile_target = target.current_tile;
                 if (target.current_tile != null) pActor.goTo(pActor.tile_target);
             }

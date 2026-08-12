@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using Zerg.Code.Convenience;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.CanvasScaler;
 
@@ -18,6 +19,13 @@ namespace Zerg.Code.Content
             asset.scale_target = 0.15f;
             asset.size = 10f;
             asset.can_be_collided = false;
+
+            asset = AssetManager.projectiles.clone("zerg_spine_locust", "zerg_spine");
+            asset.speed = 100f;
+            asset.scale_start = 0.1f;
+            asset.scale_target = 0.1f;
+            asset.can_be_left_on_ground = false;
+            asset.size = 10f;
 
             asset = new ProjectileAsset();
             asset.id = "glaive_wurm_0";//这是会弹跳三次的刃虫，你能这段代码对视10s不笑吗
@@ -54,11 +62,21 @@ namespace Zerg.Code.Content
             asset.world_actions = Fungal_Growth_action;     
             AssetManager.projectiles.add(asset);
 
-
+            asset = new ProjectileAsset();
+            asset.id = "Spawn_Locusts";
+            asset.texture_shadow = "shadows/projectiles/shadow_ball";
+            asset.speed = 1;
+            asset.mass = 0.5f;
+            asset.can_be_collided = false;
+            asset.can_be_blocked = false;
+            asset.texture = "Spawn_Locusts";
+            asset.draw_light_area = false;
+            asset.world_actions = Spawn_Locusts_action;
+            AssetManager.projectiles.add(asset);
 
         }
 
-        public static bool Fungal_Growth_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        private static bool Fungal_Growth_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
         {
             foreach (Actor act in Finder.getUnitsFromChunk(pTile, 1, 5))
             {
@@ -70,7 +88,17 @@ namespace Zerg.Code.Content
             return true;
         }
 
-
+        private static bool Spawn_Locusts_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if(pSelf != null && pTile != null)
+            {
+                Actor act = World.world.units.createNewUnit(SZA.Locust, pTile);
+                act.setKingdom(pSelf.kingdom);
+                act.addStatusEffect("Zerg_Exist_Duration");
+                act.attack_target = pSelf.a.attack_target;
+            }
+            return true;
+        }
 
 
 

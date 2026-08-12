@@ -83,9 +83,18 @@ namespace Zerg.Code.Content
             Tools.status_add_to_status_array("angry", "Neural_Parasite");
             Tools.tag_add_to_status_array("angry", "Zerg");//事实上，这两行并没有用，根本拦不住angry。最终使用HarmonyPatch拦截
 
+            asset = new StatusAsset();
+            asset.id = "Zerg_Exist_Duration"; //通用召唤物持续时间
+            asset.duration = 20f;
+            asset.path_icon = "ui/icons/iconZerg";
+            asset.locale_description = "Zerg_Exist_Duration_des";
+            asset.locale_id = "Zerg_Exist_Duration_id";
+            asset.action_finish = Exist_Duration_end;
+            AssetManager.status.add(asset);
+
+
             addCD("Neural_Parasite_CD",35f);
-
-
+            addCD("Spawn_Locusts_CD", 12f);
 
         }
 
@@ -100,6 +109,11 @@ namespace Zerg.Code.Content
         public static bool Turning_end(BaseSimObject pTarget, WorldTile pTile = null!)
         {
             pTarget.a.Zerg_endMutation();
+            return true;
+        }
+        public static bool Exist_Duration_end(BaseSimObject pTarget, WorldTile pTile = null!)
+        {
+            pTarget.a.die();
             return true;
         }
 
@@ -135,6 +149,7 @@ namespace Zerg.Code.Content
         {
             var asset = new StatusAsset();
             asset.id = id;
+            asset.animated = false;
             asset.duration = time;
             asset.allow_timer_reset = true;
             asset.path_icon = "ui/icons/iconZerg";

@@ -12,7 +12,7 @@ namespace Zerg.Code.Content
         public static SpellAsset spell_Fungal_Growth; 
         public static SpellAsset spell_Microbial_Shroud; 
         public static SpellAsset spell_Neural_Parasite;
-
+        public static SpellAsset spell_Spawn_Locusts;
         public static void init()
         {
             SpellAsset asset = new SpellAsset();
@@ -58,7 +58,16 @@ namespace Zerg.Code.Content
             AssetManager.spells.add(asset);
             spell_Neural_Parasite = asset;
 
-
+            asset = new SpellAsset();
+            asset.id = "Spawn_Locust";
+            asset.cost_mana = 1;
+            asset.can_be_used_in_combat = true;
+            asset.cast_entity = CastEntity.Both;
+            asset.cast_target = CastTarget.Himself;
+            asset.action = Spawn_Locusts_action;
+            asset.chance = 1f;
+            AssetManager.spells.add(asset);
+            spell_Spawn_Locusts = asset;
         }
 
         public static bool create_creep_tumor_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
@@ -124,7 +133,17 @@ namespace Zerg.Code.Content
                 pTarget.a.finishStatusEffect("angry");
             }
             return true;
+        }
 
+        public static bool Spawn_Locusts_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pSelf.a.hasStatus("Spawn_Locusts_CD")) return false;
+            pSelf.a.addStatusEffect("Spawn_Locusts_CD");
+            for (int i = 0; i < 4; i++)
+            {
+                Tools.throwAtTile("Spawn_Locusts", pSelf.a, pSelf.current_tile.neighboursAll.GetRandom().neighboursAll.GetRandom());
+            }
+            return true;
         }
     }
 }
