@@ -7,6 +7,7 @@ using System.Text;
 using UnityEngine;
 using Zerg.Code.Content;
 using Zerg.Code.Convenience;
+using Zerg.Code.Framework;
 
 namespace Zerg.Code.UI
 {
@@ -43,7 +44,7 @@ namespace Zerg.Code.UI
                     actor_spawn_height = 3f,
                     name = $"spawn{id}",
                     actor_asset_id = id,
-                    click_action = AssetManager.powers.spawnUnit
+                    click_action = Zerg_spawnUnit
                 };
                 AssetManager.powers.add(godPower);
                 AssetManager.actor_library.get(id).power_id = godPower.id;
@@ -131,6 +132,7 @@ namespace Zerg.Code.UI
             MusicBox.playSound("event:/SFX/UNIQUE/SpawnWhoosh", pTile.pos.x, pTile.pos.y);
             EffectsLibrary.spawn("fx_spawn", pTile); 
             Actor act = World.world.units.spawnNewUnitByPlayer(godPower.actor_asset_id, pTile, pSpawnSound: true, pMiracleSpawn: true, godPower.actor_spawn_height);
+            
             if (pTile?.zone?.city?.kingdom != null)
             {
                 act.setKingdom(pTile.zone.city.kingdom);
@@ -138,7 +140,17 @@ namespace Zerg.Code.UI
             return true;
         }
 
+        public static bool Zerg_spawnUnit(WorldTile pTile, string pPowerID)
+        {
+            GodPower godPower = AssetManager.powers.get(pPowerID);
+            MusicBox.playSound("event:/SFX/UNIQUE/SpawnWhoosh", pTile.pos.x, pTile.pos.y);
 
+            EffectsLibrary.spawn("fx_spawn", pTile);
+            string[] actor_asset_ids = godPower.actor_asset_ids;
+            Actor act = World.world.units.spawnNewUnitByPlayer(godPower.actor_asset_id, pTile, pSpawnSound: true, pMiracleSpawn: true, godPower.actor_spawn_height);
+            act.Zerg_addAllAdaption();
+            return true;
+        }
 
     }
 }

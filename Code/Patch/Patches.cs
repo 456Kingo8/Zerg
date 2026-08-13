@@ -180,7 +180,9 @@ namespace Zerg.Code.Patch
         [HarmonyPatch(typeof(Actor), "die")]
         public static bool Actor_die(Actor __instance)
         {
-            if(__instance.attackedBy != null && __instance.attackedBy.isActor() && (__instance.attackedBy.a.hasTag("Zerg")|| __instance.attackedBy.a.hasStatus("Neural_Parasite")))
+            PlayerConfig.dict.TryGetValue("zerg_infinite_evolution_law", out var option);
+            if (option?.boolVal != true) return true;
+            if (__instance.attackedBy != null && __instance.attackedBy.isActor() && (__instance.attackedBy.a.hasTag("Zerg")|| __instance.attackedBy.a.hasStatus("Neural_Parasite")))
             {
                 foreach(ActorTrait trait in __instance.traits)
                 {

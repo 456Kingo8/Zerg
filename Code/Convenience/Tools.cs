@@ -137,8 +137,7 @@ namespace Zerg.Code.Convenience
             //此处接入科技
 
             //此处接入适应进化
-            PlayerConfig.dict.TryGetValue("zerg_infinite_evolution", out var option);
-            if (!id.Contains("Coco") &&option?.boolVal == true) actor.Zerg_addAllAdaption();
+            if (!id.Contains("Coco")) actor.Zerg_addAllAdaption();
 
             return actor;
         }

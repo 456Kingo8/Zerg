@@ -38,7 +38,8 @@ namespace Zerg.Code.Framework
         [Hotfixable]
         public static void addNewTrait(string id)
         {
-
+            PlayerConfig.dict.TryGetValue("zerg_infinite_evolution_law", out var option);
+            if (option?.boolVal != true) return;
             if (_adaptive_asset_total.Contains(id))
             {
                 if (_adaptive_asset_current.Contains(id)) return;
@@ -82,7 +83,7 @@ namespace Zerg.Code.Framework
         public static void updateEvolve()
         {
             if (!_update) return;
-            PlayerConfig.dict.TryGetValue("zerg_infinite_evolution", out var option);
+            PlayerConfig.dict.TryGetValue("zerg_infinite_evolution_law", out var option);
             if(option?.boolVal != true) return;
             //if 模组配置按钮的return
             _update = false;
@@ -118,11 +119,15 @@ namespace Zerg.Code.Framework
 
         public static void Zerg_addAllAdaption(this Actor actor)
         {
-            foreach (string id in _adaptive_asset_current)
+            PlayerConfig.dict.TryGetValue("zerg_infinite_evolution_law", out var option);
+            if(option?.boolVal == true)
             {
-                var asset = AdaptationLibrary.get(id);
-                if (asset.trait) actor.addTrait(id, true);
-                if (asset.action != null) asset.action(actor);
+                foreach (string id in _adaptive_asset_current)
+                {
+                    var asset = AdaptationLibrary.get(id);
+                    if (asset.trait) actor.addTrait(id, true);
+                    if (asset.action != null) asset.action(actor);
+                }
             }
         }
     }
