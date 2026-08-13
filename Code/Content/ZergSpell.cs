@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 using Zerg.Code.Convenience;
+using Zerg.Code.Extend;
 
 namespace Zerg.Code.Content
 {
@@ -125,12 +126,14 @@ namespace Zerg.Code.Content
                 if(pTarget.a.hasTrait("immune")) return false;
                 if(pTarget.a.hasStatus("Neural_Parasite")) return false;
                 if(pTarget.a.data.health <= 200) return false;
+                pTarget.a.SetOriginal_kingdom(pTarget.a.kingdom.id);
                 pTarget.a.setKingdom(pSelf.a.kingdom);
                 pTarget.a.addStatusEffect("Neural_Parasite");
                 pSelf.a.addStatusEffect("Neural_Parasite_CD");
                 pTarget.a.clearAttackTarget();
                 pSelf.a.clearAttackTarget();
                 pTarget.a.finishStatusEffect("angry");
+
             }
             return true;
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine.Assertions;
 using Zerg.Code.Convenience;
+using Zerg.Code.Extend;
 using Zerg.Code.Framework;
 
 namespace Zerg.Code.Content
@@ -134,7 +135,9 @@ namespace Zerg.Code.Content
         public static bool Neural_Parasite_action_finish(BaseSimObject pTarget, WorldTile pTile = null!)
         {
             pTarget.a.finishStatusEffect("Microbial_Shroud");
-            pTarget.a.setDefaultKingdom();
+            var kingdom = pTarget.a.GetOriginal_kingdom();
+            if (kingdom != null) pTarget.a.setKingdom(kingdom);
+            else pTarget.a.setDefaultKingdom();
             return true;
         }
 

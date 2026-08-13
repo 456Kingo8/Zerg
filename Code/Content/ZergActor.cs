@@ -51,7 +51,7 @@ namespace Zerg.Code.Content
             actor.kingdom_id_wild = "Zerg";
             actor.color = Toolbox.makeColor("#AD00B9");
             actor.color_hex = "#AD00B9";
-            actor.traits = new List<string> { "异虫", "poison_immune", "immune" };
+            actor.traits = new List<string> { "异虫", "poison_immune", "immune" , "zerg_infinite_evolution" };
             actor.name_taxonomic_kingdom = "animalia";
             actor.name_taxonomic_phylum = "neoplasia";
             actor.name_taxonomic_class = "malignomorpha";

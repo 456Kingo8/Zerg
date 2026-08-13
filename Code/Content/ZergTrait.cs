@@ -68,6 +68,23 @@ namespace Zerg.Code.Content
             {
                 Tools.trait_add_to_status_array(item, "zerg_frenzied");
             }
+
+            trait = new ActorTrait
+            {
+                id = "zerg_infinite_evolution",
+                rate_birth = 0,
+                path_icon = "ui/Icons/iconGeneMutation",
+                can_be_given = false,
+                group_id = "special",
+            };
+            trait.base_stats = new();
+#if WARRIOR
+            trait.base_stats["Accuracy"] = 10f;
+#endif
+
+            addLocale(trait);
+            AssetManager.traits.add(trait);
+
         }
 
 

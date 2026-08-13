@@ -14,6 +14,9 @@ namespace Zerg
         protected override void OnModLoad()
         {
             Config.isEditor = true;
+            AdaptationLibrary.init();//必须在AdaptiveEvolution之前
+            AdaptiveEvolution.init();
+
             ZergKingdom.init();
             ZergDecision.init();
             ZergSubspeciesTrait.init();
@@ -27,7 +30,7 @@ namespace Zerg
             ZergBiome.init();
             ZergWorldBehavior.init();
             ZergJob.init();
-
+   
             ZergQuantumSprite.init();
             MutationLibrary.init();
             Patches.init();

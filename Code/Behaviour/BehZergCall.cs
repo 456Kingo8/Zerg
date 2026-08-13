@@ -16,8 +16,8 @@ namespace Zerg.Code.Behaviour
             if (pActor.attack_target != null)
             {
                 int cnt = 0;
-                if (pActor.asset.id == SZA.Overlord) cnt = 100;
-                else if (pActor.asset.id == SZA.Overseer) cnt = 200;
+                if (pActor.asset.id == SZA.Overlord) cnt = 50;
+                else if (pActor.asset.id == SZA.Overseer) cnt = 100;
                 else cnt = 50;
 
                 if(pActor.hasHomeBuilding())

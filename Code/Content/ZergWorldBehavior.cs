@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using Zerg.Code.Convenience;
+using Zerg.Code.Framework;
 
 namespace Zerg.Code.Content
 {
@@ -18,6 +19,17 @@ namespace Zerg.Code.Content
                 interval_random = 2f,
                 action = new WorldBehaviourAction(ZergCreepDecay.checkCreep),
                 action_world_clear = new WorldBehaviourAction(ZergCreepDecay.total_clear)
+            };
+            asset.manager = new WorldBehaviour(asset);
+            AssetManager.world_behaviours.add(asset);
+
+            asset = new WorldBehaviourAsset
+            {
+                id = "zerg_adaptiveEvolution",
+                interval = 10f,
+                interval_random = 5f,
+                action = new WorldBehaviourAction(AdaptiveEvolution.updateEvolve),
+                action_world_clear = new WorldBehaviourAction(AdaptiveEvolution.clear)
             };
             asset.manager = new WorldBehaviour(asset);
             AssetManager.world_behaviours.add(asset);

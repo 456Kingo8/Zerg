@@ -92,7 +92,7 @@ namespace Zerg.Code.Content
         {
             if(pSelf != null && pTile != null)
             {
-                Actor act = World.world.units.createNewUnit(SZA.Locust, pTile);
+                Actor act = Tools.spawnZergUnit(SZA.Locust,pTile);
                 act.setKingdom(pSelf.kingdom);
                 act.addStatusEffect("Zerg_Exist_Duration");
                 act.attack_target = pSelf.a.attack_target;

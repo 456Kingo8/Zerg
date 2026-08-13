@@ -4,5 +4,10 @@
   "version": "0.0.1",
   "targetGameBuild": 472,
   "description": "施工中……",
-  "iconPath": "icon.png"
+  "iconPath": "icon.png",
+  "Dependencies": [],
+  "OptionalDependencies": [
+    "WARRIOR"
+  ],
+  "IncompatibleWith": []
 }

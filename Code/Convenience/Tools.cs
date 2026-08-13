@@ -5,6 +5,8 @@ using System.Linq;
 using tools;
 using UnityEngine;
 using Zerg.Code.Content;
+using System.Data.Common;
+using Zerg.Code.Framework;
 
 namespace Zerg.Code.Convenience
 {
@@ -133,6 +135,9 @@ namespace Zerg.Code.Convenience
 
 
             //此处接入科技
+
+            //此处接入适应进化
+            actor.Zerg_addAllAdaption();
 
             return actor;
         }

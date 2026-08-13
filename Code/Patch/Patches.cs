@@ -176,6 +176,20 @@ namespace Zerg.Code.Patch
             return true;
         }
 
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Actor), "die")]
+        public static bool Actor_die(Actor __instance)
+        {
+            if(__instance.attackedBy != null && __instance.attackedBy.isActor() && (__instance.attackedBy.a.hasTag("Zerg")|| __instance.attackedBy.a.hasStatus("Neural_Parasite")))
+            {
+                foreach(ActorTrait trait in __instance.traits)
+                {
+                    AdaptiveEvolution.addNewTrait(trait.id);
+                }
+            }
+            return true;
+        }
+
         //[HarmonyPrefix]
         //[HarmonyPatch(typeof(CombatActionLibrary), "attackRangeAction")]
         //public static bool CombatActionLibrary_attackRangeAction(CombatActionLibrary __instance, ref AttackData pData)

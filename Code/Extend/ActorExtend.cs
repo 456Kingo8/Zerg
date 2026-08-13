@@ -10,6 +10,7 @@ namespace Zerg.Code.Extend
         private const string Mutation_key = "Zerg.Mutation";
         private const string Mutation_num_key = "Zerg.MutationNumber";
         private const string Mutation_building_key = "Zerg.MutationBuilding";
+        private const string Original_kingdom_key = "Zerg.OriginalKingdom";
         public static string GetMutation_id(this Actor actor)
         {
             actor.data.get(Mutation_key, out string val, null);
@@ -40,6 +41,17 @@ namespace Zerg.Code.Extend
         public static void SetMutation_building(this Actor actor, bool val)
         {
             actor.data.set(Mutation_building_key, val);
+        }
+
+        public static Kingdom GetOriginal_kingdom(this Actor actor)
+        {
+            actor.data.get(Original_kingdom_key, out long val, 0);
+            return World.world.kingdoms.get(val);
+        }
+
+        public static void SetOriginal_kingdom(this Actor actor, long val)
+        {
+            actor.data.set(Original_kingdom_key, val);
         }
 
     }
