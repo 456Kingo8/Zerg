@@ -11,9 +11,18 @@ namespace Zerg
 {
     public class ZergMain : BasicMod<ZergMain> ,IReloadable
     {
+
+        public static bool linked_mod = false;
         protected override void OnModLoad()
         {
             Config.isEditor = true;
+#if WARRIOR
+            linked_mod = true;
+#endif
+#if THEFANTASYWORLD
+            linked_mod = true;
+#endif
+
             AdaptationLibrary.init();//必须在AdaptiveEvolution之前
             AdaptiveEvolution.init();
 

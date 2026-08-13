@@ -24,6 +24,9 @@ namespace Zerg.Code.Framework
 
 
 
+
+
+
 #if WARRIOR
             var warrior_list = new float[] { 5, 10, 20, 40, 80, 160, 300, 500, 800, 1200, 3600, 12000 };
             string warrior_key = "wushu.warriorNum";
@@ -53,6 +56,24 @@ namespace Zerg.Code.Framework
             }
 #endif
 
+#if THEFANTASYWORLD
+
+            var the_fantasy_world = new List<string>() { "enchanter", "pastor", "Paladin", "valiantgeneral", "Ranger", "Assassin", "Summoner", "minstrel", "warlock", "alchemist", "barbarian"};
+            foreach(string id in the_fantasy_world)
+            {
+                for (int i = 1; i <= 7; i++)
+                {
+                    int index = i;
+                    asset = new AdaptationAsset();
+                    asset.id = $"{id}{i}";
+                    asset.cultivate_way = true;
+                    asset.cultivate_id = "THEFANTASYWORLD." + id;
+                    asset.priority = index;
+                    list.Add(asset);
+                }
+            }
+
+#endif
             post_init();
         }
 

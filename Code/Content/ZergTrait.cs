@@ -68,22 +68,45 @@ namespace Zerg.Code.Content
             {
                 Tools.trait_add_to_status_array(item, "zerg_frenzied");
             }
-
-            trait = new ActorTrait
+            if(ZergMain.linked_mod)
             {
-                id = "zerg_infinite_evolution",
-                rate_birth = 0,
-                path_icon = "ui/Icons/iconGeneMutation",
-                can_be_given = false,
-                group_id = "special",
-            };
-            trait.base_stats = new();
+                trait = new ActorTrait
+                {
+                    id = "zerg_infinite_evolution",
+                    rate_birth = 0,
+                    path_icon = "ui/Icons/iconGeneMutation",
+                    can_be_given = false,
+                    group_id = "special",
+                };
+                trait.base_stats = new();
+
 #if WARRIOR
-            trait.base_stats["Accuracy"] = 10f;
+                trait.base_stats["Accuracy"] = 10f;
 #endif
 
-            addLocale(trait);
-            AssetManager.traits.add(trait);
+#if THEFANTASYWORLD
+                trait.base_stats["health"] = 100f;
+                trait.base_stats[S.multiplier_health] = 2f;
+                trait.base_stats["BaseDamage"] = 30f;
+                trait.base_stats["MagicalEnergy"] = 50f;
+                trait.base_stats["DodgeEvade"] = 10f;
+                trait.base_stats["hitthetarget"] = 20f;
+                trait.base_stats["MagicApplication"] = 4f;
+                trait.base_stats["MagicShield"] = 30f;
+                trait.base_stats["FixedPhysicalDamage"] = 20f;
+                trait.base_stats["Restorehealth"] = 10f;
+                trait.base_stats["MagicReply"] = 10f;
+                trait.base_stats["MagicResistance"] = 3f;
+                trait.base_stats["PhysicalDefense"] = 3f;
+                trait.base_stats["MagicDamage"] = 5f;
+                trait.base_stats["PhysicalDamage"] = 20f;
+                
+#endif
+
+                addLocale(trait);
+                AssetManager.traits.add(trait);
+
+            }
 
         }
 

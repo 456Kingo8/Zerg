@@ -5,9 +5,11 @@
   "targetGameBuild": 472,
   "description": "施工中……",
   "iconPath": "icon.png",
+  "RepoUrl":"https://github.com/456Kingo8/Zerg",
   "Dependencies": [],
   "OptionalDependencies": [
-    "WARRIOR"
+    "WARRIOR",
+    "THEFANTASYWORLD"
   ],
   "IncompatibleWith": []
 }

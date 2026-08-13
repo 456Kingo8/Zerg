@@ -4,8 +4,8 @@ using NeoModLoader.General.UI.Tab;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Zerg.Code.Content;
 using UnityEngine;
+using Zerg.Code.Content;
 using Zerg.Code.Convenience;
 
 namespace Zerg.Code.UI
@@ -91,8 +91,8 @@ namespace Zerg.Code.UI
             PowerButtonCreator.CreateGodPowerButton(godPower.id,
             SpriteTextureLoader.getSprite("ui/icons/tab/Drone")));
 
-            CreateNewToggleButton("show_zones_zerg_law", "Zerg");
-
+            CreateNewToggleButton("show_zones_zerg_law", "Zerg",false);
+            CreateNewToggleButton("zerg_infinite_evolution_law", "Zerg",true);
 
 
 
@@ -100,8 +100,20 @@ namespace Zerg.Code.UI
         }
 
 
-        private static void CreateNewToggleButton(string id, string path_icon)
+        private static void CreateNewToggleButton(string id, string path_icon, bool default_value)
         {
+            AssetManager.options_library.add(new OptionAsset
+            {
+                id = id,
+                default_bool = default_value,
+                type = OptionType.Bool
+            });
+            PlayerOptionData option = PlayerConfig.instance.data.add(new PlayerOptionData(id)
+            {
+                boolVal = default_value
+            });
+
+
             GodPower power = new GodPower();
             power.id = id;
             power.name = id;

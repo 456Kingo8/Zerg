@@ -51,7 +51,7 @@ namespace Zerg.Code.Content
             actor.kingdom_id_wild = "Zerg";
             actor.color = Toolbox.makeColor("#AD00B9");
             actor.color_hex = "#AD00B9";
-            actor.traits = new List<string> { "异虫", "poison_immune", "immune" , "zerg_infinite_evolution" };
+            actor.traits = new List<string> { "异虫", "poison_immune", "immune" };
             actor.name_taxonomic_kingdom = "animalia";
             actor.name_taxonomic_phylum = "neoplasia";
             actor.name_taxonomic_class = "malignomorpha";
@@ -81,6 +81,8 @@ namespace Zerg.Code.Content
             actor.animation_idle = ActorAnimationSequences.walk_0_1;
             actor.animation_swim = ActorAnimationSequences.walk_0_1;
             actor.base_stats.addTag("Zerg");
+            if (ZergMain.linked_mod) actor.traits.Add("zerg_infinite_evolution");
+
 
             actor = AssetManager.actor_library.clone("$zerg_actor_building$", "$zerg_actor$");
             actor.can_level_up = false;
@@ -185,7 +187,7 @@ namespace Zerg.Code.Content
             });
             list.Add(actor.id);
             actor.base_stats["size"] = 0.3f;
-            actor.traits = new List<string> { "zerg_attack_explode", "poison_immune", "immune" };
+            actor.traits.Add("zerg_attack_explode");
             setaAnimation(actor, 1, 2, 5);
 
             actor = AssetManager.actor_library.clone(SZA.Mutalisk, "$zerg_actor$");

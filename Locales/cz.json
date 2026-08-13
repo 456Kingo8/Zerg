@@ -292,6 +292,8 @@
   "spawn_special_drone_description": "放置后，这只特殊的工蜂会加入该区域的所属国家",
   "show_zones_zerg_law": "灵能链接",
   "show_zones_zerg_law_description": "开启后，用虫族所在\n国家的主色标记区块",
+  "zerg_infinite_evolution_law": "无限进化",
+  "zerg_infinite_evolution_law_description": "虫族将掠夺并吸收特定特质\n目前已适配：武极寰宇录、西幻世界\n需重启生效",
   "zerg_attack_explode_id": "自爆单位",
   "zerg_attack_explode_des1": "攻击后或死亡时自爆",
   "zerg_attack_explode_des2": "具有较高腐蚀性",
@@ -304,10 +306,16 @@
   "zerg_frenzied_id": "狂暴",
   "zerg_frenzied_des1": "雷兽自诞生起就处于永久狂暴状态\n免疫迟缓、冻结、震惊、混乱、愤怒、暴怒和神经寄生状态",
   "zerg_frenzied_des2": "大牛来咯",
+  "zerg_infinite_evolution_id": "无限进化",
+  "zerg_infinite_evolution_des1": "虫族适应了当前模组环境\n并获得以下加成",
+  "zerg_infinite_evolution_des2": "虫群，永不停息",
   "Zerg_Fungal_Growth_id": "霉菌滋生",
   "Zerg_Fungal_Growth_des": "来自 感染者 投掷的菌液球\n受影响的单位将在 3s 内总计受到 75 点伤害",
   "Zerg_Microbial_Shroud_id": "微生物环绕云",
   "Zerg_Microbial_Shroud_des": "由 感染者 产生的迷雾\n可大幅度降低友军受到的伤害",
   "Zerg_Neural_Parasite_id": "神经寄生",
-  "Zerg_Neural_Parasite_des": "来自 感染者 的神经寄生虫\n控制着该单位的行为\n(可被免疫特质免疫)"
+  "Zerg_Neural_Parasite_des": "来自 感染者 的神经寄生虫\n控制着该单位的行为\n(可被免疫特质免疫)",
+  "task_zerg_try_mutation": "尝试变异",
+  "task_zerg_commander": "指挥虫群",
+  "task_create_creep_tumor": "铺设菌毯肿瘤"
 }

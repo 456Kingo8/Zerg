@@ -41,20 +41,24 @@ namespace Zerg.Code.Framework
 
             if (_adaptive_asset_total.Contains(id))
             {
+                if (_adaptive_asset_current.Contains(id)) return;
                 var asset = AdaptationLibrary.get(id);
                 if(asset.cultivate_way)
                 {
                     if (_adaptive_asset_cultivate.ContainsKey(asset.cultivate_id))
                     {
                         var cur = AdaptationLibrary.get(_adaptive_asset_cultivate[asset.cultivate_id]);
-                        if(cur.priority < asset.priority)
+                        if (cur.priority < asset.priority)
                         {
                             _adaptive_asset_cultivate[asset.cultivate_id] = id;
                             _adaptive_asset_current.Add(id);
                             _adaptive_asset_update_add.Add(id);
-                            _adaptive_asset_current.Remove(cur.id);
                             _adaptive_asset_update_remove.Add(cur.id);
                             _update = true;
+                        }
+                        else
+                        {
+                            _adaptive_asset_current.Add(id);
                         }
                     }
                     else
@@ -78,11 +82,13 @@ namespace Zerg.Code.Framework
         public static void updateEvolve()
         {
             if (!_update) return;
+            PlayerConfig.dict.TryGetValue("zerg_infinite_evolution", out var option);
+            if(option?.boolVal != true) return;
             //if 模组配置按钮的return
             _update = false;
             foreach (Actor actor in World.world.units)
             {
-                if(actor.hasTag("Zerg"))
+                if(actor.hasTag("Zerg") && !actor.asset.id.Contains("Coco"))
                 {
                     foreach(string id in _adaptive_asset_update_add)
                     {
