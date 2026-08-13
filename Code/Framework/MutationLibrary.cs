@@ -58,6 +58,18 @@ namespace Zerg.Code.Framework
 
             asset = new MutationAsset();
             asset.from_id = SZA.Drone;
+            asset.to_id = SZB.Roach_Warren;
+            asset.chance = 0.1f;
+            asset.cost_time = 17f;
+            asset.coco_id = SZB.Cocoons_Building_Medium;
+            asset.need_biome = true;
+            asset.need_house = true;
+            asset.building_requirements = new List<string> { SZB.Lair };
+            asset.building = true;
+            list.Add(asset);
+
+            asset = new MutationAsset();
+            asset.from_id = SZA.Drone;
             asset.to_id = SZB.Spire;
             asset.chance = 0.1f;
             asset.cost_time = 17f;
@@ -117,6 +129,16 @@ namespace Zerg.Code.Framework
             asset.to_id = SZA.Mutalisk;
             asset.chance = 0.075f;
             asset.cost_time = 10f;
+            asset.num = 1;
+            asset.need_house = true;
+            asset.building_requirements = new List<string>() { SZB.Spire };
+            list.Add(asset);
+
+            asset = new MutationAsset();
+            asset.from_id = SZA.Larva;
+            asset.to_id = SZA.Roach;
+            asset.chance = 0.075f;
+            asset.cost_time = 11f;
             asset.num = 1;
             asset.need_house = true;
             asset.building_requirements = new List<string>() { SZB.Spire };

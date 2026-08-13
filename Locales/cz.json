@@ -166,7 +166,7 @@
   "spawn_baneling": "爆虫",
   "spawn_baneling_description": "异虫的地面爆破单位\n通过自爆对附近的敌人造成伤害\n由跳虫变异产生",
   "spawn_roach": "蟑螂",
-  "spawn_roach_description": "",
+  "spawn_roach_description": "异虫的重甲地面单位\n可向敌人喷吐体内的强腐蚀性酸液\n由幼虫变异产生",
   "spawn_ravager": "破坏者",
   "spawn_ravager_description": "",
   "spawn_hydralisk": "刺蛇",

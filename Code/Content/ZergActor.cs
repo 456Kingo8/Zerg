@@ -168,7 +168,6 @@ namespace Zerg.Code.Content
             actor.base_stats["mana"] = 100f;
             actor.base_stats[S.range] = 10f;
             actor.base_stats["accuracy"] = 100f;
-            actor.traits = new List<string> { "eagle_eyed", "poison_immune", "immune" };
             actor.default_attack = "zerg_spine";
             actor.addDecision("create_creep_tumor");
             actor.allowed_status_tiers = StatusTier.Advanced;
@@ -214,6 +213,27 @@ namespace Zerg.Code.Content
             actor.animation_speed_based_on_walk_speed = false;
             actor.addDecision("zerg_try_mutation");
             setaAnimation(actor, 5, 0, 5, 5, 1, 5);
+
+            actor = AssetManager.actor_library.clone(SZA.Roach, "$zerg_actor$");
+            actor.base_stats["size"] = 1f;
+            actor.addGenome(new[]
+            {
+                ("health", 360f),
+                ("stamina", 100f),
+                ("lifespan", 100f),
+                ("damage", 18f),
+                ("attack_speed",2f),
+                ("speed", 35f),
+                ("armor", 20f),
+            });
+            actor.base_stats[S.range] = 5f;
+            actor.base_stats["accuracy"] = 1f;
+            actor.addDecision("zerg_try_mutation");
+            actor.addTrait("zerg_armored_unit");
+            actor.default_attack = "acid_saliva";
+            list.Add(actor.id);
+            setaAnimation(actor, 1, 3, 3, 1f, 2f, 2f);
+
 
             actor = AssetManager.actor_library.clone(SZA.Infestor, "$zerg_actor$");
             actor.addGenome(new[]

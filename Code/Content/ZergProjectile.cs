@@ -27,6 +27,20 @@ namespace Zerg.Code.Content
             asset.can_be_left_on_ground = false;
             asset.size = 10f;
 
+            asset = AssetManager.projectiles.clone("acid_saliva", "arrow");
+            asset.mass = 1;
+            asset.speed = 32;
+            asset.speed_random = 8f;
+            asset.look_at_target = true;
+            asset.can_be_blocked = false;
+            asset.can_be_collided = true;
+            asset.scale_start = 0.15f;
+            asset.scale_target = 0.15f;
+            asset.can_be_left_on_ground = false;
+            asset.size = 10f;
+            asset.texture_shadow = "shadows/projectiles/shadow_ball";
+            asset.texture = "Acid_Saliva";
+
             asset = new ProjectileAsset();
             asset.id = "glaive_wurm_0";//这是会弹跳三次的刃虫，你能这段代码对视10s不笑吗
             asset.animated = true;
