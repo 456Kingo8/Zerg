@@ -232,7 +232,27 @@ namespace Zerg.Code.Content
             actor.addTrait("zerg_armored_unit");
             actor.default_attack = "acid_saliva";
             list.Add(actor.id);
-            setaAnimation(actor, 1, 3, 3, 1f, 2f, 2f);
+            setaAnimation(actor, 1, 3, 3, 1f, 1f, 1f);
+
+            actor = AssetManager.actor_library.clone(SZA.Ravager, "$zerg_actor$");
+            actor.base_stats["size"] = 1.2f;
+            actor.addGenome(new[]
+            {
+                ("health", 360f),
+                ("stamina", 100f),
+                ("lifespan", 100f),
+                ("damage", 25f),
+                ("attack_speed",4f),
+                ("speed", 40f),
+                ("armor", 30f),
+            });
+            actor.base_stats[S.range] = 8f;
+            actor.base_stats["accuracy"] = 1f;
+            actor.default_attack = "plasma_discharge";
+            actor.spells = new();
+            actor.spells.addSpell(ZergSpell.spell_Corrosive_Bile);
+            list.Add(actor.id);
+            setaAnimation(actor, 1, 3, 3, 1f, 1f, 1f);
 
 
             actor = AssetManager.actor_library.clone(SZA.Infestor, "$zerg_actor$");

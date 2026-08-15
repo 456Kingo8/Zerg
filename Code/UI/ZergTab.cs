@@ -92,9 +92,9 @@ namespace Zerg.Code.UI
             PowerButtonCreator.CreateGodPowerButton(godPower.id,
             SpriteTextureLoader.getSprite("ui/icons/tab/Drone")));
 
-            CreateNewToggleButton("show_zones_zerg_law", "Zerg",false);
-            CreateNewToggleButton("zerg_infinite_evolution_law", "Zerg",true);
-
+            CreateNewToggleButton("show_zones_zerg_law", "iconZerg",false);
+            CreateNewToggleButton("zerg_infinite_evolution_law", "iconGeneMutation", true);
+            CreateNewToggleButton("zerg_auto_era_law", "iconZergEra", true);
 
 
 
@@ -122,7 +122,7 @@ namespace Zerg.Code.UI
             AssetManager.powers.add(power);
 
 
-            ZergTab.zerg_tab.AddPowerButton("laws", PowerButtonCreator.CreateToggleButton(id, SpriteTextureLoader.getSprite("ui/icons/tab/" + path_icon)));
+            ZergTab.zerg_tab.AddPowerButton("laws", PowerButtonCreator.CreateToggleButton(id, SpriteTextureLoader.getSprite("ui/icons/" + path_icon)));
         }
 
 

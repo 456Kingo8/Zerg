@@ -53,9 +53,13 @@ namespace Zerg.Code.Content
             asset.show_in_knowledge_window = false;
             asset.show_in_meta_editor = false;
 
+            asset = AssetManager.items.clone("plasma_discharge", "acid_saliva");
+            asset.projectile = "plasma_discharge";
+            asset.base_stats[S.projectiles] = 20;
+
             asset = AssetManager.items.clone("zerg_none_attack", "$range");
             asset.projectile = "zerg_spine";
-            asset.base_stats[S.projectiles] = 0;
+            asset.base_stats[S.projectiles] = -10f;
         }
 
     }

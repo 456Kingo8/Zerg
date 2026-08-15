@@ -1,5 +1,6 @@
 ﻿using NeoModLoader;
 using NeoModLoader.api;
+using UnityEngine;
 using Zerg.Code.Behaviour;
 using Zerg.Code.Content;
 using Zerg.Code.Framework;
@@ -22,10 +23,12 @@ namespace Zerg
 #if THEFANTASYWORLD
             linked_mod = true;
 #endif
-
+            MonoBehaviour.print(WorldAgeEffects.instance.dict_effects["chaos"].color.ToString());
             AdaptationLibrary.init();//必须在AdaptiveEvolution之前
             AdaptiveEvolution.init();
-
+            ZergEra.init();
+            //ZergEraManager.init();
+            ZergAchievements.init();
             ZergKingdom.init();
             ZergDecision.init();
             ZergSubspeciesTrait.init();
@@ -33,6 +36,8 @@ namespace Zerg
             ZergProjectile.init(); 
             ZergStatus.init();//status必须在trait之前
             ZergTrait.init();
+            ZergDrop.init();
+
             ZergSpell.init();//spell必须在actor之前
             ZergActor.init();
             ZergBuilding.init();
@@ -49,7 +54,7 @@ namespace Zerg
 
         public void Reload()
         {
-
+            GameProgress.instance.data.achievements.Remove("Zerg_World");
         }
     }
 }

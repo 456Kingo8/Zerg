@@ -28,6 +28,7 @@ namespace Zerg.Code.Patch
             if(__instance.building.asset.spawn_units_asset == SZA.Larva)
             {
                 __instance._spawn_timer = 5f;
+                if (ZergEraManager.is_zerg_era) __instance._spawn_timer -= 2f;
                 List<string> list = new List<string>();
                 List<string> list_all = new List<string>();
                 foreach (Building building in Finder.getBuildingsFromChunk(__instance.building.current_tile,2,32))
@@ -95,10 +96,21 @@ namespace Zerg.Code.Patch
         {
             if (__instance._parent.building.asset.id != SZB.Creep_Tumor) return;
             if (__instance._total_step_counter < __instance.steps_max) return;
-            if (Randy.randomChance(0.97f)) return;
-            if(__instance.cur_tile == null) return;
+            bool era = ZergEraManager.is_zerg_era;
+            if (era)
+            {
+                if (Randy.randomChance(0.9f)) return;
+            }
+            else if (Randy.randomChance(0.97f)) return;
+
+            if (__instance.cur_tile == null) return;
             if (!Tools.canBuildFrom(__instance.cur_tile, AssetManager.buildings.get(SZB.Creep_Tumor))) return;
-            foreach (Building building in Finder.getBuildingsFromChunk(__instance.cur_tile, 3, 18))
+
+            int radius = 18;
+            if (era) radius -= 4;
+
+
+                foreach (Building building in Finder.getBuildingsFromChunk(__instance.cur_tile, 3, radius))
             {
                 if (building.asset.grow_creep && building.asset.grow_creep_type == "biome_zerg_creep")
                 {

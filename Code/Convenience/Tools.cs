@@ -200,5 +200,16 @@ namespace Zerg.Code.Convenience
             }
             else status.opposite_tags = new string[] { addition_id };
         }
+
+        public static int getAllBiomeTopTileCount()
+        {
+            int cnt = 0;
+            foreach (var asset in AssetManager.top_tiles.list)
+            {
+                if (asset.is_biome)
+                    cnt += asset.hashset.Count;
+            }
+            return cnt;
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace Zerg.Code.Content
 {
     class ZergBiome
     {
+        public static TopTileType creep_high;
+        public static TopTileType creep_low;
         public static void init()
         {
             BiomeAsset biome = new BiomeAsset();
@@ -43,7 +45,7 @@ namespace Zerg.Code.Content
             tile.setDrawLayer(TileZIndexes.tumor_low, null);
             tile.step_action_chance = 1f;
             tile.step_action = zerg_creep;
-
+            creep_low = tile;
             tile = AssetManager.top_tiles.clone("zerg_creep_high", "zerg_creep_low");
             tile.height_min = 108;
             tile.walk_multiplier = 0.6f;
@@ -61,7 +63,7 @@ namespace Zerg.Code.Content
             tile.step_action = zerg_creep;
             tile.ignore_walk_multiplier_if_tag = "Zerg";
             tile.only_allowed_to_build_with_tag = "Zerg";
-
+            creep_high = tile;
 
             BuildRuntimeTileAtlas();
             if (ZergMain.I.GetConfig()["Texture Config"]["Zerg_Creep_Texture_Dark_Side"].BoolVal)

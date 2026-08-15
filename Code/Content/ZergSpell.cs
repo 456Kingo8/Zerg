@@ -14,6 +14,7 @@ namespace Zerg.Code.Content
         public static SpellAsset spell_Microbial_Shroud; 
         public static SpellAsset spell_Neural_Parasite;
         public static SpellAsset spell_Spawn_Locusts;
+        public static SpellAsset spell_Corrosive_Bile;
         public static void init()
         {
             SpellAsset asset = new SpellAsset();
@@ -69,6 +70,17 @@ namespace Zerg.Code.Content
             asset.chance = 1f;
             AssetManager.spells.add(asset);
             spell_Spawn_Locusts = asset;
+
+            asset = new SpellAsset();
+            asset.id = "Corrosive_Bile";
+            asset.cost_mana = 20;
+            asset.can_be_used_in_combat = true;
+            asset.cast_entity = CastEntity.Both;
+            asset.cast_target = CastTarget.Enemy;
+            asset.action = Corrosive_Bile_action;
+            asset.chance = 0.8f;
+            AssetManager.spells.add(asset);
+            spell_Corrosive_Bile = asset;
         }
 
         public static bool create_creep_tumor_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
@@ -146,6 +158,13 @@ namespace Zerg.Code.Content
             {
                 Tools.throwAtTile("Spawn_Locusts", pSelf.a, pSelf.current_tile.neighboursAll.GetRandom().neighboursAll.GetRandom());
             }
+            return true;
+        }
+
+        public static bool Corrosive_Bile_action(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if(pTarget.current_tile == null) return false;
+            World.world.drop_manager.spawn(pTarget.current_tile, "Corrosive_Bile", pCasterId: pSelf.a.id);
             return true;
         }
     }
