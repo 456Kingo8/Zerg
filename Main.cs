@@ -4,6 +4,7 @@ using UnityEngine;
 using Zerg.Code.Behaviour;
 using Zerg.Code.Content;
 using Zerg.Code.Framework;
+using Zerg.Code.LinkedMods;
 using Zerg.Code.Patch;
 using Zerg.Code.UI;
 using static UnityEngine.TouchScreenKeyboard;
@@ -21,6 +22,9 @@ namespace Zerg
             linked_mod = true;
 #endif
 #if THEFANTASYWORLD
+            linked_mod = true;
+#endif
+#if CULTIWAY
             linked_mod = true;
 #endif
             MonoBehaviour.print(WorldAgeEffects.instance.dict_effects["chaos"].color.ToString());
@@ -50,6 +54,10 @@ namespace Zerg
             Patches.init();
 
             ZergTab.init();//必须在Actor和Builiding之后
+
+            LinkCultiway.init();
+
+
         }
 
         public void Reload()

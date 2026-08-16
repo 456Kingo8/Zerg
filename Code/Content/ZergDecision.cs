@@ -49,7 +49,7 @@ namespace Zerg.Code.Content
             AssetManager.decisions_library.add(asset);
         }
 
-        private static BehaviourTaskActor add_Task(string id, string icon, BehaviourActionActor pBeh,bool combat = false)
+        public static BehaviourTaskActor add_Task(string id, string icon, BehaviourActionActor pBeh,bool combat = false)
         {
             BehaviourTaskActor task = new BehaviourTaskActor();
             task.id = id;

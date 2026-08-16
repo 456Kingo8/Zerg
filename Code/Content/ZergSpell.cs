@@ -73,12 +73,12 @@ namespace Zerg.Code.Content
 
             asset = new SpellAsset();
             asset.id = "Corrosive_Bile";
-            asset.cost_mana = 20;
+            asset.cost_mana = 25;
             asset.can_be_used_in_combat = true;
-            asset.cast_entity = CastEntity.Both;
+            asset.cast_entity = CastEntity.UnitsOnly;
             asset.cast_target = CastTarget.Enemy;
             asset.action = Corrosive_Bile_action;
-            asset.chance = 0.8f;
+            asset.chance = 1f;
             AssetManager.spells.add(asset);
             spell_Corrosive_Bile = asset;
         }

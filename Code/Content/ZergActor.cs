@@ -247,8 +247,10 @@ namespace Zerg.Code.Content
                 ("armor", 30f),
             });
             actor.base_stats[S.range] = 8f;
+            actor.base_stats["mana"] = 100f;
             actor.base_stats["accuracy"] = 1f;
             actor.default_attack = "plasma_discharge";
+            actor.addTrait("fire_proof");
             actor.spells = new();
             actor.spells.addSpell(ZergSpell.spell_Corrosive_Bile);
             list.Add(actor.id);

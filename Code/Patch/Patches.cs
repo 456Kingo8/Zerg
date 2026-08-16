@@ -126,9 +126,10 @@ namespace Zerg.Code.Patch
         [HarmonyPatch(typeof(CombatActionLibrary), "tryToCastSpell")]
         public static void CombatActionLibrary_tryToCastSpell(CombatActionLibrary __instance,ref AttackData pData)
         {
-            if(pData.initiator.a.hasTag("Zerg"))
+            if(pData.initiator.a.hasTag("Zerg") && pData.initiator.a.hasStatus("recovery_spell"))
             {
                 pData.initiator.a.finishStatusEffect("recovery_spell");
+                pData.initiator.a.changeMana(-20);
             }
         }
 

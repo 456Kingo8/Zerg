@@ -103,6 +103,13 @@ namespace Zerg.Code.Content
                 
 #endif
 
+#if CULTIWAY
+                trait.base_stats["health"] += 20f;
+                trait.base_stats[S.multiplier_health] += 2f;
+                trait.base_stats[S.multiplier_damage] += 0.5f;
+                trait.base_stats["mana"] = 100f;
+#endif
+
                 addLocale(trait);
                 AssetManager.traits.add(trait);
 
