@@ -34,7 +34,7 @@ namespace Zerg.Code.Content
             asset.cast_entity = CastEntity.UnitsOnly;
             asset.cast_target = CastTarget.Enemy;
             asset.action = throw_Fungal_Growth_action;
-            asset.chance = 1f;
+            asset.chance = 0.6f;
             AssetManager.spells.add(asset);
             spell_Fungal_Growth = asset;
 
@@ -45,7 +45,7 @@ namespace Zerg.Code.Content
             asset.cast_entity = CastEntity.UnitsOnly;
             asset.cast_target = CastTarget.Himself;
             asset.action = Microbial_Shroud_action;
-            asset.chance = 1f;
+            asset.chance = 0.6f;
             AssetManager.spells.add(asset);
             spell_Microbial_Shroud = asset;
 
