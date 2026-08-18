@@ -14,5 +14,6 @@ namespace Zerg.Code.Framework
         public string cultivate_id;
         public float priority = 0f;
         public AdditionAction action;
+        public AdditionAction action_remove;
     }
 }

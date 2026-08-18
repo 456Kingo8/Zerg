@@ -10,7 +10,8 @@ namespace Zerg.Code.Framework
     public static class AdaptiveEvolution
     {
         private static List<string> _adaptive_asset_total = new();//用于统计可掠夺的特质
-        private static List<string> _adaptive_asset_current = new();//用于统计当前世界掠夺到的特质
+        private static List<string> _adaptive_asset_current_all = new();//用于统计当前世界掠夺到的所有特质，用于优化添加判定
+        private static List<string> _adaptive_asset_current_add = new();//用于统计当前世界掠夺到的且需要添加的所有特质，用于新单位添加特质
         private static Dictionary<string,string> _adaptive_asset_cultivate = new();//用于统计当前世界掠夺到的修炼特质，仅存储最高等级
         private static List<string> _adaptive_asset_update_add = new();//用于获取的特质
         private static List<string> _adaptive_asset_update_remove = new();//用于删除的特质
@@ -20,59 +21,58 @@ namespace Zerg.Code.Framework
         {
             foreach(AdaptationAsset asset in AdaptationLibrary.list )
             {
-                if(asset.trait)
-                {
-                    _adaptive_asset_total.Add(asset.id);
-                }
+                 _adaptive_asset_total.Add(asset.id);
             }
         }
 
         public static void clear()
         {
-            _adaptive_asset_current.Clear();
+            _adaptive_asset_current_all.Clear();
+            _adaptive_asset_current_add.Clear();
             _adaptive_asset_update_add.Clear();
             _adaptive_asset_update_remove.Clear();
             _adaptive_asset_cultivate.Clear();
         }
 
         [Hotfixable]
-        public static void addNewTrait(string id)
+        public static void addNewAsset(string id)
         {
             PlayerConfig.dict.TryGetValue("zerg_infinite_evolution_law", out var option);
             if (option?.boolVal != true) return;
             if (_adaptive_asset_total.Contains(id))
             {
-                if (_adaptive_asset_current.Contains(id)) return;
+                MonoBehaviour.print(id);
+                if (_adaptive_asset_current_all.Contains(id)) return;
                 var asset = AdaptationLibrary.get(id);
                 if(asset.cultivate_way)
                 {
                     if (_adaptive_asset_cultivate.ContainsKey(asset.cultivate_id))
                     {
                         var cur = AdaptationLibrary.get(_adaptive_asset_cultivate[asset.cultivate_id]);
+                        _adaptive_asset_current_all.Add(id);
                         if (cur.priority < asset.priority)
                         {
                             _adaptive_asset_cultivate[asset.cultivate_id] = id;
-                            _adaptive_asset_current.Add(id);
                             _adaptive_asset_update_add.Add(id);
+                            _adaptive_asset_current_add.Add(id);
                             _adaptive_asset_update_remove.Add(cur.id);
+                            _adaptive_asset_current_add.Remove(cur.id);
                             _update = true;
-                        }
-                        else
-                        {
-                            _adaptive_asset_current.Add(id);
                         }
                     }
                     else
                     {
                         _adaptive_asset_cultivate.Add(asset.cultivate_id, id);
-                        _adaptive_asset_current.Add(id);
+                        _adaptive_asset_current_all.Add(id);
+                        _adaptive_asset_current_add.Add(id);
                         _adaptive_asset_update_add.Add(id);
                         _update = true;
                     }
                 }
                 else
                 {
-                    _adaptive_asset_current.Add(id);
+                    _adaptive_asset_current_all.Add(id);
+                    _adaptive_asset_current_add.Add(id);
                     _adaptive_asset_update_add.Add(id);
                     _update = true;
                 }
@@ -101,7 +101,7 @@ namespace Zerg.Code.Framework
                     {
                         var asset = AdaptationLibrary.get(id);
                         if (asset.trait) actor.removeTrait(id);
-                        //if (asset.action != null) asset.action.Invoke(actor);
+                        if (asset.action_remove != null) asset.action_remove.Invoke(actor);
                     }
                 }
             }
@@ -122,7 +122,7 @@ namespace Zerg.Code.Framework
             PlayerConfig.dict.TryGetValue("zerg_infinite_evolution_law", out var option);
             if(option?.boolVal == true)
             {
-                foreach (string id in _adaptive_asset_current)
+                foreach (string id in _adaptive_asset_current_add)
                 {
                     var asset = AdaptationLibrary.get(id);
                     if (asset.trait) actor.addTrait(id, true);

@@ -199,7 +199,7 @@ namespace Zerg.Code.Patch
             {
                 foreach(ActorTrait trait in __instance.traits)
                 {
-                    AdaptiveEvolution.addNewTrait(trait.id);
+                    AdaptiveEvolution.addNewAsset(trait.id);
                 }
             }
             return true;

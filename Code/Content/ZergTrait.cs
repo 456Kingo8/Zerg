@@ -109,7 +109,12 @@ namespace Zerg.Code.Content
                 trait.base_stats[S.multiplier_damage] += 0.5f;
                 trait.base_stats["mana"] = 100f;
 #endif
-
+#if XUANJIAN
+                trait.base_stats["health"] += 50f;
+                trait.base_stats[S.multiplier_health] += 0.25f;
+                trait.base_stats["damage"] += 10f;
+                trait.base_stats[S.multiplier_damage] += 0.5f;
+#endif
                 addLocale(trait);
                 AssetManager.traits.add(trait);
 
@@ -131,16 +136,16 @@ namespace Zerg.Code.Content
             {
                 if(actor.kingdom != pTarget.a.kingdom)
                 {
-                    actor.getHit(75, false, AttackType.Acid, pSkipIfShake: false);
-                    actor.getHit(50, true, AttackType.Other, pSkipIfShake: false);
+                    actor.getHit(75, false, AttackType.Acid, pSkipIfShake: false,pAttacker:pTarget);
+                    actor.getHit(50, true, AttackType.Other, pSkipIfShake: false, pAttacker: pTarget);
                 }
             }
             foreach (Building building in Finder.getBuildingsFromChunk(pTarget.a.current_tile, 1, 5))
             {
                 if (building.kingdom != pTarget.a.kingdom)
                 {
-                    building.getHit(150, false, AttackType.Acid, pSkipIfShake: false);
-                    building.getHit(100, true, AttackType.Other, pSkipIfShake: false);
+                    building.getHit(150, false, AttackType.Acid, pSkipIfShake: false, pAttacker: pTarget);
+                    building.getHit(100, true, AttackType.Other, pSkipIfShake: false, pAttacker: pTarget);
                 }
             }
 

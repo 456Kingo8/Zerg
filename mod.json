@@ -10,7 +10,8 @@
   "OptionalDependencies": [
     "WARRIOR",
     "THEFANTASYWORLD",
-    "CULTIWAY"
+    "CULTIWAY",
+    "XUANJIAN"
   ],
   "IncompatibleWith": []
 }

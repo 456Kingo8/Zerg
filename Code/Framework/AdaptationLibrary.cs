@@ -22,11 +22,6 @@ namespace Zerg.Code.Framework
             asset.id = "freeze_proof";
             list.Add(asset);
 
-
-
-
-
-
 #if WARRIOR
             var warrior_list = new float[] { 5, 10, 20, 40, 80, 160, 300, 500, 800, 1200, 3600, 12000 };
             string warrior_key = "wushu.warriorNum";
@@ -71,6 +66,48 @@ namespace Zerg.Code.Framework
                     asset.priority = index;
                     list.Add(asset);
                 }
+            }
+
+#endif
+
+#if XUANJIAN
+            for (int i = 1; i <= 4; i++)
+            {
+                int index = i;
+                asset = new AdaptationAsset();
+                asset.id = $"XjRealm{i}";
+                asset.trait = false;
+                asset.cultivate_way = true;
+                asset.cultivate_id = "XUANJIAN";
+                asset.action = (Actor actor) => { actor.traits.Add(AssetManager.traits.get($"XjRealm{index}")); };
+                asset.action_remove = (Actor actor) => { actor.traits.Remove(AssetManager.traits.get($"XjRealm{index}")); };
+                asset.priority = AssetManager.traits.get($"XjRealm{index}").base_stats["health"]/100;
+                list.Add(asset);
+            }
+            for (int i = 1; i <= 2; i++)
+            {
+                int index = i;
+                asset = new AdaptationAsset();
+                asset.id = $"XjRealm1{i}";
+                asset.trait = false;
+                asset.cultivate_way = true;
+                asset.cultivate_id = "XUANJIAN";
+                asset.priority = AssetManager.traits.get($"XjRealm1{index}").base_stats["health"] / 100;
+                asset.action = (Actor actor) => { actor.traits.Add(AssetManager.traits.get($"XjRealm1{index}")); };
+                asset.action_remove = (Actor actor) => { actor.traits.Remove(AssetManager.traits.get($"XjRealm1{index}")); };
+                list.Add(asset);
+            }
+            for (int i = 1; i <= 4; i++)
+            {
+                int index = i;
+                asset = new AdaptationAsset();
+                asset.id = $"XjRealm2{i}";
+                asset.cultivate_way = true;
+                asset.cultivate_id = "XUANJIAN";
+                asset.priority = AssetManager.traits.get($"XjRealm2{index}").base_stats["health"] / 100;
+                asset.action = (Actor actor) => { actor.traits.Add(AssetManager.traits.get($"XjRealm2{index}")); };
+                asset.action_remove = (Actor actor) => { actor.traits.Remove(AssetManager.traits.get($"XjRealm2{index}")); };
+                list.Add(asset);
             }
 
 #endif
