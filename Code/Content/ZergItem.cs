@@ -60,6 +60,9 @@ namespace Zerg.Code.Content
             asset = AssetManager.items.clone("zerg_none_attack", "$range");
             asset.projectile = "zerg_spine";
             asset.base_stats[S.projectiles] = -10f;
+            asset.show_for_unlockables_ui = false;
+            asset.show_in_knowledge_window = false;
+            asset.show_in_meta_editor = false;
         }
 
     }
