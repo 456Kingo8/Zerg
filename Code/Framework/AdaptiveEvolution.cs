@@ -41,7 +41,7 @@ namespace Zerg.Code.Framework
             if (option?.boolVal != true) return;
             if (_adaptive_asset_total.Contains(id))
             {
-                MonoBehaviour.print(id);
+                //MonoBehaviour.print(id);
                 if (_adaptive_asset_current_all.Contains(id)) return;
                 var asset = AdaptationLibrary.get(id);
                 if(asset.cultivate_way)

@@ -17,7 +17,7 @@ namespace Zerg
         public static bool linked_mod = false;
         protected override void OnModLoad()
         {
-            Config.isEditor = true;
+            
 #if WARRIOR
             linked_mod = true;
 #endif
@@ -58,6 +58,8 @@ namespace Zerg
             LinkCultiway.init();
 
 
+            //尝试用于触发重编译的代码注释
+            Config.isEditor = true;
         }
 
         public void Reload()
